@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sippin Support & FAQs. Get help, share feedback, and find answers to common questions about Sippin.">
+    <title>Sippin — Support | Small Signal Studio</title>
+    <!-- Google Fonts: Hanken Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .support-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 1.5rem 6rem;
+        }
+        .support-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .app-meta {
+            margin-top: 1rem;
+            color: var(--clr-text-muted);
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .app-meta span strong {
+            color: var(--clr-text-main);
+        }
+        
+        .support-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        @media (max-width: 768px) {
+            .support-layout {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+        }
+        
+        /* FAQs Section */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .faq-item {
+            background-color: var(--clr-surface-light);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: border-color var(--transition-fast);
+        }
+        .faq-item:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--clr-text-main);
+            margin-bottom: 0.75rem;
+        }
+        .faq-answer {
+            color: var(--clr-text-muted);
+            font-size: 0.925rem;
+            line-height: 1.6;
+        }
+        .faq-answer a {
+            color: var(--clr-primary);
+            text-decoration: underline;
+        }
+        
+        /* Form Section */
+        .support-form-card {
+            background-color: var(--clr-surface-light);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            position: sticky;
+            top: 100px;
+        }
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--clr-text-main);
+        }
+        .form-desc {
+            font-size: 0.875rem;
+            color: var(--clr-text-muted);
+            margin-bottom: 1.5rem;
+        }
+        .form-desc a {
+            color: var(--clr-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .form-desc a:hover {
+            text-decoration: underline;
+        }
+        
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius);
+            color: var(--clr-text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-fast);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--clr-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="brand">Small Signal Studio</a>
+            <div class="nav-links">
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="support-container">
+        <header class="support-header">
+            <span class="badge">Application Support</span>
+            <h1 class="section-title" style="margin-bottom: 0.5rem;">Sippin Support</h1>
+            <div class="app-meta">
+                <span>App: <strong>Sippin — hydration reminders & logging</strong></span>
+                <span>Developer: <strong>Small Signal Studio</strong></span>
+            </div>
+        </header>
+
+        <div class="support-layout">
+            <!-- FAQs -->
+            <section>
+                <h2 class="section-title" style="font-size: 1.5rem; text-align: left; margin-bottom: 2rem;">Common Questions</h2>
+                <div class="faq-list">
+                    <article class="faq-item">
+                        <h3 class="faq-question">How do I restore Premium?</h3>
+                        <p class="faq-answer">Open Settings → Restore purchases. Use the same Apple ID you used to subscribe.</p>
+                    </article>
+                    
+                    <article class="faq-item">
+                        <h3 class="faq-question">Why are reminders not showing?</h3>
+                        <p class="faq-answer">Check Settings → Notifications on your iPhone and ensure Sippin is allowed. Reminders only fire during your configured wake hours.</p>
+                    </article>
+
+                    <article class="faq-item">
+                        <h3 class="faq-question">Does Sippin work offline?</h3>
+                        <p class="faq-answer">Yes. Logging, history, streaks, and reminders work without an internet connection. Weather-based goals need a network connection when enabled.</p>
+                    </article>
+
+                    <article class="faq-item">
+                        <h3 class="faq-question">How do I delete my data?</h3>
+                        <p class="faq-answer">Remove the app from your device. All local data is deleted with the app. If you enabled Apple Health sync, you may also remove Sippin’s entries in the Health app.</p>
+                    </article>
+
+                    <article class="faq-item">
+                        <h3 class="faq-question">Privacy</h3>
+                        <p class="faq-answer">We are local-first. See our <a href="privacy-sippin.html">Privacy Policy</a> to understand how we safeguard your data.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Contact Form -->
+            <section class="support-form-card">
+                <h2 class="form-title">Contact</h2>
+                <p class="form-desc">For help, feedback, or account questions about App Store purchases, email: <a href="mailto:smallsignalstudio@gmail.com">smallsignalstudio@gmail.com</a> or use the form below.</p>
+                
+                <form id="sippin-contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Inquiry Type</label>
+                        <select id="type" required>
+                            <option value="Feedback" selected>Feedback / Suggestion</option>
+                            <option value="Help">Technical Help</option>
+                            <option value="Purchase">App Store Purchase</option>
+                            <option value="Bug">Bug Report</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="4" placeholder="Detail your question or issue..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full" style="padding: 0.75rem;">Send Message</button>
+                    <div class="form-status" id="form-status"></div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-bottom" style="margin-top: 0; padding-top: 2rem;">
+            <p>&copy; 2026 Small Signal Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('sippin-contact-form');
+            const status = document.getElementById('form-status');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                const originalText = btn.textContent;
+                
+                btn.textContent = 'Sending...';
+                btn.disabled = true;
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const type = document.getElementById('type').value;
+                const message = document.getElementById('message').value;
+                const timestamp = new Date().toISOString();
+
+                try {
+                    const feedbacks = JSON.parse(localStorage.getItem('sss_feedbacks') || '[]');
+                    feedbacks.push({
+                        id: 'fb-' + Date.now(),
+                        name,
+                        email,
+                        app: 'Sippin (' + type + ')',
+                        message,
+                        timestamp
+                    });
+                    localStorage.setItem('sss_feedbacks', JSON.stringify(feedbacks));
+                    
+                    setTimeout(() => {
+                        status.textContent = 'Feedback submitted successfully. Thank you for your input!';
+                        status.className = 'form-status success';
+                        form.reset();
+                        
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                        
+                        setTimeout(() => {
+                            status.style.display = 'none';
+                        }, 5000);
+                    }, 1000);
+                } catch (err) {
+                    console.error('Failed to submit feedback', err);
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                    status.textContent = 'Failed to submit. Please try again.';
+                    status.className = 'form-status error';
+                    status.style.color = 'var(--clr-danger)';
+                    status.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

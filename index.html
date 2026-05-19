@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Small Signal Studio - Building the Future One Pixel at a Time. We engineer high-fidelity digital experiences for the next generation of industry leaders.">
+    <title>Small Signal Studio | Innovation Studio</title>
+    <!-- Google Fonts: Hanken Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav id="navbar" class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="brand">Small Signal Studio</a>
+            <div class="nav-links">
+                <a href="#portfolio">Portfolio</a>
+                <a href="support.html">Support</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+        <!-- Mobile Nav Menu -->
+        <div class="mobile-nav">
+            <a href="#portfolio">Portfolio</a>
+            <a href="support.html">Support</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- 1. Hero Section -->
+        <header id="hero" class="section hero-section">
+            <div class="container grid-12">
+                <div class="hero-content fade-in">
+                    <span class="badge">Innovation Studio</span>
+                    <h1 class="hero-title">Building the Future One Pixel at a Time.</h1>
+                    <p class="hero-subtitle">We engineer high-fidelity digital experiences for the next generation of industry leaders. Combining structural minimalism with rigorous engineering.</p>
+                    <div class="hero-ctas">
+                        <a href="#portfolio" class="btn btn-primary">View Our Work</a>
+                        <a href="support.html" class="btn btn-outline">Get Support</a>
+                    </div>
+                </div>
+                <div class="hero-visual fade-in fade-delay-1">
+                    <img src="./assets/hero_visual.png" alt="3D High-Fidelity Abstract Geometric Structure" class="hero-img">
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. Featured Portfolio -->
+        <section id="portfolio" class="section portfolio-section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Featured Portfolio</h2>
+                    <div class="portfolio-filters">
+                        <button class="filter-btn active" data-filter="all">All Platforms</button>
+                        <button class="filter-btn" data-filter="ios">iOS</button>
+                        <button class="filter-btn" data-filter="android">Android</button>
+                    </div>
+                </div>
+                <div class="grid-3 portfolio-grid">
+                    <!-- Project 1: Sippin -->
+                    <article class="portfolio-card fade-in" data-category="ios android">
+                        <div class="card-visual">
+                            <img src="./assets/sippin.png" alt="Sippin App Mockup" class="card-img">
+                            <div class="card-overlay">
+                                <a href="#" class="view-case-study">View Case Study <span class="arrow">→</span></a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Sippin</h3>
+                            <p class="card-desc">Water Reminder Application designed for local-first hydration tracking.</p>
+                        </div>
+                    </article>
+                    
+                    <!-- Project 2: TaleSnack -->
+                    <article class="portfolio-card fade-in fade-delay-1" data-category="ios android">
+                        <div class="card-visual">
+                            <img src="./assets/talesnack.png" alt="TaleSnack App Mockup" class="card-img">
+                            <div class="card-overlay">
+                                <a href="#" class="view-case-study">View Case Study <span class="arrow">→</span></a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">TaleSnack</h3>
+                            <p class="card-desc">Daily short stories carefully crafted for language learners.</p>
+                        </div>
+                    </article>
+
+                    <!-- Project 3: Glossio -->
+                    <article class="portfolio-card fade-in fade-delay-2" data-category="ios android">
+                        <div class="card-visual">
+                            <img src="./assets/glossio.png" alt="Glossio App Mockup" class="card-img">
+                            <div class="card-overlay">
+                                <a href="#" class="view-case-study">View Case Study <span class="arrow">→</span></a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Glossio</h3>
+                            <p class="card-desc">Daily interactive flashcard memorizing games for language learners.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="legal" class="footer">
+        <div class="container grid-4 footer-grid">
+            <div class="footer-brand">
+                <h3 class="brand-logo">Small Signal Studio</h3>
+                <p class="brand-tagline">Engineering excellence for the digital vanguard.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Practice</h4>
+                <ul>
+                    <li><a href="#portfolio">Work</a></li>
+                    <li><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal Hub</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Connect & Offices</h4>
+                <ul>
+                    <li><a href="mailto:smallsignalstudio@gmail.com">smallsignalstudio@gmail.com</a></li>
+                    <li>San Francisco</li>
+                    <li>London</li>
+                    <li>Tokyo</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Small Signal Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

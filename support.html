@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support & Feedback - Small Signal Studio. Send us your feedback, inquiries, or bug reports.">
+    <title>Support & Feedback | Small Signal Studio</title>
+    <!-- Google Fonts: Hanken Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .support-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 1.5rem 6rem;
+        }
+        .support-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .support-form {
+            background-color: var(--clr-surface-light);
+            padding: 3rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--clr-border);
+        }
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius);
+            color: var(--clr-text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-fast);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--clr-primary);
+        }
+        @media (max-width: 768px) {
+            .support-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="brand">Small Signal Studio</a>
+            <div class="nav-links">
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="support.html" class="active" style="color: var(--clr-primary);">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="support-container">
+        <div class="support-header">
+            <span class="badge">Support Hub</span>
+            <h1 class="section-title">Start a Dialogue</h1>
+            <p class="section-subtitle">We would love to hear from you. Send us your feedback, inquiries, or bug reports regarding our applications.</p>
+        </div>
+        
+        <form id="support-form" class="support-form">
+            <div class="form-row grid-2-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Company / Personal Email</label>
+                    <input type="email" id="email" placeholder="john@example.com" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="app">Select Application</label>
+                <select id="app" required>
+                    <option value="" disabled selected>Choose an app...</option>
+                    <option value="Sippin">Sippin (Water Reminder App)</option>
+                    <option value="TaleSnack">TaleSnack (Daily Short Stories)</option>
+                    <option value="Glossio">Glossio (Daily Flashcards Game)</option>
+                    <option value="General">General / Studio Inquiry</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Feedback or Message</label>
+                <textarea id="message" rows="5" placeholder="Share your feedback, ideas, bug reports, or questions..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-full">Submit Feedback</button>
+            <div class="form-status" id="form-status"></div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container grid-4 footer-grid">
+            <div class="footer-brand">
+                <h3 class="brand-logo">Small Signal Studio</h3>
+                <p class="brand-tagline">Engineering excellence for the digital vanguard.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Practice</h4>
+                <ul>
+                    <li><a href="index.html#portfolio">Work</a></li>
+                    <li><a href="support.html">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal Hub</h4>
+                <ul>
+                    <li><a href="privacy-sippin.html">Sippin Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Connect & Offices</h4>
+                <ul>
+                    <li><a href="mailto:smallsignalstudio@gmail.com">smallsignalstudio@gmail.com</a></li>
+                    <li>San Francisco</li>
+                    <li>London</li>
+                    <li>Tokyo</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Small Signal Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('support-form');
+            const status = document.getElementById('form-status');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                const originalText = btn.textContent;
+                
+                btn.textContent = 'Submitting...';
+                btn.disabled = true;
+
+                // Collect values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const app = document.getElementById('app').value;
+                const message = document.getElementById('message').value;
+                const timestamp = new Date().toISOString();
+
+                // Save to localStorage
+                try {
+                    const feedbacks = JSON.parse(localStorage.getItem('sss_feedbacks') || '[]');
+                    feedbacks.push({
+                        id: 'fb-' + Date.now(),
+                        name,
+                        email,
+                        app,
+                        message,
+                        timestamp
+                    });
+                    localStorage.setItem('sss_feedbacks', JSON.stringify(feedbacks));
+                    
+                    // Simulate processing latency
+                    setTimeout(() => {
+                        status.textContent = 'Feedback submitted successfully. Thank you for your input!';
+                        status.className = 'form-status success';
+                        form.reset();
+                        
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                        
+                        setTimeout(() => {
+                            status.style.display = 'none';
+                        }, 5000);
+                    }, 1000);
+                } catch (err) {
+                    console.error('Failed to save to localStorage', err);
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                    status.textContent = 'Submission failed. Please try again.';
+                    status.className = 'form-status error';
+                    status.style.color = 'var(--clr-danger)';
+                    status.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
