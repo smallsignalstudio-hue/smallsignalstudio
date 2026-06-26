@@ -1,4 +1,4 @@
-# Small Signal Ideas — Reference
+# Genius Ideas — Reference
 
 Read this file during Phase 1 and Phase 3. Do not load unless running the skill.
 

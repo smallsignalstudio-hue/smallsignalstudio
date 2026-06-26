@@ -11,10 +11,11 @@ REPO_ROOT="$(cd "$SRC/.." && pwd)"
 DEST="$HOME/.cursor/skills"
 
 mkdir -p "$DEST"
-cp -R "$SRC/small-signal-ideas" "$DEST/"
+cp -R "$SRC/genius-ideas" "$DEST/"
+rm -rf "$DEST/small-signal-ideas"
 
 if [ "$FROM_HOOK" = false ]; then
-  echo "Installed small-signal-ideas → $DEST/small-signal-ideas"
+  echo "Installed genius-ideas → $DEST/genius-ideas"
 fi
 
 # Register repo git hooks once so pull/commit keep ~/.cursor/skills/ in sync.
@@ -29,5 +30,5 @@ if git -C "$REPO_ROOT" rev-parse --git-dir >/dev/null 2>&1; then
 fi
 
 if [ "$FROM_HOOK" = true ]; then
-  echo "Synced small-signal-ideas → $DEST/small-signal-ideas"
+  echo "Synced genius-ideas → $DEST/genius-ideas"
 fi

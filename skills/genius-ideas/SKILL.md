@@ -1,14 +1,14 @@
 ---
-name: small-signal-ideas
+name: genius-ideas
 description: >-
   Researches monetizable solo-buildable mobile app ideas via Reddit, 4chan,
   and market data. Scores candidates, screens MRR potential, challenges the
-  user, and produces a business report with alternatives. Use when searching
-  for app ideas, side projects, freemium mobile apps, money-printing ideas,
-  or when the user says JARVIS or small-signal-ideas.
+  user, and produces a business report with alternatives. Use when the user
+  says genius-ideas, "find something related to", "find something", app ideas,
+  side projects, freemium mobile apps, or money-printing ideas.
 disable-model-invocation: true
 ---
-# Small Signal Ideas
+# Genius Ideas
 
 JARVIS for finding **small, solo-buildable mobile app ideas that can realistically print money** ($5k–$50k+ MRR within 12–24 months for a strong hit; honest floor estimates for others).
 
@@ -40,20 +40,33 @@ Reject ideas that require:
 
 Backend: **none preferred**. Small backend OK only if clearly justified (auth sync, push, simple API) — state why.
 
+## How users invoke this skill
+
+Recognize these patterns:
+
+| User says | Mode | `{VERTICAL}` |
+|-----------|------|--------------|
+| "Use the genius-ideas skill to find something related to **X**" | Focused | **X** (e.g. astrology, ADHD, parenting) |
+| "Use the genius-ideas skill to find something" | Generic | OPEN — pick highest money-potential vertical from signals |
+
+Also accept: "genius-ideas", "use genius-ideas", topic in the same message without the full phrase.
+
+**Focused:** narrow all research to X; find **one killer feature** in that topic — not a feature checklist.
+
+**Generic:** do not assume a vertical; let Phase 1 signals choose the best opportunity.
+
 ## Parse user input
 
 Extract from the prompt if present:
 
 | Input | Default if missing |
 |-------|-------------------|
-| `{VERTICAL}` | OPEN — find highest money-potential vertical from signals |
+| `{VERTICAL}` | OPEN unless user named a topic (see invocation table above) |
 | Platform | iOS-first |
 | MVP time budget | 4 weeks |
 | Monetization | Subscription-first |
 | Phase 4 mode | Interactive (ask questions) unless user says **full auto** |
 | Save report to file | No unless user asks |
-
-If vertical is set (e.g. astrology, ADHD, parenting): find **one killer feature** — not a feature checklist.
 
 ## Execution spine (every run, in order)
 
@@ -165,7 +178,7 @@ Full report for the chosen idea (1 idea; 2 only if scores within 5 points and us
 
 Use the schema in [report-template.md](report-template.md).
 
-If user requested a file artifact: save to `~/Documents/small-signal-ideas/YYYY-MM-DD-{slug}.md` (create directory if needed).
+If user requested a file artifact: save to `~/Documents/genius-ideas/YYYY-MM-DD-{slug}.md` (create directory if needed).
 
 ---
 

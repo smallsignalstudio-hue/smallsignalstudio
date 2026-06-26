@@ -6,7 +6,7 @@ Version-controlled Cursor Agent Skills for Small Signal Studio.
 
 | Skill | Description |
 |-------|-------------|
-| [small-signal-ideas](small-signal-ideas/) | JARVIS for researching monetizable solo-buildable mobile app ideas |
+| [genius-ideas](genius-ideas/) | JARVIS for researching monetizable solo-buildable mobile app ideas |
 
 ## Install (global use in any project)
 
@@ -36,19 +36,24 @@ Just `git pull` or commit skill edits as usual. No need to remember `./skills/in
 
 ## How to invoke in Cursor
 
-Start an Agent chat and say one of:
+Start an Agent chat:
 
-- "Use the small-signal-ideas skill"
-- "JARVIS, find app ideas"
-- "Run small-signal-ideas — vertical: astrology"
+**Focused on a topic:**
+```
+Use the genius-ideas skill to find something related to astrology
+```
+
+**Generic (agent picks the best vertical):**
+```
+Use the genius-ideas skill to find something
+```
 
 Optional parameters:
 
 | Parameter | Example |
 |-----------|---------|
-| Vertical | `vertical: open` or `vertical: ADHD` |
 | Full auto | Skip Phase 4 questions — agent picks #1 and continues |
-| Save report | `save report to file` → writes to `~/Documents/small-signal-ideas/` |
+| Save report | `save report to file` → writes to `~/Documents/genius-ideas/` |
 
 The skill does not auto-invoke on unrelated chats (`disable-model-invocation: true`).
 
