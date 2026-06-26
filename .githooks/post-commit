@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Auto-sync Cursor skills when a commit touches skills/.
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+INSTALL="$REPO_ROOT/skills/install.sh"
+
+if git diff-tree --no-commit-id --name-only -r HEAD | grep -q '^skills/'; then
+  if [ -x "$INSTALL" ]; then
+    "$INSTALL" --from-hook
+  fi
+fi

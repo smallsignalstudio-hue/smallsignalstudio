@@ -19,12 +19,20 @@ chmod +x skills/install.sh   # first time only
 
 This copies skills into `~/.cursor/skills/` so Cursor loads them in **every project**.
 
-## Update after pulling changes
+It also registers `.githooks` in this repo (one-time) so you never need to run install manually again.
 
-```bash
-git pull
-./skills/install.sh
-```
+## Automatic sync (no manual steps)
+
+After the first `./skills/install.sh`, git hooks keep your global install in sync:
+
+| Event | What happens |
+|-------|----------------|
+| `git pull` | Skills re-copy to `~/.cursor/skills/` |
+| `git commit` (when `skills/` changed) | Same — sync runs automatically |
+
+Just `git pull` or commit skill edits as usual. No need to remember `./skills/install.sh`.
+
+**New clone?** Run `./skills/install.sh` once to install skills and register hooks.
 
 ## How to invoke in Cursor
 
@@ -47,5 +55,5 @@ The skill does not auto-invoke on unrelated chats (`disable-model-invocation: tr
 ## Editing skills
 
 1. Edit files under `skills/<skill-name>/`
-2. Run `./skills/install.sh`
-3. Commit and push to keep GitHub and your global install in sync
+2. Commit and push — global install updates on commit automatically
+3. On other machines: `git pull` syncs automatically (after one-time `./skills/install.sh`)

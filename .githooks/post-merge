@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Auto-sync Cursor skills to ~/.cursor/skills/ after git pull.
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+INSTALL="$REPO_ROOT/skills/install.sh"
+
+if [ -x "$INSTALL" ]; then
+  "$INSTALL" --from-hook
+fi
