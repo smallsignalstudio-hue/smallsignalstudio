@@ -4,8 +4,8 @@ description: >-
   Researches monetizable solo-buildable mobile app ideas via Reddit, 4chan,
   and market data. Scores candidates, screens MRR potential, challenges the
   user, and produces a business report with alternatives. Use when the user
-  says genius-ideas, "find something related to", "find something", app ideas,
-  side projects, freemium mobile apps, or money-printing ideas.
+  says genius-ideas, "find something related to", "find something", iterate,
+  re-roll, app ideas, side projects, freemium mobile apps, or money-printing ideas.
 disable-model-invocation: true
 ---
 # Genius Ideas
@@ -51,6 +51,15 @@ Recognize these patterns:
 
 Also accept: "genius-ideas", "use genius-ideas", topic in the same message without the full phrase.
 
+**Follow-up after an idea is presented:**
+
+| User says | Action |
+|-----------|--------|
+| **iterate** | Run [Phase 7A — Iterate](#phase-7a--iterate) on the current idea |
+| **re-roll** | Run [Phase 7B — Re-roll](#phase-7b--re-roll) — discard current idea, surface a new one |
+
+User disliking the idea is enough reason to re-roll — do not ask why unless it helps avoid repeating the same concept.
+
 **Focused:** narrow all research to X; find **one killer feature** in that topic — not a feature checklist.
 
 **Generic:** do not assume a vertical; let Phase 1 signals choose the best opportunity.
@@ -80,9 +89,12 @@ Copy this checklist and track progress:
 - [ ] Phase 4: Challenge user
 - [ ] Phase 5: Deep dive (finalist)
 - [ ] Phase 6: Force depth
+- [ ] Phase 7: Iterate or re-roll? (always ask)
 ```
 
-Do not skip phases. Do not deep-dive one idea before Phase 3 screens all candidates.
+Do not skip phases 0–6 on the first pass. Do not deep-dive one idea before Phase 3 screens all candidates.
+
+**Keep session state:** Remember the Phase 3 ranked table, rejected ideas, and current finalist so re-roll does not repeat discarded concepts.
 
 ---
 
@@ -191,6 +203,79 @@ End every run with:
 3. **Next decision** — ship MVP / research more / kill — with explicit recommendation
 
 Also include **Plan B** and **Plan C** (one paragraph each + score comparison) even if covered in Phase 5.
+
+---
+
+### Phase 7 — Iterate or re-roll? (always ask)
+
+After Phase 6, **always** end with this question (use `AskQuestion` when available):
+
+> **iterate** or **re-roll**?
+>
+> - **iterate** — stress-test this idea, find fatal flaws, and improve it
+> - **re-roll** — discard this idea and bring a completely different one
+
+Wait for the user's answer. If they say something else (e.g. "ship it", "kill it"), handle that — but default gate is iterate vs re-roll.
+
+---
+
+### Phase 7A — Iterate
+
+Stress-test the **current idea** adversarially. Goal: break it before the market does, then fix it or admit it is broken.
+
+**Step 1 — Adversarial audit (research-heavy)**
+
+Dig into:
+
+- **Competitors** — top 3–5: full feature list, pricing tiers, onboarding flow, widget/notification strategy, App Store screenshots and design language
+- **Customer voice** — Reddit, 4chan, App Store reviews, Twitter: what users love, hate, and wish existed
+- **Fatal flaws** — reasons this dies in 90 days (retention, monetization, support, legal, incumbent response)
+- **Weak spots** — gaps vs competitors, missing hooks, unclear paywall, no daily open reason
+- **Design failures** — cluttered UX, anxiety-inducing patterns, generic copy (cite review quotes)
+
+Show evidence table with links. Be brutal — do not protect the idea.
+
+**Step 2 — Self-challenge**
+
+Using the audit, argue **against** the idea as if you are a skeptical investor. Then identify specific **gaps to fill** (feature, positioning, pricing, wedge, or killer-feature rewrite).
+
+**Step 3 — Verdict (pick exactly one)**
+
+Label clearly:
+
+| Verdict | Meaning | Output |
+|---------|---------|--------|
+| **1 — Ship as-is** | Idea survives stress-test; flaws are manageable or already addressed | State why; list minor watch-items only |
+| **2 — Iterate** | Viable but gaps exist | List specific additions/changes (max 2–3 — stay within builder DNA); show revised one-liner + killer feature if changed |
+| **3 — Rework** | Fundamental flaw; patch won't save it | Propose a **revised concept** (same pain, different wedge) OR recommend re-roll; be explicit |
+
+**Step 4 — After verdict**
+
+- Verdict **1**: ask iterate / re-roll / ship — user may still re-roll
+- Verdict **2** or **3**: present the improved or reworked idea, then ask **iterate** (again) or **re-roll** or proceed to updated Phase 5 report if user accepts the revision
+
+Do not run iterate as a shallow checklist — minimum 10 cited data points across competitors and customer voice.
+
+---
+
+### Phase 7B — Re-roll
+
+User rejected the idea. **Do not ask why** unless needed to avoid repeating the same concept.
+
+**Rules:**
+
+- Discard the current finalist — add to **rejected list** (never propose again this session)
+- Re-roll is **not** tied to category — next idea may be same vertical or completely different; follow money signals, not loyalty to the original topic
+- User disliking the idea is sufficient — no justification required
+
+**Workflow:**
+
+1. Check the Phase 3 ranked table for the **next-highest unscored candidate** not in rejected list → fast path to Phase 5–6 on that idea
+2. If no strong candidates remain: run abbreviated **Phase 1–3** (new signals OK; exclude rejected concepts; vertical may shift)
+3. Present the **new idea** with Phase 5 executive summary (abbreviated) + Phase 6 devil's advocate
+4. Ask **iterate** or **re-roll** again
+
+Never re-propose a rejected idea. Never apologize for re-rolling to a different category.
 
 ---
 

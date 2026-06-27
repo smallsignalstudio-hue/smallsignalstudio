@@ -81,3 +81,45 @@ Abbreviated outputs showing expected quality and format. Full runs include all p
 ### Recommendation
 
 **Research more** — validate widget conversion path before 4-week build. If 3/5 homework items confirm wedge, **ship MVP**.
+
+### Phase 7 gate
+
+> **iterate** or **re-roll**?
+
+---
+
+## Example D — Iterate (verdict 2)
+
+**User:** iterate
+
+### Adversarial audit (excerpt)
+
+| Finding | Source | Severity |
+|---------|--------|----------|
+| Co-Star widget exists but users say "too noisy" | App Store reviews | Medium |
+| Sanctuary charges $10/mo for human readers — different job | Pricing page | Low |
+| r/astrology: "I want LESS not more" | Reddit | High |
+| Widget-only = no paywall surface | Internal analysis | High |
+
+### Verdict: **2 — Iterate**
+
+Viable wedge (quiet widget) but **paywall path is weak**. Consider:
+
+1. Widget free; in-app "deeper reading" unlock for one transit/week
+2. Annual plan anchor $29.99 — undercut Sanctuary, above utility tier
+
+**Revised killer feature:** Widget shows one transit; tap opens a 60-second "what this means for you" (personalized by birth time, cached locally).
+
+> **iterate** or **re-roll**?
+
+---
+
+## Example E — Re-roll
+
+**User:** re-roll
+
+**Rejected:** One Transit (astrology widget) — added to session rejected list.
+
+**New idea (from Phase 3 #2, different category):** "Did I unplug?" — one-tap checklist widget before leaving home. Score 81. Not astrology — user disliked prior idea, not the vertical.
+
+Present abbreviated Phase 5 + Phase 6 → ask **iterate** or **re-roll** again.

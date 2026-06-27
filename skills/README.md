@@ -55,6 +55,13 @@ Optional parameters:
 | Full auto | Skip Phase 4 questions — agent picks #1 and continues |
 | Save report | `save report to file` → writes to `~/Documents/genius-ideas/` |
 
+**After an idea is presented**, the agent asks **iterate** or **re-roll**:
+
+| You say | What happens |
+|---------|----------------|
+| `iterate` | Stress-tests the idea — competitors, Reddit/4chan, fatal flaws — then verdict: ship as-is / improve / rework |
+| `re-roll` | Discards the idea and brings a new one (same or different category) |
+
 The skill does not auto-invoke on unrelated chats (`disable-model-invocation: true`).
 
 ## Editing skills
