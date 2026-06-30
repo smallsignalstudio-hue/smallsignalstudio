@@ -7,14 +7,23 @@ Version-controlled Cursor Agent Skills for Small Signal Studio.
 | Skill | Description |
 |-------|-------------|
 | [genius-ideas](genius-ideas/) | JARVIS for researching monetizable solo-buildable mobile app ideas |
+| [app-store-preflight](app-store-preflight/) | App Store pre-submission compliance (Greenlight + learned rejection rules) |
 
 ## Install (global use in any project)
 
 From the repo root:
 
 ```bash
-chmod +x skills/install.sh   # first time only
+chmod +x skills/install.sh compliance/scripts/*.sh   # first time only
 ./skills/install.sh
+brew install revylai/tap/greenlight jq               # first time only
+pip3 install pyyaml                                  # for custom rules scanner
+```
+
+Optional — add to `~/.zshrc`:
+
+```bash
+export APPSTORE_COMPLIANCE_HUB="$HOME/Repo/SmallSignalStudio"
 ```
 
 This copies skills into `~/.cursor/skills/` so Cursor loads them in **every project**.
@@ -27,7 +36,7 @@ After the first `./skills/install.sh`, git hooks keep your global install in syn
 
 | Event | What happens |
 |-------|----------------|
-| `git pull` | Skills re-copy to `~/.cursor/skills/` |
+| `git pull` | Skills re-copy to `~/.cursor/skills/`; greenlight version check |
 | `git commit` (when `skills/` changed) | Same — sync runs automatically |
 
 Just `git pull` or commit skill edits as usual. No need to remember `./skills/install.sh`.
@@ -36,33 +45,42 @@ Just `git pull` or commit skill edits as usual. No need to remember `./skills/in
 
 ## How to invoke in Cursor
 
-Start an Agent chat:
+**App Store preflight:**
 
-**Focused on a topic:**
+```
+Use the app-store-preflight skill to run preflight and fix all CRITICAL issues.
+```
+
+**After an App Store rejection:**
+
+```
+Use app-store-preflight skill — Apple rejected with this message: <paste>
+```
+
+**Genius ideas:**
+
 ```
 Use the genius-ideas skill to find something related to astrology
 ```
 
-**Generic (agent picks the best vertical):**
+Skills do not auto-invoke on unrelated chats (`disable-model-invocation: true`).
+
+## Compliance hub
+
+Scripts and rejection registry live in [`compliance/`](../compliance/README.md):
+
+```bash
+"$APPSTORE_COMPLIANCE_HUB/compliance/scripts/run-preflight.sh" /path/to/ios-project
 ```
-Use the genius-ideas skill to find something
-```
 
-Optional parameters:
+## Per-iOS-project setup
 
-| Parameter | Example |
-|-----------|---------|
-| Full auto | Skip Phase 4 questions — agent picks #1 and continues |
-| Save report | `save report to file` → writes to `~/Documents/genius-ideas/` |
+Copy once into each app repo:
 
-**After an idea is presented**, the agent asks **iterate** or **re-roll**:
+- `skills/app-store-preflight/templates/.greenlight.yml` → project root
+- `skills/app-store-preflight/templates/github-workflows/app-store-compliance.yml` → `.github/workflows/`
 
-| You say | What happens |
-|---------|----------------|
-| `iterate` | Stress-tests the idea — competitors, Reddit/4chan, fatal flaws — then verdict: ship as-is / improve / rework |
-| `re-roll` | Discards the idea and brings a new one (same or different category) |
-
-The skill does not auto-invoke on unrelated chats (`disable-model-invocation: true`).
+Set GitHub secret `COMPLIANCE_HUB_REPO` for CI.
 
 ## Editing skills
 

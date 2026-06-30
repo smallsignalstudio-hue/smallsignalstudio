@@ -12,10 +12,13 @@ DEST="$HOME/.cursor/skills"
 
 mkdir -p "$DEST"
 cp -R "$SRC/genius-ideas" "$DEST/"
+cp -R "$SRC/app-store-preflight" "$DEST/"
 rm -rf "$DEST/small-signal-ideas"
 
 if [ "$FROM_HOOK" = false ]; then
-  echo "Installed genius-ideas → $DEST/genius-ideas"
+  echo "Installed skills → $DEST/"
+  echo "  - genius-ideas"
+  echo "  - app-store-preflight"
 fi
 
 # Register repo git hooks once so pull/commit keep ~/.cursor/skills/ in sync.
@@ -30,5 +33,5 @@ if git -C "$REPO_ROOT" rev-parse --git-dir >/dev/null 2>&1; then
 fi
 
 if [ "$FROM_HOOK" = true ]; then
-  echo "Synced genius-ideas → $DEST/genius-ideas"
+  echo "Synced skills → $DEST/ (genius-ideas, app-store-preflight)"
 fi

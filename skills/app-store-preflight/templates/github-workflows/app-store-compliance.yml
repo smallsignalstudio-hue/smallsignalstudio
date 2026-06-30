@@ -1,0 +1,54 @@
+# Copy to: .github/workflows/app-store-compliance.yml
+# Set GitHub secret COMPLIANCE_HUB_REPO to your SmallSignalStudio clone URL.
+
+name: App Store Compliance
+
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+  workflow_dispatch:
+
+jobs:
+  compliance:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout app
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          brew install revylai/tap/greenlight jq
+          python3 -m pip install --user pyyaml
+
+      - name: Clone compliance hub
+        env:
+          COMPLIANCE_HUB_REPO: ${{ secrets.COMPLIANCE_HUB_REPO }}
+        run: |
+          if [ -z "$COMPLIANCE_HUB_REPO" ]; then
+            echo "::error::Set COMPLIANCE_HUB_REPO secret to SmallSignalStudio clone URL"
+            exit 1
+          fi
+          git clone --depth 1 "$COMPLIANCE_HUB_REPO" /tmp/compliance-hub
+
+      - name: Run preflight
+        run: |
+          export APPSTORE_COMPLIANCE_HUB=/tmp/compliance-hub
+          /tmp/compliance-hub/compliance/scripts/run-preflight.sh . --ci --output ./compliance-reports
+          if jq -e '.summary.critical > 0' ./compliance-reports/preflight-report.json >/dev/null; then
+            echo "::error::CRITICAL App Store compliance issues found"
+            jq '.findings[] | select(.severity == "CRITICAL")' ./compliance-reports/preflight-report.json
+            exit 1
+          fi
+          if jq -e '.summary.warn > 0' ./compliance-reports/preflight-report.json >/dev/null; then
+            echo "::warning::App Store compliance warnings found"
+            jq '.findings[] | select(.severity == "WARN")' ./compliance-reports/preflight-report.json
+          fi
+
+      - name: Upload compliance report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: app-store-preflight-report
+          path: compliance-reports/

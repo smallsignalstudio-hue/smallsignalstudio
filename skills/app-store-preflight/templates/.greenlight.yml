@@ -1,0 +1,15 @@
+# Project-specific Greenlight overrides.
+# See: https://github.com/RevylAI/greenlight#configuration-greenlightyml
+
+rules:
+  # Example: downgrade noisy rules during early development
+  # console-log:
+  #   severity: info
+
+ignore:
+  - node_modules
+  - Pods
+  - build
+  - dist
+  - .expo
+  - vendor

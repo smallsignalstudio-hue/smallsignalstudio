@@ -1,0 +1,10 @@
+# Learned rules from App Store rejections.
+# run-custom-checks.py reads this file on every preflight.
+#
+# Rule types:
+#   - project_match: if ANY pattern matches project-wide, require ANY of require_any
+#   - file_match: if pattern matches a file, report finding on that file
+#
+# Start new rules at severity: warn; promote to critical after validation.
+
+rules: []

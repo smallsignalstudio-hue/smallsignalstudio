@@ -1,5 +1,7 @@
 # OS files
 .DS_Store
+.greenlight-inspect/
+compliance-reports/
 Thumbs.db
 
 # IDES and editors

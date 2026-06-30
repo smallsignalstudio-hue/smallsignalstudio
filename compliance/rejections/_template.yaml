@@ -1,0 +1,11 @@
+# Copy to: rejections/YYYY-MM-<app>-<slug>.yaml
+id: app-YYYY-MM-short-slug
+app: AppName
+date: YYYY-MM-DD
+apple_guideline: "0.0.0"
+apple_message: |
+  Paste Apple's rejection message here.
+root_cause: What was actually wrong in the app or metadata
+fix_applied: What you changed before resubmitting
+status: open  # open | resolved
+custom_rule_id: rule-id-in-learned-rules  # optional — link to custom-rules/learned-rules.yaml

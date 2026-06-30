@@ -2,7 +2,12 @@
 # Auto-sync Cursor skills to ~/.cursor/skills/ after git pull.
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 INSTALL="$REPO_ROOT/skills/install.sh"
+UPSTREAM="$REPO_ROOT/compliance/scripts/check-upstream.sh"
 
 if [ -x "$INSTALL" ]; then
   "$INSTALL" --from-hook
+fi
+
+if [ -x "$UPSTREAM" ]; then
+  "$UPSTREAM" --quiet || true
 fi
