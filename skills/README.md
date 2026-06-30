@@ -2,6 +2,9 @@
 
 Version-controlled Cursor Agent Skills for Small Signal Studio.
 
+**Türkçe kullanım rehberi:** [docs/CURSOR-SKILLS.md](../docs/CURSOR-SKILLS.md)  
+**Global kurulum (tüm ~/Repo projeleri):** `./scripts/install-cursor-skills.sh`
+
 ## Skills in this repo
 
 | Skill | Description |
