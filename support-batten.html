@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Batten Support & FAQs. Get help with departure checklists, Premium, and photo proof.">
+    <title>Batten — Support | Small Signal Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .support-container { max-width: 900px; margin: 0 auto; padding: 8rem 1.5rem 6rem; }
+        .support-header { text-align: center; margin-bottom: 4rem; }
+        .app-meta { margin-top: 1rem; color: var(--clr-text-muted); font-size: 0.95rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .support-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start; }
+        @media (max-width: 768px) { .support-layout { grid-template-columns: 1fr; gap: 4rem; } }
+        .faq-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .faq-item { background-color: var(--clr-surface-light); border: 1px solid var(--clr-border); border-radius: var(--radius); padding: 1.5rem; }
+        .faq-question { font-weight: 700; font-size: 1.05rem; color: var(--clr-text-main); margin-bottom: 0.75rem; }
+        .faq-answer { color: var(--clr-text-muted); font-size: 0.925rem; line-height: 1.6; }
+        .faq-answer a { color: var(--clr-primary); text-decoration: underline; }
+        .support-form-card { background-color: var(--clr-surface-light); border: 1px solid var(--clr-border); border-radius: var(--radius); padding: 2.5rem; position: sticky; top: 100px; }
+        .form-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--clr-text-main); }
+        .form-desc { font-size: 0.875rem; color: var(--clr-text-muted); margin-bottom: 1.5rem; }
+        .form-desc a { color: var(--clr-primary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="brand">Small Signal Studio</a>
+            <div class="nav-links">
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="support-container">
+        <header class="support-header">
+            <span class="badge">Application Support</span>
+            <h1 class="section-title" style="margin-bottom: 0.5rem;">Batten Support</h1>
+            <div class="app-meta">
+                <span>App: <strong>Batten — departure checklists & cognitive receipts</strong></span>
+                <span>Developer: <strong>Small Signal Studio</strong></span>
+            </div>
+        </header>
+
+        <div class="support-layout">
+            <section>
+                <h2 class="section-title" style="font-size: 1.5rem; text-align: left; margin-bottom: 2rem;">Common Questions</h2>
+                <div class="faq-list">
+                    <article class="faq-item">
+                        <h3 class="faq-question">How do I restore Premium?</h3>
+                        <p class="faq-answer">Open Settings → Restore purchases. Use the same Apple ID you used to subscribe.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3 class="faq-question">Are my photos uploaded to the cloud?</h3>
+                        <p class="faq-answer">No. Photo proof is stored only on your device. Batten does not upload photos to our servers.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3 class="faq-question">How does the geofence reminder work?</h3>
+                        <p class="faq-answer">Premium users can set a home location and enable background location. Batten nudges you when you leave without completing a round. You can turn this off anytime in Settings.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3 class="faq-question">Does Batten work offline?</h3>
+                        <p class="faq-answer">Yes. Manifests, rounds, receipts, and photo proof work without an internet connection.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3 class="faq-question">How do I delete my data?</h3>
+                        <p class="faq-answer">Remove the app from your device. All local data is deleted with the app.</p>
+                    </article>
+                    <article class="faq-item">
+                        <h3 class="faq-question">Privacy &amp; legal</h3>
+                        <p class="faq-answer">See our <a href="privacy-batten.html">Privacy Policy</a> and <a href="terms-batten.html">Terms of Use</a>.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="support-form-card">
+                <h2 class="form-title">Contact</h2>
+                <p class="form-desc">For help, feedback, or App Store purchase questions, email <a href="mailto:hello@smallsignalstudio.com">hello@smallsignalstudio.com</a>.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-bottom" style="margin-top: 0; padding-top: 2rem;">
+            <p>&copy; 2026 Small Signal Studio. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
