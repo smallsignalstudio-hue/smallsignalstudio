@@ -31,8 +31,9 @@ clean_dest
 INSTALLED=()
 for skill_dir in "$SRC"/*/; do
   [ -f "${skill_dir}SKILL.md" ] || continue
-  name="$(basename "$skill_dir")"
-  cp -R "$skill_dir" "$DEST/"
+  name="$(basename "${skill_dir%/}")"
+  rm -rf "$DEST/$name"
+  cp -R "${skill_dir%/}" "$DEST/$name"
   INSTALLED+=("$name")
 done
 
@@ -41,11 +42,24 @@ clean_dest
 # Legacy skill removed from global install
 rm -rf "$DEST/small-signal-ideas"
 
+# Sync per-skill beforeSubmitPrompt helpers into ~/.cursor/hooks/
+HOOKS_DEST="$HOME/.cursor/hooks"
+mkdir -p "$HOOKS_DEST"
+for skill_dir in "$SRC"/*/; do
+  [ -d "${skill_dir}hooks" ] || continue
+  for hook_script in "${skill_dir}hooks"/*.sh; do
+    [ -f "$hook_script" ] || continue
+    cp "$hook_script" "$HOOKS_DEST/$(basename "$hook_script")"
+    chmod +x "$HOOKS_DEST/$(basename "$hook_script")"
+  done
+done
+
 if [ "$FROM_HOOK" = false ]; then
   echo "Installed skills → $DEST/"
   for name in "${INSTALLED[@]}"; do
     echo "  - $name"
   done
+  echo "Synced prompt hooks → $HOOKS_DEST/"
 fi
 
 # Ensure ~/Repo/.cursor-env.sh is sourced from ~/.zshrc
