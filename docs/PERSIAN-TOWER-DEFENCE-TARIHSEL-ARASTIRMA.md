@@ -1,463 +1,437 @@
-# PERS / ACHAEMENİD TOWER DEFENCE — Kapsamlı Tarihsel / Arkeolojik Araştırma
+# ESKİ PERS TOWER DEFENCE — Kapsamlı Tarihsel Araştırma Dokümanı
 
-> Bu doküman, “Persian / Achaemenid Tower Defence” (veya “Persepolis / Apadana Tower Defence”) oyunu için toplanan tarihsel, arkeolojik ve askerî malzemeyi içerir. Babil (Etemenanki) ve Roma (Capitolium) araştırmalarıyla **aynı formatta** hazırlanmıştır. **Varsayım yapılmaz; belirsizlikler işaretlenir.** Her bölümün sonunda **“Oyunda Nasıl Kullanılır”** notları vardır.
-
-> **Kapsam:** Özellikle Achaemenid (MÖ ~550–330); ilgili yerlerde Median, Parthian, Sasanian. Kanıt temeli: Persepolis, Pasargadae, Susa, Ecbatana, Pers yönetimi altında Babil, Sardis vb.
-
----
-
-## 0. ÖZET TAVSİYE (oyun merkez parçası)
-
-| Aday | Tarihsel “kutsal/merkez” gücü | Arkeolojik doğrulanabilirlik | TD görsel/oyun gücü | Not |
-|---|---|---|---|---|
-| **Persepolis Apadāna + teras** | İmparatorluk tören / New Year / “dünyanın merkez salonu” retoriği | Yüksek (kazı, plan, boyut) | Çok yüksek | **Birincil öneri** |
-| Gate of All Nations | İmparatorluk eşiği / “tüm uluslar” | Yüksek | Yüksek (lamassu/boğa) | Kapı/boss kapısı, merkez değil |
-| Susa Apadāna | İdari başkent, Darius’un “kraliyet şehri” | Yüksek (Perrot kazıları) | Yüksek ama daha az ikonik | Alternatif sezon / harita |
-| Pasargadae mezar + Tall-e Takht | Kurucu kral kültü | Yüksek (UNESCO) | Orta (mezar küçük; kale ayrı) | Erken dönem seviyesi |
-| Ecbatana 7 sur (Herodotus) | Mitik/gezegen renkli 7 katman | **Düşük–orta** (metin güçlü, arkeoloji zayıf) | Çok yüksek (7 renk!) | **Katman sistemi için ideal; merkez için şüpheli** |
-| Ateş tapınağı (Ātaškada / čahārṭāq) | Sasanian kutsal ateş | Orta–yüksek (geç dönem) | Yüksek | Geç çağ / Zoroastrian sezon |
-| Taq Kasra / Ctesiphon | Sasanian taht salonu | Yüksek (ayakta kalan kemer) | Yüksek | Geç dönem merkez |
-
-**En güçlü merkez parçası (öneri): Persepolis Apadāna**, çevresinde **teras + Gate of All Lands + doğu istihkâm hattı**. Gerekçe: (1) arkeolojik olarak en iyi belgelenmiş Achaemenid “imparatorluk kalbi”; (2) Babil ziggurat / Roma Capitolium gibi hem anıtsal hem sembolik; (3) Diodorus’un “üçlü sur” tasviri + gerçek mudbrick istihkâm + dağ hattı, doğal çok-katman savunma verir; (4) 330 MÖ yağma, net “kule düşerse oyun biter” tarihsel olayıdır.
-
-**Belirsizlik:** Persepolis öncelikle **tören/idari kompleks**tir; sürekli yerleşimli “şehir kalesi” olup olmadığı tartışmalıdır (aşağı şehir arkeolojisi zayıf). Oyunda “kutsal/kraliyet çekirdeği” olarak kullanmak tarihsel olarak meşrudur; “sivil metropolün ortası” iddiası zayıftır.
+> Bu doküman, "Persian / Persepolis Tower Defence" (veya "Apadāna Tower Defence") oyunu için toplanan tarihsel, arkeolojik, askerî ve mitolojik malzemeyi içerir. Babil (Etemenanki) ve Roma (Capitolium) araştırmalarıyla **aynı formatta** ve **en az aynı kapsamda** (çoğu yerde daha derin) hazırlanmıştır. Her bölümün sonunda **"Oyunda Nasıl Kullanılır"** notları vardır; asıl amaç ham, doğrulanabilir tarihsel bilgiyi vermektir — tasarım kararlarını sen vereceksin.
+>
+> **Kanıt notu:** Yunan kaynakları (Herodotos vb.) abartılı/efsanevi olabilir. Çelişen yerlerde Babil kronikleri, Behistun yazıtı, Persepolis tabletleri ve arkeoloji öncelenir; efsane oyun için ayrıca işaretlenir.
 
 ---
 
-## 1. MERKEZ YAPI ADAYLARI — DETAYLI DEĞERLENDİRME
+## 1. MERKEZ YAPI: PERSEPOLIS APADĀNA — GERÇEK "PERS KULESİ"
 
-### 1.1 Persepolis Apadāna (birincil öneri)
+Babil’deki Etemenanki’nin ve Roma’daki Capitolium’un karşılığı olarak Pers’te savunulacak “kutsal/imparatorluk merkezi” **Persepolis (Pārsa / Takht-e Jamšīd)** ve üzerindeki **Apadāna** kabul salonudur.
 
-#### Adı / anlamı
-- Eski Farsça *apadāna* ≈ hipostil (çok sütunlu) kabul / tören salonu.
-- Yer adı: Eski Farsça **Pārsa**; Yunanca *Persépolis* (“Perslerin şehri”); Farsçada geleneksel **Takht-e Jamšīd**.
+### 1.1 Adı ve Anlamı
+- **Eski Farsça:** *apadāna* ≈ hipostil (çok sütunlu) kraliyet kabul / tören salonu.
+- **Yer adı:** Eski Farsça **Pārsa**; Yunanca *Persépolis* (“Perslerin şehri”); Farsça geleneksel **Takht-e Jamšīd**.
+- **İşlev:** Büyük kabul törenleri; merdiven rölyeflerinde 23 tebaa ulusunun hediyeleri. Birçok modern yorum bunu **Nowruz (Yeni Yıl)** alayıyla ilişkilendirir — yazıtta açık “Nowruz” etiketi yoktur; “ideal düzen” metaforu da savunulur.
 
-#### Ne?
-- Darius I döneminde başlanan, Xerxes I döneminde tamamlanan anıtsal kabul salonu.
-- İşlev: büyük kabul törenleri; rölyeflerde 23 tebaa ulusunun hediyeleri / New Year (Nowruz) alayı yorumu yaygındır (**yorum tartışması** vardır; rölyeflerin “ideal düzen” metaforu olduğu da savunulur — Root vb.).
+### 1.2 Ne?
+- Darius I döneminde başlayan, Xerxes I döneminde tamamlanan anıtsal kabul salonu.
+- Dört köşe kulesi + üç yönde portiko + ~60×60 m ana salon.
+- İmparatorluğun “dünyanın merkezi” retorik sahnesi: tebaa ulusları merdivende sırayla yürür.
+- Yanında **Gate of All Nations** (Tüm Uluslar Kapısı), Yüz Sütunlu Salon, Hazine, doğu istihkâm hattı.
 
-#### Boyutlar (arkeolojik)
-| Öğe | Ölçü | Kaynak / not |
-|---|---|---|
-| Teras | ~300 × 455 m (~125.000 m²) | Iranica / Livius; kısmen kaya oyma, kısmen dolgu |
-| Apadāna yan uzunluk | ~110 m (kare) | Farrokh / Schmidt geleneği |
-| Ana salon | ~60 × 60 m | Iranica |
-| Sütun sayısı | 72 (36 salon + portikolar) | Schmidt |
-| Sütun yüksekliği | ~19,5 m (bazı özetlerde ~20–24 m) | Iranica; Wikipedia özetleri farklılık gösterir — **19,5 m Iranica tercih** |
-| Bina toplam yükseklik | ~22 m | Iranica |
-| Podium | ~2,6–3 m teras üstü | Kaynaklar 2,6 / 3 m arası |
-| Duvar kalınlığı | ~5,3 m kerpiç | Iranica |
-| Köşe kuleleri | 4 adet, çok katlı | Plan |
+### 1.3 Boyutlar ve Malzeme
+| Öğe | Ölçü / malzeme |
+|---|---|
+| Teras | ~300 × 455 m (~125.000 m²); kısmen kaya oyma, kısmen dolgu |
+| Apadāna dış kare | ~110 m yan |
+| Ana salon | ~60 × 60 m |
+| Sütun | 72 toplam (36 salon + portikolar); yükseklik ~19,5 m |
+| Bina yüksekliği | ~22 m |
+| Podium | ~2,6–3 m |
+| Duvar | ~5,3 m kalın kerpiç |
+| Köşe kuleleri | 4 adet, çok katlı |
+| Malzeme | Taş teras/sütun/kapı; kerpiç gövde; sedir kiriş; pigment + sırlı tuğla; altın levha izleri |
 
-#### Malzeme
-- **Taş:** sütunlar, kapı söveleri, merdivenler, teras cephesi (kireçtaşı; metal kenetler / *dovetail clamps*).
-- **Kerpiç (mudbrick):** ana duvarlar; alçı/kil sıva.
-- **Ahşap:** sedir kirişler (çoğu yanmış / yok).
-- **Süs:** renkli pigment (Herzfeld: 1932’de doğu merdiveninde “her yerde pigment”); sırlı tuğla (mavi, sarı, turkuaz); altın levha izleri (taç delikleri).
-
-#### İnşa / yıkım
+### 1.4 Kim inşa etti / yıktı?
 | Aşama | Tarih | Kim | Not |
 |---|---|---|---|
-| Teras + Apadāna başlangıç | ~518–490 MÖ | Darius I | DPh temel sandıkları (altın/gümüş tabletler) |
-| Tamamlama / Gate | ~486–465 MÖ | Xerxes I | Gate of All Lands |
-| Yağma / yangın | 330 MÖ | Alexander | Diodorus, Curtius, Plutarch; kasıtlı intikam mı, sarhoşluk mu — **tartışmalı** |
+| Teras + Apadāna başlangıç | ~518–490 MÖ | **Darius I** | Temelde altın/gümüş DPh tabletleri |
+| Tamamlama + Gate of All Lands | ~486–465 MÖ | **Xerxes I** | Anıtsal propylaea |
+| Yağma / yangın | **330 MÖ** | **Büyük İskender** | Saraylar yanar; kasıtlı intikam mı sarhoşluk mu tartışmalı |
+| Modern kazı | 1931–39… | Herzfeld, Schmidt, OI Chicago | Fortification Archive tabletleri |
 
-#### Keşif
-- Herzfeld (1931–34), Schmidt (1935–39), Oriental Institute; sonra İran ekibi restorasyonları.
-- 1933: doğu istihkâm burcunda **Persepolis Fortification Archive** (Elamca tabletler).
+### 1.5 Dini / ideolojik işlev
+- Kral, Ahura Mazda’nın lütfuyla düzeni (*asha*) tutar; isyan = *drauga* (Yalan).
+- Behistun’da Darius isyancıları ezer — aynı ideolojinin görsel hali.
+- Zafer/tribute alayı; imparatorluk birliğinin sahnelenmesi.
+- Persepolis daha çok **tören/idari citadel**dir; sürekli sivil metropolün ortası olduğu arkeolojik olarak zayıftır — oyunda “kutsal kraliyet çekirdeği” olarak kullanmak meşrudur.
 
-**Oyunda:** Apadāna = savunulacak ana “kule/salon”. 4 köşe kulesi = 4 upgrade yuvası. 72 sütun = “güç seviyesi” görsel metaforu. Yangın 330 = final fail state. DPh tabletleri = “temel kutsal emanet” collectible.
+### 1.6 Alternatif merkez adayları (kısa)
+| Aday | Ne zaman kullanılır |
+|---|---|
+| **Gate of All Nations** | Boss kapısı (İştar / Porta Appia paraleli) |
+| **Susa Apadāna** | İdari başkent haritası (glacis gerçek; Dieulafoy’un “süper kale”si fantezi) |
+| **Pasargadae** (Kyros mezarı + Tall-e Takht) | Erken “kurucu” seviye |
+| **Ecbatana 7 sur** (Herodotos) | Mitik 7 katman skin’i — arkeoloji doğrulamıyor |
+| **Taq Kasra / ateş tapınağı** | Sasani geç çağ DLC |
 
----
-
-### 1.2 Gate of All Nations / Gate of All Lands (*duvarthīš višpazanānām* — Xerxes yazıtı XPa)
-
-#### Ne?
-- Xerxes’in inşa ettiği anıtsal propylaea; terasın ana resmi girişi.
-- Çift geri dönüşlü merdiven: her kol ~63 + 48 basamak; basamak ~6,7 m geniş, ~10 cm yükseklik, ~38 cm derinlik (Iranica). Amaç: yaşlı elçilerin tören yürüyüşü — **atla çıkıldığı efsanesi popüler ama yanlış**.
-
-#### Boyutlar
-- Kare salon ~24,75 × 24,75 m (~612 m²); 4 sütun, her biri >16,5 m.
-- Kerpiç duvar ~5,2 m kalın (özet kaynaklar).
-- Batı eşiği: **insan başlı boğa / lamassu tipi** koruyucular (Asur etkisi; ancak Asur’daki 5 bacak yerine doğal 4 bacak).
-- Doğu eşiği: **kanatlı insan başlı boğalar**.
-- Güney kapı: Apadāna’ya bakar; usher platformu.
-
-#### Sembolik hayvanlar
-- Asur *lamassu* geleneğinin Achaemenid uyarlaması.
-- Boğa / aslan / griffon protom’ları sütun başlıklarında da (Apadāna).
-- Susa’da sırlı tuğla **okçular, aslanlar, kanatlı aslanlar**.
-
-**Uyarı:** Bunlar kapı bekçisi heykelleridir; “kule canavarları” değildir. Oyunda kapı skini / debuff / “korku alanı” olarak uygundur.
-
-**Oyunda:** Boss kapısı / 1. dalga giriş noktası. Hayvan çiftleri = kapı upgrade’leri (Bull Gate, Sphinx Gate…). Merdiven = dar choke point.
+**Oyunda Nasıl Kullanılır:** Apadāna = savunulacak ana kule. 4 köşe kulesi = 4 upgrade yuvası. 72 sütun = güç görseli. Yangın 330 = lose cinematic. DPh tabletleri = kutsal emanet collectible.
 
 ---
 
-### 1.3 Pasargadae — Cyrus mezarı + Tall-e Takht
+## 2. YEDİ KATMANLI SAVUNMA — BABİL’İN 7 ZİGGURAT KATINA PARALEL
 
-#### Mezar (Cyrus II)
-- Morḡāb ovasında; Arrian (*Anabasis* 6.29) Aristobulus’a dayanarak: kare taş kaide + üstte dar kapılı taş oda; altın lahit; Magi bekçileri.
-- Onesicritus’un “on katlı kule” tasviri **güvenilmez / abartılı** kabul edilir.
-- Bugünkü yapı: basamaklı kaide + gable çatılı oda; Müslüman dönemde “Madar-e Soleyman” geleneği.
+Pers’te birebir ziggurat yok; ama **iki tarihsel “7” kaynağı** vardır.
 
-#### Tall-e Takht (“Taht Tepesi”)
-- Kuzey uçta istihkâm teras: paralelkenar ~98 × 79 m civarı (UNESCO; bazı ölçüler kuzey 65,8 / batı 78,8 / güney 98,2 m).
-- Faz 1: Cyrus — taş platform (anathyrosis, metal kenet), ~15 m cephe yüksekliği planı; ölümle yarım kaldı (530 MÖ).
-- Faz 2: Darius — kerpiç kale dönüşümü.
-- ~280 MÖ yangın / terk; ~200 MÖ terk.
+### 2.1 Ecbatana — metinsel 7 renk (Herodotos 1.98–99)
+Deioces’e atfedilen iç içe 7 sur; her biri bir öncekinden mazgal yüksekliği kadar daha yüksek; en içte saray + hazine.
 
-#### Saraylar
-- Gate R, Palace S (Audience), Palace P (Residential), *chahar bagh* bahçe — ilk bilinen dört bölmeli Pers bahçesi örneklerinden.
-
-**Oyunda:** Erken dönem “kurucu seviyesi”. Mezar = kutsal emanet (savunulacak küçük çekirdek); Tall-e Takht = gerçek kale. Bahçe = su/heal bölgesi.
-
-**Merkez adayı olarak zayıf yan:** Mezar küçüktür; Apadāna ölçeğinde “imparatorluk kulesi” hissi vermez.
-
----
-
-### 1.4 Susa Apadāna + kraliyet mahallesi
-
-#### Ne?
-- Darius’un idari başkenti; Apadāna + Residence ~5 ha, 12 ha’lık yapay platform üzerinde (Perrot).
-- Apadāna: ~109 m yan; ana salon ≥58 m; 36 sütun >19 m (Iranica *Apadāna*).
-- Anıtsal kapılar: 36 × 18 m şehir kapısı; “Gate of Darius” (Persepolis Gate’e benzer hipostil); Darius heykeli (~3 m + kaide; Mısır stili + Farsça giysi; DSab yazıtı).
-
-#### Savunma (önemli düzeltme)
-- Darius üç höyüğü lozenge şeklinde ~100 ha alanda çevirdi; DSe’de surları yeniden inşa ettiğini söyler.
-- **Strabo 15.3.2:** “rampartsız” izlenim.
-- Perrot: görkemli **glacis** (tabanda 25 m’ye kadar kerpiç + çakıl drenaj) — ziyaretçiye etkileyici ama **Dieulafoy’un “sofistike kale” rekonstrüksiyonu fantezi** (Iranica açıkça belirtir).
-- Batıda Akropolis höyüğü: Ctesias’a göre citadel; duvar 5–11 m kalın, **görünüşe göre kulesiz** (de Morgan).
-
-**Oyunda:** “İdari başkent” haritası; glacis = eğimli dış savunma katmanı; kapı + heykel = kimlik. Merkez için Persepolis’ten sonra 2. seçenek.
-
----
-
-### 1.5 Ecbatana (Hamadan) — Median citadel
-
-#### Metinsel (Herodotus 1.98–99) — oyun için altın madeni
-- Deioces’e atfedilen **yedi iç içe sur**; her biri bir öncekinden mazgal yüksekliği kadar daha yüksek.
-- En içte saray + hazine.
-- Dış sur çevresi ≈ Atina suru.
-- Mazgal renkleri: **1 beyaz, 2 siyah, 3 mor/kızıl (scarlet/purple), 4 mavi, 5 turuncu; 6 gümüş, 7 altın**.
-- Gezegen / ziggurat renk dizisi paraleli sık tartışılır (Dur-Šarruken ziggurat renkleri karşılaştırması — Melammu).
-
-#### Arkeoloji — **büyük uyarı**
-- Tell Hagmatana (~30 m höyük) genelde Median/Achaemenid kraliyet alanı adayı.
-- 1950’lerde zig-zag kerpiç dış duvar: korunmuş yükseklik ~2,5 m, içeriye ~13,7 m izlenmiş; tuğla oranları Nush-i Jan / Godin Tepe ile benzer (Dyson; Iranica).
-- **Ancak:** modern kazıların önemli kısmı **Parthian** katmanları bulur; 2006 sınırlı alanda Parthian’dan eski bir şey çıkmaması “başka yerde Median katman yok” demez ama **Herodotus’un 7 renkli surları arkeolojik olarak doğrulanmamıştır**.
-- Moṣallā tepesindeki “Median citadel” iddiası çoğu uzman için **Parthian veya daha geç**.
-- Polybius (10.27): çevre ~7 stade (~1,4 km) — Tell Hagmatana ile uyumlu; sedir/servi + gümüş/altın kaplama — Alexander yağmasından sonra soyulmuş.
-
-**Oyunda:** 7 renkli katman = Babil 7 ziggurat katının **en doğrudan Pers paraleli** (metinsel). Merkez yapı olarak Apadāna’dan zayıf; **katman sistemi / harita skin’i** olarak çok güçlü. “Efsane vs kazı” meta-anlatısı da kullanılabilir.
-
----
-
-### 1.6 Ateş tapınakları (Ātaškada / Ātašgāh) — geç dönem
-
-- Sasanian tip: **čahārṭāq** (dört kemer) + kubbe (*gombad*); ateş sunağı kapalı mekânda.
-- **Tartışma:** Godard/Erdmann’ın “açık kanopi čahārṭāq’ta halka ateş gösterimi” modeli **ritüel ve arkeolojiyle uyumsuz** (Boyce; Huff). Ateş tapınağı = kapalı kompleks; čahārṭāq tek başına “tapınak” eşanlamlısı değildir.
-- Erken örnek adayları: Kuh-e Ḵᵛāja (Sistan; Seleucid/Parthian? sonra Sasanian); Nush-i Jan haç planlı yapı (olası ateş tapınağı, ¹⁴C ~723±220 MÖ — **tarih aralığı geniş**).
-- Büyük örnek: **Ādur Gušnasp** (Takht-e Soleyman bölgesi).
-
-**Oyunda:** Sasanian sezonunun “kutsal kulesi”. Ateş sönmesin = lose condition. Achaemenid ana oyun için **anakronik** — “geç çağ DLC” olarak işaretle.
-
----
-
-### 1.7 Taq Kasra / Ctesiphon (Sasanian)
-
-- Ayvān-e Kasrā: tuğla tonoz; ~**37 m yükseklik, ~25–26 m açıklık, ~50 m derinlik**.
-- Yapım tarihi **belirsiz**: Shapur I mi, Khosrow I (~540 sonrası) mi.
-- Taht / kabul salonu — Apadāna’nın geç dönem işlevsel kuzeni.
-- Ctesiphon: Parthian + Sasanian başkent hattı; 637’de Arap fethi.
-
-**Oyunda:** Geç dönem merkez; “kemer kulesi” silueti. Ana Achaemenid oyun için değil.
-
----
-
-## 2. ÇOK KATMANLI / “7 KATMAN” SAVUNMA SİSTEMLERİ
-
-### 2.1 En güçlü tarihsel “7” — Ecbatana (Herodotus)
-
-| Katman | Renk (Hdt.) | Olası oyun işlevi |
+| Katman | Mazgal rengi | Önerilen oyun işlevi |
 |---|---|---|
-| 1 (dış) | Beyaz | Dış sur / erken uyarı |
-| 2 | Siyah | İkinci sur |
-| 3 | Kızıl/mor | Okçu sahanlığı |
-| 4 | Mavi | Su/hendek teması (?) |
-| 5 | Turuncu | Yangın/naft hazırlığı |
-| 6 | Gümüş | Hazine koruma |
-| 7 (iç) | Altın | Saray / ultimate |
+| **1** (dış) | Beyaz | Dış uyarı suru |
+| **2** | Siyah | İkinci hat |
+| **3** | Mor / kızıl | Okçu sahanlığı |
+| **4** | Mavi | Su / hendek teması |
+| **5** | Turuncu | Yangın hazırlığı |
+| **6** | Gümüş | Hazine koruma |
+| **7** (iç) | Altın | Saray / ultimate |
 
-**Kanıt durumu:** Metinsel = güçlü; arkeolojik 7 halka = **doğrulanmamış**. Oyunda “Herodotus’un anlattığı Ecbatana” olarak çerçevelemek dürüst olur.
+**Uyarı:** Arkeoloji bu 7 renkli halkayı doğrulamamıştır. Deioces anlatısı büyük ölçüde efsanevidir. Oyunda “Herodotos’un Ecbatana’sı” diye çerçevelemek dürüst olur.
 
-### 2.2 Persepolis — arkeolojik çok katman (önerilen “tarihsel grounded” 7’li)
+### 2.2 Persepolis — arkeolojik 7 katman (önerilen oynanış)
+Diodorus “üçlü sur” anlatır; modern terasla birebir örtüşmez. Arkeoloji + metin birleşimiyle dıştan içe:
 
-Diodorus (17.71) *arka* için **üçlü sur** anlatır: 1) 16 cubit (~7 m) mazgallı; 2) benzer ama 2× yüksek; 3) dikdörtgen, 60 cubit (~27 m), sert taş, bronz kapılar + 20 cubit (~9 m) bronz boğalar. Bu tasvir terasın modern rekonstrüksiyonuyla **birebir örtüşmez**; kısmen retorik / karışık olabilir — **bayrakla**.
-
-Arkeoloji + metin birleşimiyle **dıştan içe 7 katman önerisi** (oyun için, kaynaklı):
-
-| # | Katman | Kanıt |
+| Katman | Latin/yerel karşılık fikri | Ne? |
 |---|---|---|
-| **1** | Ova / yaklaşım + su drenaj hendekleri | Doğu duvar arkası derin hendek (hem savuma hem sel); Iranica |
-| **2** | Kuh-e Raḥmat sırtı istihkâm hattı | Kerpiç perde duvar ~7 m + kuleler ~5 m ekstra; speerhead ok yuvaları; kuleleri birleştiren koridor |
-| **3** | Doğu teras kenarı casemate duvarı | ~10 m kalın bağlantı duvarı; kule sırası; garnizon yapıları; Fortification Archive burcu |
-| **4** | Taş teras cephesi + mazgal | Kuzey/batı ~12 m yükselen taş istinat; basamaklı crenellation |
-| **5** | Anıtsal merdiven + Gate of All Lands | Tek resmi giriş; choke + muhafız |
-| **6** | Apadāna podium + köşe kuleleri | 2,6–3 m podium; 4 köşe kulesi |
-| **7** | Apadāna ana salon / taht ekseni | “Kule düştü” noktası; ~60×60 m hipostil |
+| **1** | Hendek / drenaj | Ova yaklaşımı + doğu su hendekleri (~2 km kanal ağı) |
+| **2** | Dağ istihkâmı | Kuh-e Raḥmat sırtı: kerpiç perde, kuleler, spearhead ok yuvaları |
+| **3** | Casemate hattı | Doğu ~10 m bağlantı duvarı; Fortification Archive burcu |
+| **4** | Taş teras | ~12 m yükselen istinat + mazgal |
+| **5** | Gate of All Lands | Tek resmi giriş; choke + muhafız |
+| **6** | Apadāna podium + köşe kuleleri | 2,6–3 m podium; 4 kule |
+| **7** | Apadāna salon / taht | “Kule düştü” noktası |
 
-**Alternatif 7 (Babil + Pers birleşik harita — Pers yönetimi altında):**
-1. Median Wall (kuzey lineer bariyer) → 2. Dış hendek → 3. Dış sur (Imgur-Enlil tipi) → 4. İç sur → 5. Kapılar (İştar vb.) → 6. Citadel / saray → 7. Esagila / Etemenanki.
+### 2.3 Alternatif “7” motifleri
+- **Ondalık ordu:** 10 / 100 / 1.000 / 10.000 (*dathabam → baivarabam*) — birim tech tree.
+- **Sasani Gur/Firuzabad:** ~2 km daire şehir, ~35 m hendek, 4 kapı, merkez Terbal kulesi — dairesel TD haritası.
 
-### 2.3 Median Wall (Nebuchadnezzar; Pers döneminde hâlâ ayakta)
-
-- Sippar–Opis hattında Tigris–Euphrates arası lineer duvar; Med/Pers tehdidine karşı inşa (Neo-Babylonian).
-- Xenophon *Anabasis* (401 MÖ): pişmiş tuğla + bitüm; **~20 ft (~6 m) kalın, ~100 ft (~30 m) yüksek**; uzunluk “20 parasang” (~110 km?) — **uzunluk abartılı olabilir**.
-- Persler 539’da bu sistemi aştı / içinden geçti; 401’de hâlâ “Wall of Media” diye anılıyor.
-
-**Oyunda:** Harita dışı “büyük duvar” senaryosu; veya Babil seviyesinde dış katman.
-
-### 2.4 Babil surları — Pers yönetimi altında (539 sonrası)
-
-Iranica (Babylonia i): dış sur ~7,8 m yüksek / 3,72 m kalın / ~8⅓ km çevre; iç sur ~11–14 m / 6,5 m / ~6 km; kule aralığı ~20 m; dışta hendek. (Ravn’a dayanır; Herodotus’un abartılı ölçüleriyle karıştırma.)
-
-**Fetih tartışması:**
-- Nabonidus Chronicle / Cyrus Cylinder: “savaşsız” giriş vurgusu.
-- Herodotus / Xenophon: kuşatma / su yolu ile giriş anlatıları.
-- Muhtemel sentez: Opis zaferi + Sippar teslimi + şehrin bir kısmının direnişi; tapınak hizmetleri kesintisiz — **tek bir “şanlı kuşatma filmi” yok**.
-
-### 2.5 Susa glacis + citadel
-- Glacis (25 m taban) → kapı → platform → Apadāna / Residence → batı Akropolis citadel.
-- Gerçek “7 katman” iddiası zorlama olur; 4–5 katmanlı sistem.
-
-### 2.6 Sasanian Gur / Firuzabad (Ardašīr-Xwarrah)
-- Çap ~1,95–2 km mükemmel daire.
-- Çift kerpiç sur + hendek (**~35 m** geniş — Sasanika; bazı popüler kaynaklar 50 m der).
-- 3 eşmerkezli daire + 20 radyal duvar → 61 sektör.
-- 4 kapı: Hormuz (K), Ardašīr (G), Mihr/Mithra (D), Bahrām (B).
-- Merkez: **Terbal / mil** — ~9 m kare kesit, >30 m yüksek taş çekirdek (sarmal merdivenli kule?).
-- Düzlem savunması: Qalʿeh Dokhtar (dağ kalesi) kuzey boğazı kontrol eder.
-
-**Oyunda:** Dairesel TD haritası (nadir ve güçlü). Merkez kule = Terbal. Kapı isimleri = lane adları.
+**Oyunda Nasıl Kullanılır:** Babil’deki “1. kat = temel sur, 7. kat = Marduk lütfu” gibi: **1 = hendek/tuzak → 7 = Apadāna / *farr* ultimate**. Ecbatana renkleri kozmetik skin olabilir.
 
 ---
 
-## 3. KAPILAR VE SEMBOLİK HAYVANLAR
+## 3. PERS SUR SİSTEMİ VE ŞEHİR / KALE SAVUNMASI
 
-### 3.1 Gate of All Nations (Persepolis)
-- Bkz. §1.2.
-- XPa: Xerxes “All Lands” kapısını yaptırdığını üç dilde yazar.
-- “Army Street”: doğuya ~92 × 9,7 m geçit → Unfinished Gate → Hundred Column Hall.
+### 3.1 Persepolis istihkâmı
+- Üç yanı taş teras; doğu dağa yaslı.
+- Ok yuvalı kerpiç kuleler ve koridorlar — sur savunmasının omurgası **okçuluk**.
+- Anıtsal çift dönüşlü merdiven: basamaklar alçak ve geniş (yaşlı elçi yürüyüşü); “atla çıkıldı” efsanesi yanlış.
 
-### 3.2 Susa kapıları
-- Doğu anıtsal kapı 36 × 18 m.
-- Covered square passage 24 m yan.
-- Gate of Darius + Darius heykeli (Mısır’da yaptırılmış, Susa’ya dikilmiş — imparatorluk propaganda).
+### 3.2 Gate of All Nations — “İştar Kapısı” paraleli
+- Xerxes’in propylaea’sı; ~24,75 m kare salon, 4 sütun.
+- Batı eşiği: insan başlı boğa (*lamassu* tipi, 4 bacak).
+- Doğu eşiği: kanatlı insan-boğa.
+- XPa yazıtı: “Tüm Ülkeler Kapısı”nı yaptırdığını üç dilde bildirir.
 
-### 3.3 Pasargadae Gate R
-- Erken propylaea; Asur/Anadolu etkileri; “R” = Stronach numaralandırması.
+### 3.3 Susa
+- Darius’un idari başkenti; Apadāna + Residence yapay platformda.
+- Görkemli **glacis** (tabanda ~25 m’ye kadar) gerçek; eski “devasa sofistike kale” çizimleri fantezidir.
+- Batı Akropolis höyüğü: citadel; duvar kalın, görünüşe göre kulesiz.
 
-### 3.4 Hayvan ikonografisi (kapı / sütun)
-| Motif | Yer | Not |
+### 3.4 Pasargadae Tall-e Takht
+- ~98 × 79 m istihkâm teras; Kyros taş platformu yarım kaldı, Darius kerpiç kaleye çevirdi.
+
+### 3.5 Median Wall ve Babil (Pers yönetimi)
+- Neo-Babil “Med Duvarı”: Sippar–Opis hattı; Xenophon 401’de hâlâ görür (~6 m kalın / ~30 m yüksek iddia; uzunluk abartılı olabilir).
+- Babil çift sur + hendek Pers döneminde de ayaktadır; 539 fethinin “savaşsız” mı “kuşatmalı” mı olduğu kaynaklara göre değişir (aşağıda).
+
+### 3.6 Malzeme gerçeği
+| Malzeme | Avantaj | Risk |
 |---|---|---|
-| İnsan başlı boğa / lamassu | Persepolis Gate | Asur’dan uyarlama; 4 bacak |
-| Kanatlı boğa | Gate doğu | |
-| Çift boğa / aslan protome sütun başı | Apadāna | |
-| Sırlı tuğla okçu / aslan / lotus | Susa | Louvre’daki frizler |
-| Bronz boğalar (Diodorus) | Persepolis kapıları | Metinsel; arkeolojik boğa heykelleri farklı bağlam |
+| Kerpiç | Kalın, hızlı, ucuz | Erozyon; yangın sonrası çökme |
+| Taş teras/kapı | Prestij, dayanım | Pahalı |
+| Pişmiş tuğla + bitüm | Su yalıtımı (Mezopotamya) | Bölgesel |
+| Ahşap çatı | Geniş açıklık | **330 yangını** |
 
-**Oyunda:** Kapı “totem” upgrade’leri. Lamassu = stun/knockback. Aslan = DPS. Boğa = tank. Okçu frizi = Immortals birim skini.
+### 3.7 Surdan savunma taktikleri
+- **Ok yağmuru** (en güçlü Ahameniş kanıtı).
+- Kapı muhafızları + dar merdiven choke.
+- Hendek / glacis / su engeli.
+- **Kaynar yağ:** popüler TD klişesi — Ahameniş’e doğrudan kanıt yok; pahalı ve nadir.
+- **Nafta + zift + kükürt:** Sasani Petra (550–51) — geç unlock yangın AoE.
+- Geçit tutma: **Persian Gate 330** (Ariobarzanes) — “Pers Thermopylae”.
+
+**Oyunda Nasıl Kullanılır:** Gate of All Nations = ana giriş/boss kapısı. Lamassu/boğa = kapı upgrade totemleri. Kerpiç sur = yüksek HP ama yangına açık; taş teras = pahalı dirençli. Ahameniş çağı AoE = ok; nafta = Sasani tech.
 
 ---
 
-## 4. CİTADELLER (*arg*), KERPİÇ vs TAŞ, İRAN PLATOSU GELENEĞİ
+## 4. SAVUNMA TARAFI: BİRİM, SİLAH VE TAKTİKLER
 
-### 4.1 Terimler
-- Farsça **arg / ark** = citadel (Diodorus’un *arka*’sıyla aynı kök fikri).
-- Achaemenid “şehir” çoğu zaman: ova yerleşimi + yüksek **teras/citadel** (Persepolis, Susa Akropolis, Sardis acropolis).
+### 4.1 Çekirdek piyade (Ahameniş)
 
-### 4.2 Malzeme gerçeği
-| Malzeme | Tipik kullanım | Avantaj | Zayıf yan |
+| Birim | Silah / ekipman | Tarihsel kök | Not |
 |---|---|---|---|
-| **Kerpiç (mudbrick)** | Sur gövdesi, saray duvarları | Hızlı, ucuz, kalın duvar | Erozyon, yağmur, yangın sonrası çökme |
-| **Taş** | Teras cephesi, sütun, kapı, platform | Dayanıklılık, prestij | Pahalı, yavaş |
-| **Pişmiş tuğla + bitüm** | Babil / Median Wall | Su yalıtımı | Mezopotamya’ya özgü |
-| **Ahşap** | Çatı, sütun gövdesi (bazı binalar) | Geniş açıklık | Yangına çok açık (Persepolis 330) |
+| **Sparabara** (modern terim) | Uzun hasır-deri *spara* (*γέρρα*), yay, kısa mızrak, *akinakēs* | Hdt. 7.61; Plataea 9.61–63 | Pavise duvarı + arkadan ok; duvar kırılınca zayıf |
+| **Takabara** (modern terim) | Hilal / hafif kalkan, mızrak/cirit | Geç 5.–4. yy ikonografi | Mobil flanker; kanıt daha zayıf |
+| **Kardakes** | Geç dönemde hoplit-benzeri / peltast okumaları var | Issus (Arrian) | Geç “reform” piyadesi; kimlik tartışmalı |
+| **Immortals** (*Athánatoi*) | Seçme Pers piyadesi; altın/gümüş dipçikli mızrak geleneği | Hdt. 7.83, 7.41 | 10.000; ölünce doldurulur — **yalnızca Yunan adı**; İran adı çözülmedi |
+| **Apple-bearers** (*μηλοφόροι*) | Elma/nar biçimli mızrak dipçiği | Hdt. 7.41; İskender tarihçileri | Muhtemel iç muhafız; Immortals’tan ayrı katman olabilir |
 
-### 4.3 Median / demir çağı plato kaleleri
-- **Tepe Nush-i Jan:** çok katlı depo-kale, sütunlu salon (“apadana” lakabı), su tüneli, olası ateş tapınağı; 8.–6. yy MÖ; kerpiç.
-- **Godin Tepe Period II:** ~120–133 × 50–55 m; ~3 m kalın sur, ok yuvaları; sütunlu salonlar (5×6); yerel şef “sarayı”; ~750/700–?500 MÖ.
-- **Uyarı (akademik):** “Median fort” kategorisi homojen bir imparatorluk mimarisi **değildir**; Zagros–plato demir çağı yerel pratikleri + Urartu/Assur baskısı bağlamı (Boucharlat vb.).
+### 4.2 Okçuluk doktrini — Pers’in imza yöntemi
+1. Toplu okla yumuşat / sabitle.
+2. Pavise duvarını tut.
+3. Süvari kanatlardan işlesin.
+4. Yakın dövüşe mümkünse avantajlı şartta gir.
 
-### 4.4 Sardis acropolis (Pers satraplık merkezi)
-- Doğal uçurum; efsane: Kral Meles aslanı dolaştırır, bir noktayı unutur → Cyrus’un adamları oradan tırmanır (Herodotus 1.84).
-- Alexander zamanında **üçlü sur**; Mithrines teslim eder (334) — kuşatma yok.
-- Lydian alt şehir suru: ~1970’lerden beri kazılan güçlü kerpiç/taş hat.
+**En iyi:** açık yaklaşım, kuşatma, kalkanı zayıf düşman.  
+**En kötü:** dar geçit + kırılmamış mızrak duvarı (Thermopylae cephesi, Plataea finali).
 
-### 4.5 Bam ve sonraki *arg* geleneği
-- Ortaçağ–erken modern İran’da mudbrick *arg* (Bam) uzun süre devam eder — Achaemenid’e doğrudan kanıt değil; **malzeme sürekliliği** notu.
-
-**Oyunda:** “Kerpiç kalın sur = HP yüksek ama yangın/zayıflatıcıya açık”; “taş teras = pahalı, yangına dirençli”. Plato kalesi haritaları = Nush-i Jan tipi dar tepe.
-
----
-
-## 5. SURLARDAN SAVUNMA TAKTİKLERİ
-
-### 5.1 Okçuluk (en güçlü Achaemenid kanıt)
-- Persepolis istihkâmında **spearhead biçimli ok yuvaları** + kuleler arası koridor: “archers to defend the wall” (Iranica).
-- Ordu: yay / ok Achaemenid savaşının omurgası; Herodotus’ta Pers okçu imgesi; Susa sırlı tuğla **Immortals / okçu** frizleri.
-- Sasanian kuşatmalarda da ok yağmuru + hareketli kulelerden atış (Farrokh derlemesi).
-
-### 5.2 Kaynar madde / yangın — **dürüstlük şart**
-| Uygulama | Dönem / yer | Kanıt gücü |
+### 4.3 Süvari ve özel birimler
+| Birim | Rol | Kaynak |
 |---|---|---|
-| Kaynar yağ (popüler TD klişesi) | Genel Yakındoğu / ortaçağ | **Achaemenid için doğrudan kanıt yok**; pahalı olduğu için nadir |
-| Kaynar su / sıcak kum / zift | Antik genel | Mantıken mümkün; spesifik Pers metni zayıf |
-| Yanan ok / zift | Assur (Lachish 701) ve sonrası | Bölgesel gelenek |
-| Nafta + kükürt + zift kapları | **Sasanian** Petra 550–551 (Procopius geleneği) | Güçlü geç dönem |
-| Dura-Europos 256 CE | Sasanian–Roma; tünelde olası gaz/kimyasal | Arkeolojik tartışma (James vb.) |
+| Pers / Med süvari | Kanat, takip, cirit (*palta*) | Hdt.; Xenophon |
+| **Sakā** (İskit) atlı okçu | Hit-and-run; *sagaris* balta | Hdt. 7.64 |
+| **Sagartialı kementli** | Kementle sürükleme | Hdt. 7.85 — kıyı köşe altın |
+| Deve birliği | At ürkütme (Kyros–Croesus) | Hdt. 1.80 |
+| Orak arabalar (*drepanephoros*) | Saf bozucu cam top | Cunaxa; Gaugamela |
+| Nisaean atları | Elit cins | Klasik gelenek |
 
-**Oyunda:** Achaemenid çağında ana savunma = **ok + mızrak + kapı muhafızı**. “Kaynar yağ”ı Sasanian/nafta upgrade’i yap; Achaemenid’e zorlama.
+### 4.4 Ondalık komuta
+- 10 / 100 / 1.000 / 10.000 (*daθapati → hazārapati → baivarapati* — terimler kısmen rekonstrüksiyon).
+- Chiliarch (*hazārapatiš*): bin kişilik muhafız komutanı; “sadrazam” abartısı modern abartıdır.
+- Satraplar eyalet birliklerini kaldırır; tebaa kendi silahıyla gelir.
 
-### 5.3 Su savunmaları
-- Persepolis: dağdan gelen sel → doğu hendek/kanal → ova; 26 m derin kaya kuyu (4,7 × 4,7 m).
-- Babil: hendek + nehir kolları; Herodotus’un “nehri saptırıp girdi” anlatısı ** Pers saldırısı için** — savunma değil, saldırı mühendisliği.
-- Sasanian: Nisibis kuşatmalarında suyun silahlaştırılması (metinsel).
-- Gur: 35 m hendek.
-- **Qanat:** doğrudan “hendek silahı” değil; şehir/bahçe yaşam hattı — kesilirse kuşatma baskısı (Roma su kemeri paraleli).
+### 4.5 Herodotos katalogundan egzotik savunma/saha birimleri
+Assur demir çivili topuz; Hint pamuklu okçu; Etiyopya taş uçlu ok + boyalı vücut; Libyalı yanık odun cirit; Lidyalı neredeyse-hoplit; Pisidialı boynuzlu miğfer; Trak peltast vibe…
 
----
-
-## 6. KRAL YOLU VE QANAT — STRATEJİK ALTYAPI
-
-### 6.1 Royal Road (Darius I düzenlemesi)
-- Herodotus: Susa ↔ Sardis hattı; yaya ~90 gün; ulak (*pirradaziš* / *angareion*) at değişimiyle ~9 gün.
-- Uzunluk: modern özetler ~2.400–2.700 km arası (**kaynaklara göre değişir**).
-- ~111 post istasyonu (Herodotus).
-- Batı kesimler Assur yollarının üzerine binmiş olabilir.
-- Persepolis–Susa arası ayrıca yoğun kraliyet trafiği; Qaleh Kali gibi olası “lüks” menzil istasyonu adayları.
-
-**Oyunda:** Haritalar arası hızlı travel / reinforcement lane. Ulak = “global cooldown azaltma”. Yol kesilirse eyalet buff’ı düşer.
-
-### 6.2 Qanat
-- Yeraltı tüneliyle akifer → kurak ova; dar (~1,5 × 0,75 m), derin (tipik ~30 m, rekor ~60 m?), uzun (İran’da onlarca km iddiaları).
-- Eğim kritik: fazla dik → oyulma; az dik → durgunluk.
-- Yayılım: Achaemenid çağında İran’dan doğuya (Parthia, Bactria…) ve sonra Akdeniz’e.
-- **Belirsizlik:** Tam olarak “Pers icadı mı yoksa daha eski İran/Urartu pratiği mi” tartışılır; Achaemenid yayılımı ise güçlü.
-
-**Oyunda:** Roma aqueduct / Babil bahçe suyu paraleli. Qanat düğümleri = heal/ekonomi yapıları; düşman “qanat zehirleme/kesme” özel saldırısı.
+**Oyunda Nasıl Kullanılır (Defans):**
+- **Tier 1:** Hafif okçu platformu.
+- **Tier 2:** Sparabara pavise duvarı (duvar HP’si bitince çöker).
+- **Tier 3:** Sakā atlı okçu.
+- **Tier 4:** Immortals (regen elit) / apple-bearer (kral aura).
+- **Tier 5:** Orak araba (yüksek risk AoE).
+- **Özel:** Sagartialı kement (crowd control); deve anti-süvari aura; Gate lamassu stun.
+- **Geç unlock:** Kardakes anti-hoplit; Part cataphract; Sasani nafta.
 
 ---
 
-## 7. ÜNLÜ KUŞATMALAR VE ŞEHİR DÜŞMELERİ
+## 5. SALDIRI TARAFI: KUŞATMA BİRİMLERİ VE TAKTİKLER
 
-### 7.1 Perslerin fethettiği / kuşattığı
+Pers hem kuşatan hem kuşatılan oldu. Kampanya çift yönlü kurulabilir.
 
-| Olay | Tarih | Ne oldu | Kaynak / tartışma |
+### 5.1 Pers offense (Yakındoğu mirası)
+- Rampa, koç başı, lağım, kuşatma kulesi, çok noktalı baskı (Assur’dan gelen toolkit).
+- Abluka + müzakere tercihi (siyasi çöküş ucuz zafer getirir).
+- Mühendis tebaa: Fenike, Mısır, Babil.
+
+### 5.2 Babil 539 — iki anlatı (Kyros)
+| Katman | İçerik |
+|---|---|
+| **Tarihsel (Nabonidus Chronicle)** | Opis’te savaş + katliam → Sippar savaşsız → Ugbaru Babil’e savaşsız girer |
+| **Efsane (Herodotos 1.191)** | Fırat’ı saptırıp nehir yatağından sızma + festival gecesi |
+
+**Oyunda:** (A) tarihsel Opis→kapı açılır dalgası; (B) “Euphrates Drain” efsane ultimate — etiketle.
+
+### 5.3 Diğer Pers fetihleri / savunmaları
+| Olay | Tip | Oyun kancası |
+|---|---|---|
+| Sardis (~547) | Pers saldırır | ~14 gün; “unutulan sur noktası” tırmanışı |
+| Thermopylae 480 | Pers saldırır | Choke + ihanet yolu |
+| Salamis 480 | Deniz | Dar boğaz sayı debuff |
+| Plataea 479 | Pers savunur/saha | Pavise kırılınca çöküş |
+| Tyre / Gaza 332 | Pers-era kale, Makedon kuşatır | Ada mendirek; ağır kuşatma |
+| **Persian Gate 330** | Pers savunur | Ariobarzanes ~1 ay; rehberle çevirme |
+| Persepolis 330 | Yağma | Ana kule fail state |
+| **Carrhae 53** | Part saldırır | Kiting + deve ok ikmali + cataphract |
+| Petra 550–51 | Sasani savunur | Nafta kapları; self-risk yangın |
+
+### 5.4 Klasik dalga sırası (Asur–Pers–Makedon)
+1. Çevirme / abluka  
+2. Ok-mermi temizliği  
+3. Rampa / hendek doldurma  
+4. Koç + kule  
+5. Lağım  
+6. Gedik + piyade  
+7. (Sasani) nafta / fil  
+
+### 5.5 Düşman medeniyetleri (Pers savunan kampanya)
+| Düşman | İmza tehdit |
+|---|---|
+| Lidya | Ağır süvari (deve counter) |
+| Babil | Kalın sur + hendek |
+| Yunan şehirleri | Hoplit rush; donanma |
+| Makedon / İskender | Sarissa + Companion; kuşatma topçusu |
+| Roma (Part/Sasani çağı) | Lejyon testi — Carrhae’de kırılır |
+| Arap-Müslüman (geç) | Mobilite; tükenmiş Sasani |
+
+**Oyunda Nasıl Kullanılır (Ofans):** Erken Lidya/Babil; orta Yunan hoplit + donanma; geç İskender full siege; twist = Persian Gate / kapı ihaneti; Part DLC = Carrhae kiting; Sasani = nafta+fil.
+
+---
+
+## 6. TARİH BOYUNCA PERS’İN KADERİ — SEVİYE / DALGA KRONOLOJİSİ
+
+| Dönem | Olay | Taraf | Oyunlaştırma |
 |---|---|---|---|
-| **Ecbatana** | ~550 | Cyrus, Astyages’i yener; Med başkenti alınır | Chronicle + Herodotus |
-| **Sardis** | ~547/546? | Thymbra sonrası ~14 gün; Herodotus: unutulan sur noktası + tırmanma | Tarih yılı Nabonidus Chronicle’da tartışmalı |
-| **Babil** | 539 | Opis zaferi → Sippar → Babil; Cylinder “savaşsız”, Yunan kaynaklar kuşatma | **Çelişkili gelenekler** |
-| Ionia / Yunan şehirleri | 6.–5. yy | Çeşitli | Herodotus |
-| (Pers’in başarısızları) | 490–479 | Marathon, Salamis, Plataea — bu dokümanın “savunma” odaklı ters yüzü | |
+| 612 MÖ | Ninova düşer | Med + Babil | Prolog |
+| ~550 | Kyros Astyages’i yener | Pers | Kuruluş |
+| ~547 | Lidya / Sardis | Pers saldırır | Deve stratagemi |
+| **539** | Opis → Babil | Pers | Kuruluş zirvesi |
+| 525 | Mısır (Cambyses) | Pers | Genişleme |
+| **522** | Gaumata/Bardiya → Darius | İç kriz | Çok cepheli isyan haritası |
+| 522–486 | Darius reformları | — | **Altın çağ / inşa** |
+| 490 | Marathon | Pers yenilir | Çevresel dent |
+| 480–479 | Thermopylae–Salamis–Plataea | Pers | Kaynak zirvesi / Avrupa freni |
+| 401 | Cunaxa | İç savaş | Kahraman ölünce fail |
+| ~366–360 | Satrap isyanları | — | Zayıflık seviyesi |
+| 343 | Artaxerxes III Mısır’ı geri alır | Pers | Geç toparlanma |
+| 334–331 | Granicus–Issus–Gaugamela | Makedon | Terminal çöküş dalgaları |
+| **330** | Persian Gate; Persepolis yanar | Makedon | Final savunma / lose |
+| ~247 | Part yükselişi | — | Yeni çağ |
+| **53** | Carrhae | Part | Süvari boss zaferi |
+| 224 | Sasani kuruluşu | — | Ērānšahr |
+| 260 | Shapur I Valerian’ı esir alır | Sasani | “Capture Emperor” |
+| 531–579 | Khosrow I | — | Reform zirvesi |
+| 602–628 | Khosrow II yükseliş→çöküş | — | Aşırı yayılma riski |
+| ~636 / 642 | Qādisiyyah / Nahavand | Arap | Epilog |
+| 651 | Yazdegerd III ölür | — | Son |
 
-### 7.2 Pers yerlerinin / Pers-era yerlerin düşüşü (Alexander ve sonrası)
+### Güç / zayıf özeti
+- **En güçlü kurumsal:** Darius I (yol, tablet, satrapi, daric).
+- **En güçlü kaynak:** Kserkses (kitle + donanma; taktik zirve değil).
+- **En zayıf:** 522 meşruiyet çatlağı; Darius III kohezyon yokluğu; 628–651 tükenme + iç savaş.
 
-| Olay | Tarih | Not |
+---
+
+## 7. MİTOLOJİK KATMAN — TANRI / SEMBOL / ÖZEL YETENEKLER
+
+**Uyarı:** Ahameniş yazıtları Mazda-merkezlidir ama tam geç Avesta kilisesi kopyası değildir. Bazı unsurlar Sasani/Pahlavi metinlerinde netleşir.
+
+| Varlık | Rol | Oyun tohumu |
 |---|---|---|
-| **Granicus** sonrası **Sardis teslimi** | 334 | Üçlü surlu acropolis savaşsız teslim (Arrian 1.17) |
-| **Halicarnassus** | 334 | Sert kuşatma |
-| **Tyre** | 332 | 7 ay; ada şehri; mendirek; **Pers-dönemi Fenike kalesi**, Achaemenid garnizon bağlamı |
-| **Gaza** | 332 | Batis’in direnişi; ağır kuşatma |
-| **Babil** | 331 | Teslim / karşılama |
-| **Susa** | 331 | Hazineyle teslim |
-| **Persepolis yağması** | 330 | Yağma + yangın; Apadāna/saraylar |
-| **Persian Gates** | 330 | Ariobarzanes’in dağ geçidi savunması — “Termopylae tersi” |
+| **Ahura Mazda** | Bilge Rab; krallık verir | İmparatorluk buff; anti-*drauga* |
+| **Angra Mainyu / Ahriman** | Yıkıcı ruh (geç teoloji) | İsyan spawner |
+| **Amesha Spentas** | 6/7 “Ölümsüz Kutsal” | Altı kule okulu (ateş, istihkâm, regen…) |
+| **Mithra** | Yemin, ışık, savaş | Oath bond; güneş flare |
+| **Anahita** | Sular, bereket, savaş | Su baskını / arınma |
+| **Verethragna (Bahram)** | Zafer; şekil değiştiren | Berserk formlar |
+| **Fravashi** | Koruyucu ruhlar | Gece nöbeti |
+| **Kutsal ateş (Atar)** | Ritüel ateş | Beacon; sönmesin lose-condition |
+| **Haoma** | Kutsal içecek | Geçici isabet buff |
+| **Magi** | Rahip sınıfı | Ritüel buff + darbe riski |
+| **Khvarenah / farr** | Kutsal kraliyet izzeti | Taç aura; kral kaçarsa kırılır |
+| **Lamassu / boğa** | Kapı koruyucuları | Kapı stun / korku alanı |
 
-### 7.3 Sasanian ek (TD zenginleştirme)
-- Amida, Nisibis, Dura-Europos, Petra (Lazica) — kuşatma mühendisliği zirvesi.
-- Derbent / Caspian Gates: Khosrow I’e atfedilen uzun duvar + Naryn-Kala; bazı kaynaklar Kavad I / Peroz’a da bağlar — **inşa süreci tartışmalı**, Sasanian çerçeve kabul görmüş.
-
-**Oyunda:** Seviye senaryoları. “Cyrus takes Babylon” = saldırı kampanyası; “Defend Persepolis 330” = savunma kampanyası finali. Tyre/Gaza = Pers-era kale ama Helenistik kuşatma teknolojisi — dikkatli etiketle.
-
----
-
-## 8. PARTHIAN / SASANIAN — KISA TD ZENGİNLEŞTİRME
-
-### 8.1 Parthian
-- Hafif istihkâm + **atlı okçu / cataphract** saha savaşı vurgusu; büyük sabit “ziggurat kulesi” az.
-- Hatra, Nisa, Ecbatana’da Parthian katmanlar.
-- Ctesiphon hattının başlangıcı.
-
-**Oyunda:** Mobil savunma birimleri; “kale yerine bozkır + karakol” haritaları.
-
-### 8.2 Sasanian
-- **Gur/Firuzabad:** dairesel şehir (§2.6).
-- **Qalʿeh Dokhtar / Ardashir sarayı:** dağ kalesi + iwan/kubbe.
-- **Taq Kasra:** taht kemeri (§1.7).
-- **Derbent:** deniz–dağ kilit hattı (~6. yy).
-- **Nafta / yangın kapları,** mayın tünelleri, hareketli kuleler, filler (Nisibis anlatıları).
-- Ateş tapınağı merkezleri (§1.6).
-
-**Oyunda:** “Empire Ages” tech tree: Median tepe kalesi → Achaemenid teras → Parthian süvari → Sasanian daire şehir + nafta.
+**Oyunda Nasıl Kullanılır:** Ahura Mazda = Marduk/Jupiter paraleli (tanrısal ultimate). *Farr* = kral-unit aura (Issus/Gaugamela’da kırılır). Immortals = “ölümsüz refill” (Ameretat teması). Ateş = Sasani lose-condition.
 
 ---
 
-## 9. BABİL / ROMA KARŞILAŞTIRMA TABLOSU (tasarım hizası)
+## 8. SU, YOL VE MÜHENDİSLİK TEMASI (Asma Bahçeler / Roma aqueduct paraleli)
 
-| Öğe | Babil | Roma | Pers (öneri) |
+### 8.1 Royal Road
+- Susa ↔ Sardis: ~111 menzil, ~2.400–2.700 km, yaya ~90 gün (Herodotos).
+- Ulak (*pirradaziš* / *angareion*): at değişimiyle ~7–9 gün.
+- Persepolis tabletleri gerçek seyahat/erzak ekonomisini belgeler.
+
+### 8.2 Qanat
+- Yeraltı tüneliyle akifer → kurak ova.
+- Ahameniş çağında yaygınlaştırma güçlü; “ilk icat” tartışmalı.
+- Kuşatmada kesilirse şehir sıkışır.
+
+### 8.3 Persepolis su sistemi
+- Dağ sellerine karşı hendek/kanal; derin kaya kuyuları.
+- Yangın söndürme / hendek doldurma / tuzak fikirleri.
+
+### 8.4 Diğer
+- Athos kanalı, Hellespont köprüleri (Kserkses sefer lojistiği).
+- Sasani dairesel şehir + 35 m hendek (Gur).
+
+**Oyunda Nasıl Kullanılır:** Royal Road istasyonu = ikmal/reinforcement. Ulak = vizyon/CD. Qanat = heal/ekonomi; düşman “qanat kes” özel saldırısı. Roma aqueduct / Babil bahçe suyu karşılığı burasıdır.
+
+---
+
+## 9. TARİHSEL FİGÜRLER — KARAKTER / KAHRAMAN FİKİRLERİ
+
+| İsim | Rol | Oyun içi potansiyel |
+|---|---|---|
+| **Cyaxares** | Ninova’yı yıkan Med | Prolog generali |
+| **Kyros II** | İmparatorluk kurucusu | Ana kurucu hero; çok-etnik levy unlock |
+| **Cambyses II** | Mısır fatihi | Genişleme; “delilik” Yunan filtresine dikkat |
+| **Bardiya / Gaumata** | Gasıp / darbe | Çift formlu boss (kimlik tartışmalı) |
+| **Darius I** | Reformcu; Behistun | Admin ultimate; yol/tablet buff |
+| **Xerxes I** | Kitle seferi | Kaynak zirvesi yüzü |
+| **Mardonius** | Plataea komutanı | Saha komutanı |
+| **Hydarnes** | Immortals komutanı | Elit birlik hero |
+| **Artaxerxes II / III** | Uzun saltanat / Mısır dönüşü | İsyanlar / toparlanma |
+| **Kyros Genç** | Cunaxa asisi | Trajik rebel hero |
+| **Memnon** | Pers’e hizmet eden Yunan stratejist | Erken anti-İskender beyni |
+| **Darius III** | Son Ahameniş | Trajik kral; *farr* kırılması |
+| **Ariobarzanes** | Persian Gate | Savunma hero |
+| **İskender** | Fatih | Ana antagonist |
+| **Surena** | Carrhae | Süvari dehası; kralı tarafından öldürülür |
+| **Shapur I** | Valerian esiri | “Capture Emperor” |
+| **Khosrow I / II** | Reform / yükseliş-çöküş | Geç çağ yüzleri |
+| **Yazdegerd III** | Son Sasani | Epilog |
+
+---
+
+## 10. HIZLI REFERANS — “NE İŞE YARAR” TABLOSU
+
+| Tarihsel öğe | Savunma mı / saldırı mı | Önerilen mekanik |
+|---|---|---|
+| Persepolis Apadāna | Savunma (ana kule) | Korunacak çekirdek; 4 köşe upgrade |
+| Ecbatana 7 renk | Savunma (mitik) | Kozmetik 7 katman |
+| Persepolis 7 fiziksel hat | Savunma | Asıl lane/katman sistemi |
+| Gate of All Nations | Savunma yapısı | Boss kapısı |
+| Lamassu / boğa | Savunma | Kapı stun |
+| Sparabara pavise | Savunma | Firebase; kırılınca çöker |
+| Immortals | Savunma | Regen elit |
+| Apple-bearers | Savunma | Kral muhafız aura |
+| Sakā atlı okçu | S/D | Hit-and-run |
+| Sagartialı kement | S/D | Crowd control |
+| Deve | Savunma/özel | Anti-süvari fright |
+| Orak araba | Saldırı | Cam top şok |
+| Kardakes | Savunma (geç) | Anti-hoplit deneyi |
+| Kyros nehir efsanesi | Saldırı özel | Twist ultimate (etiketli) |
+| Persian Gate | Savunma özel | Geçit hold seviyesi |
+| Carrhae paketi | Saldırı (Part) | Kiting + ammo deve + cataphract |
+| Nafta | Savunma (Sasani) | Yangın AoE (self-risk) |
+| Fil | S/D (Sasani) | Panic + dost ateşi riski |
+| Royal Road | Destek | İkmal / reinforcement |
+| Qanat | Destek | Heal / ekonomi |
+| Ahura Mazda / *farr* | Tanrısal | Ultimate / kral aura |
+| Persepolis yangını 330 | Lose state | Kule yanınca oyun biter |
+
+---
+
+## 11. ÖNERİLEN KULE TECH TREE (Babil / Roma listelerine denk)
+
+| Tier | Kule / yapı | Tarihsel gerekçe | Rol |
+|---|---|---|---|
+| 1 | Hafif okçu platformu | İmza Pers silahı | Ucuz DPS |
+| 2 | Sparabara pavise duvarı | Plataea doktrini | Firebase |
+| 3 | Sakā atlı okçu kulesi/birimi | İskit kontenjanı | Hit-run |
+| 4 | Immortals karargâhı | Athánatoi | Elit regen |
+| 5 | Apple-bearer muhafız | Altın dipçik muhafız | Kral aura |
+| 6 | Orak araba rampası | Cunaxa/Gaugamela | Cam top |
+| 7 | Apadāna / *farr* tahtı | Merkez kule | Ultimate / win |
+| Destek A | Royal Road istasyonu | 111 menzil | İkmal |
+| Destek B | Qanat düğümü | Su mühendisliği | Heal/ekonomi |
+| Destek C | Chapar / ulak | *pirradaziš* | Vizyon/CD |
+| Destek D | Hazine / tablet arşivi | Fortification Archive | Ekonomi tech |
+| Tuzak 1 | Hendek / drenaj | Persepolis su | Slow |
+| Tuzak 2 | Glacis eğimi | Susa | Yaklaşma cezası |
+| Kapı | Gate of All Nations + lamassu | Xerxes kapısı | Boss kapı |
+| Unlock P | Parthian shot + cataphract + deve ammo | Carrhae | Süvari çağ |
+| Unlock S | Nafta kulesi + fil + ateş tapınağı | Petra / Sasani | Yangın & panic |
+
+---
+
+## 12. BABİL / ROMA DOKÜMANLARIYLA KARŞILAŞTIRMALI EŞLEME
+
+| Öğe | Babil | Roma | Pers |
 |---|---|---|---|
 | Merkez kutsal yapı | Etemenanki | Capitolium / Jupiter | **Persepolis Apadāna** |
-| 7 katman | Ziggurat katları | Castrum + Alesia tuzakları | **Ecbatana renkleri (metin) + Persepolis fiziksel katmanlar (arkeoloji)** |
+| 7 katman | Ziggurat katları | Castrum + Alesia tuzakları | **Ecbatana renkleri + Persepolis fiziksel hatlar** |
 | İkonik kapı | İştar | Porta Appia | **Gate of All Nations** |
 | Su mühendisliği | Kanallar / bahçeler | Aqueduct | **Qanat + teras drenaj** |
 | Yol | — | Viae | **Royal Road** |
-| Sur malzemesi | Tuğla+bitüm | Tuf / tuğla-beton | **Kerpiç + taş teras** |
-| Seçkin birim | — | Praetorian | **Immortals (amṛtaka?)** — isim Yunanca; Farsça karşılık tartışmalı |
-| Yangın silahı | — | — | Achaemenid: zayıf; **Sasanian nafta** |
+| Sur malzemesi | Tuğla + bitüm | Tuf / tuğla-beton | **Kerpiç + taş teras** |
+| Seçkin birim | Quruburi vb. | Praetorian | **Immortals + apple-bearers** |
+| Yangın AoE | Kaynar yağ | Zift/yağ | **Sasani nafta** (Ahameniş’e yapıştırma) |
+| Twist sızma | Kyros nehir | Alaric kapı ihaneti | **Persian Gate çevirme / efsane nehir kartı** |
+| Mitik koruyucu | Mušḫuššu | Aquila / Lupa | **Lamassu + *farr*** |
+| Final düşüş | İskender ziggurat | 410 / 455 | **330 Persepolis yangını / 651** |
 
 ---
 
-## 10. KAYNAKÇA (seçme; doğrulama için)
+## 13. KAYNAKÇA (Ana hatlar)
 
-### Ansiklopedik / kazı
-- *Encyclopaedia Iranica*: Persepolis; Apadāna; Susa iii; Ecbatana; Cyrus v (tomb); Ātaškada; Čahārṭāq; Babylonia i.
-- E. F. Schmidt, *Persepolis* I–III (Oriental Institute).
-- J. Perrot (ed.), Susa Achaemenid excavations.
-- D. Stronach, Pasargadae; Nush-i Jan (Stronach & Roaf).
-- UNESCO WHC nomination, Pasargadae (1106).
-
-### Antik metinler
-- Herodotus 1.84 (Sardis), 1.98–99 (Ecbatana), 1.188–91 (Babil), 5.52–54 (Royal Road), 8.98 (ulaklar).
-- Xenophon, *Anabasis* (Median Wall; Cyropaedia Babil anlatısı ayrı gelenek).
-- Diodorus 17.71 (Persepolis surları / yağma).
-- Arrian, *Anabasis* (Sardis teslimi; Cyrus mezarı; Tyre/Gaza).
-- Cyrus Cylinder; Nabonidus Chronicle.
-- Strabo 15.3 (Susa; mezarı).
-- Polybius 10.27 (Ecbatana sarayı).
-
-### Modern tartışmalar / uyarılar
-- Persepolis’in “başkent” vs “tören kompleksi” statüsü.
-- Ecbatana 7 surunun arkeolojik yokluğu.
-- Susa “büyük kale” eski rekonstrüksiyonlarının reddi (Iranica/Perrot).
-- Babil 539’un “savaşsız” vs “kuşatma” çelişkisi.
-- “Median mimari paketi”nin aşırı genellenmesi.
-- Kaynar yağın Achaemenid’e yapıştırılması (anakronizm riski).
-- Derbent’in tek krala atfı.
+- **Birincil:** Behistun Yazıtı (DB); Nabonidus Chronicle; Cyrus Cylinder; Persepolis Fortification & Treasury tablets; Herodotos (*Histories*); Ksenophon (*Anabasis*); Arrian (*Anabasis*); Diodorus 17; Plutarch (*Alexander*, *Crassus*); Shapur I ŠKZ; Procopius (Petra)
+- **Ansiklopedik / kazı:** *Encyclopaedia Iranica* (Persepolis, Immortals, Army i, Ecbatana, Susa, Apadāna); E. F. Schmidt, *Persepolis*; Perrot (Susa); Stronach (Pasargadae)
+- **Modern sentez:** Pierre Briant, *From Cyrus to Alexander*; Michael B. Charles (Immortals / kardakes makaleleri); Rüdiger Schmitt; Nicholas Sekunda (rekonstrüksiyon — temkinli kullan); Amélie Kuhrt sourcebooks
+- **Uyarılar:** Ordu sayıları retorik; Immortals’ın İran adı bilinmiyor; Ecbatana 7 sur arkeolojik değil; Babil 539 nehir saptırması efsane katmanında; kaynar yağ Ahameniş varsayılanı değil
 
 ---
 
-## 11. OYUN TASARIM ÖZETİ (yalnızca not; karar senin)
-
-1. **Merkez:** Persepolis Apadāna (Taht / New Year salonu). Fail state = 330 yangını.
-2. **7 katman:** Fiziksel Persepolis katmanları (§2.2) ana; Ecbatana renk skin’i kozmetik/mitik paralel.
-3. **Kapı:** Gate of All Nations + lamassu/boğa.
-4. **Birimler:** Okçu (sur), Immortals (elit), sparabara (kalkan duvarı), atlı okçu (Parthian unlock), cataphract/nafta (Sasanian unlock).
-5. **Altyapi:** Royal Road (global), Qanat (ekonomi/heal).
-6. **Harita pack:** Persepolis (ana), Susa, Pasargadae, Sardis acropolis, Babylon-under-Persia, Gur dairesi (geç).
-7. **Senaryolar:** Defend the Apadāna (330); Hold the Persian Gates; Fall of Babylon (tersine oynanabilir); Siege of Sardis (Cyrus saldırır — saldırı modu).
-
----
-
-*Son güncelleme: 2026-08-12. Belirsizlikler bilinçli bırakılmıştır; yeni kazı raporlarıyla Ecbatana ve Susa bölümleri öncelikli revize edilmelidir.*
+*Bu doküman, Babil ve Roma TD araştırmalarıyla aynı “tarihsel doğruluk iskeleti”ni Eski Pers için kurmak üzere hazırlandı. Daha akademik / kaynak-etiketli derin versiyon için bkz. `PERS-IMPARATORLUGU-TOWER-DEFENCE-MASTER-ARASTIRMA.md`. İstersen sonraki adımda unit stats, tech tree sayıları ve wave composition içeren bir GDD’ye çevrilebilir.*
