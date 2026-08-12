@@ -33,7 +33,7 @@
 | Askeri keep | **Becán** kuru hendek + parapet + **7 geçit** | Geçit kopmaları + göl kontrolü + kano |
 | 7 katman | Bajo → earthwork → Becán hendek → sur → bileşik → piramit | Göl → köprü boşlukları → geçit kapıları → mahalle/kanal → kutsal platform → ikiz zirve |
 | İmza birim | Mızrak/atlatl; *ajaw* esir ekonomisi (*baak*) | Jaguar/Kartal; *macuahuitl*; esir merdiveni (Mendoza) |
-| Twist | “Star war” / vassal ağları; Terminal Classic sistem çöküşü | 1521: brigantin + müttefik yerli + su kesme + çiçek |
+| Twist | “Star war” / vassal ağları; Terminal Classic sistem çöküşü | 1521: brigantin + müttefik yerli + su kesme + **çiçek hastalığı** (smallpox) |
 | Mitoloji | Chaak, K’inich Ajaw, Hero Twins, Wayob — **ayrı panteon** | Huitzilopochtli, Tlaloc, Tezcatlipoca, Quetzalcoatl — **ayrı panteon** |
 | Metin sesi | **EPIG** zengin | **SPN** + pictorial **ATT** zengin |
 
