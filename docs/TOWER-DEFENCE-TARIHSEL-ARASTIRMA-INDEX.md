@@ -50,6 +50,7 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 ### Avrupa / İngiliz–Fransız–Haçlı kaleleri (~1000–1500)
 - [`EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md`](./EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md) — Knights/MAA, crossbow, longbow, siege vs garrison
 - [`EUROPEAN-CASTLES-AND-FORTIFICATIONS.md`](./EUROPEAN-CASTLES-AND-FORTIFICATIONS.md) — Motte → donjon → concentric; Krak / Beaumaris dual keep; 7-layer stack
+- [`EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md) — chronology / mythology–ideology (Norman → Crusades → Capetian/Plantagenet → Edwardian Wales → HYW → Roses light)
 
 ### Moğol
 - [`MONGOL-MILITARY-UNITS-AND-TACTICS.md`](./MONGOL-MILITARY-UNITS-AND-TACTICS.md) — Decimal cavalry; siege learning curve; Japan naval limits
