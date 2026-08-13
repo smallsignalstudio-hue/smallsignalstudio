@@ -1,12 +1,12 @@
 # Tower Defence — Tarihsel Araştırma Paketi (Tek Bundle)
 
-Bu branch, ayrı PR’larda üretilen tüm medeniyet araştırmalarını **tek yerde** toplar.
+Bu branch, tüm medeniyet / faction araştırmalarını **tek yerde** toplar.
 
-Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch: `cursor/tower-defence-historical-research-bundle-2959`.
+Kaynak branch: `cursor/tower-defence-historical-research-bundle-2959`.
 
 ## Türkçe master raporlar (oyun incili)
 
-| Medeniyet | Dosya | Not |
+| Medeniyet / Faction | Dosya | Not |
 |---|---|---|
 | Roma | [`ROMAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./ROMAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Capitolium / sur stack |
 | Pers (Achaemenid) | [`PERSIAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./PERSIAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Türkçe özet |
@@ -16,7 +16,9 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 | Maya–Mexica | [`MAYA-AZTEC-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./MAYA-AZTEC-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Çift medeniyet; Maya ≠ Aztek |
 | Viking / Norse | [`VIKING-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./VIKING-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Ringfort + Jelling |
 | Antik Yunan | [`ANCIENT-GREEK-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./ANCIENT-GREEK-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Polis ≠ tek krallık; Akropolis + Long Walls |
-| Avrupa kalesi (~1000–1500) | [`EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Beaumaris + Krak çift keep; eşmerkezli 7-katman; yağ FOLK; plate age-gate |
+| **Japonya** | [`JAPANESE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./JAPANESE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Himeji ~46,4 m; masugata; ashigaru/teppō |
+| **Moğol** | [`MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Ordu/Karakorum + Dadu ~28,6 km; saldırgan specialty |
+| **Avrupa Kalesi** | [`EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Beaumaris / Krak; konsantrik 7 katman |
 
 ## İngilizce eşlikçi brief’ler
 
@@ -48,21 +50,20 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 - [`ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md`](./ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md)
 - [`ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md`](./ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md)
 
-### Avrupa / İngiliz–Fransız–Haçlı kaleleri (~1000–1500)
-- [`EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md`](./EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md) — Knights/MAA, crossbow, longbow, siege vs garrison
-- [`EUROPEAN-CASTLES-AND-FORTIFICATIONS.md`](./EUROPEAN-CASTLES-AND-FORTIFICATIONS.md) — Motte → donjon → concentric; Krak / Beaumaris dual keep; 7-layer stack
-- [`EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md) — chronology / mythology–ideology (Norman → Crusades → Capetian/Plantagenet → Edwardian Wales → HYW → Roses light)
+### Japonya
+- [`JAPANESE-MILITARY-UNITS-AND-TACTICS.md`](./JAPANESE-MILITARY-UNITS-AND-TACTICS.md)
+- [`JAPANESE-CASTLES-AND-FORTIFICATIONS.md`](./JAPANESE-CASTLES-AND-FORTIFICATIONS.md)
+- [`JAPANESE-TOWER-DEFENCE-RESEARCH.md`](./JAPANESE-TOWER-DEFENCE-RESEARCH.md)
 
 ### Moğol
-- [`MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) — **Türkçe master** (çift keep Ordu/Karakorum + Dadu ~28,6 km; saldırgan specialty; ondalık; *huihui pao*; Japonya fail; Tengri dikkatli)
-- [`MONGOL-MILITARY-UNITS-AND-TACTICS.md`](./MONGOL-MILITARY-UNITS-AND-TACTICS.md) — Decimal cavalry; siege learning curve; Japan naval limits
-- [`MONGOL-FORTIFICATIONS-AND-CAMPS.md`](./MONGOL-FORTIFICATIONS-AND-CAMPS.md) — Ordu/Karakorum brand + Yuan Dadu military keep; siege-camp reverse maps
-- [`MONGOL-TOWER-DEFENCE-RESEARCH.md`](./MONGOL-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; peaks, weaknesses, campaign acts
+- [`MONGOL-MILITARY-UNITS-AND-TACTICS.md`](./MONGOL-MILITARY-UNITS-AND-TACTICS.md)
+- [`MONGOL-FORTIFICATIONS-AND-CAMPS.md`](./MONGOL-FORTIFICATIONS-AND-CAMPS.md)
+- [`MONGOL-TOWER-DEFENCE-RESEARCH.md`](./MONGOL-TOWER-DEFENCE-RESEARCH.md)
 
-### Japonya
-- [`JAPANESE-TOWER-DEFENCE-RESEARCH.md`](./JAPANESE-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; Kofun→Edo; peaks, weaknesses, campaign acts
-- [`JAPANESE-MILITARY-UNITS-AND-TACTICS.md`](./JAPANESE-MILITARY-UNITS-AND-TACTICS.md) — Periodised bushi/ashigaru/teppō; Nagashino debates; shinobi FOLK vs espionage
-- [`JAPANESE-CASTLES-AND-FORTIFICATIONS.md`](./JAPANESE-CASTLES-AND-FORTIFICATIONS.md) — Himeji brand keep (~46.4 m); masugata/umadashi; 7-layer bailey stack
+### Avrupa Kalesi (~1000–1500)
+- [`EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md`](./EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md)
+- [`EUROPEAN-CASTLES-AND-FORTIFICATIONS.md`](./EUROPEAN-CASTLES-AND-FORTIFICATIONS.md)
+- [`EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md)
 
 ## Ortak tasarım kuralı
 Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
