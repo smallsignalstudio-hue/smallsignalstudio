@@ -124,7 +124,7 @@ Kubilay’ın başkenti **Dadu** (大都; Moğolca/Türkçe **Hanbalık** “Han
 | Batı | **7.600 m** |
 | Kuzey | **6.730 m** |
 | Doğu | **7.590 m** |
-| **Toplam çevre** | **28.600 m (**~28,6 km**)** |
+| **Toplam çevre** | **28.600 m (~28,6 km)** |
 | Plan | K–G uzamış dikdörtgen |
 
 #### Sur kesiti (tip-section)
@@ -426,7 +426,7 @@ Kanıtlı hizalı: arban ölçeği nöbet; kamp içi remount; araba/engel soft w
 
 ---
 
-## 7. MİTOLOJİ / İDEOLOJİ — TENGİRİ DİKKATLİ
+## 7. MİTOLOJİ / İDEOLOJİ — TENGRİ DİKKATLİ
 
 > Modern neo-Tengrizm, pan-Türkî revival estetığı veya film şaman gösterisini 13. yy. Moğol sarayına varsayılan dogma olarak yapıştırma.  
 > Ayrı tut: **ortaçağ pratikleri & retoriği** (Tengri / Gök vekâleti dili, ata kültü, şaman uzmanları, dağ/ongon — SHM ve gözlemciler) vs **FOLK** rekonstrüksiyonlar.  
