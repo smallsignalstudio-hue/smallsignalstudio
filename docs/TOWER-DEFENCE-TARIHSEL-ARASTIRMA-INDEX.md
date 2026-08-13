@@ -47,7 +47,8 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 - [`ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md`](./ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md)
 - [`ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md`](./ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md)
 
-### Avrupa / İngiliz–Fransız–Haçlı kaleleri
+### Avrupa / İngiliz–Fransız–Haçlı kaleleri (~1000–1500)
+- [`EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md`](./EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md) — Knights/MAA, crossbow, longbow, siege vs garrison
 - [`EUROPEAN-CASTLES-AND-FORTIFICATIONS.md`](./EUROPEAN-CASTLES-AND-FORTIFICATIONS.md) — Motte → donjon → concentric; Krak / Beaumaris dual keep; 7-layer stack
 
 ### Moğol
