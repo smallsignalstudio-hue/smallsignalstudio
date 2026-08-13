@@ -57,5 +57,9 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 - [`MONGOL-FORTIFICATIONS-AND-CAMPS.md`](./MONGOL-FORTIFICATIONS-AND-CAMPS.md) — Ordu/Karakorum brand + Yuan Dadu military keep; siege-camp reverse maps
 - [`MONGOL-TOWER-DEFENCE-RESEARCH.md`](./MONGOL-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; peaks, weaknesses, campaign acts
 
+### Japonya
+- [`JAPANESE-MILITARY-UNITS-AND-TACTICS.md`](./JAPANESE-MILITARY-UNITS-AND-TACTICS.md) — Periodised bushi/ashigaru/teppō; Nagashino debates; shinobi FOLK vs espionage
+- [`JAPANESE-CASTLES-AND-FORTIFICATIONS.md`](./JAPANESE-CASTLES-AND-FORTIFICATIONS.md) — (if present) yamajiro → Azuchi–Momoyama baileys
+
 ## Ortak tasarım kuralı
 Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
