@@ -54,6 +54,7 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 ### Moğol
 - [`MONGOL-MILITARY-UNITS-AND-TACTICS.md`](./MONGOL-MILITARY-UNITS-AND-TACTICS.md) — Decimal cavalry; siege learning curve; Japan naval limits
 - [`MONGOL-FORTIFICATIONS-AND-CAMPS.md`](./MONGOL-FORTIFICATIONS-AND-CAMPS.md) — Ordu/Karakorum brand + Yuan Dadu military keep; siege-camp reverse maps
+- [`MONGOL-TOWER-DEFENCE-RESEARCH.md`](./MONGOL-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; peaks, weaknesses, campaign acts
 
 ## Ortak tasarım kuralı
 Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
