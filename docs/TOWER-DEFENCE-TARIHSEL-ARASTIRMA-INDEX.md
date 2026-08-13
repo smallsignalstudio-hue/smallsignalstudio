@@ -47,5 +47,8 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 - [`ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md`](./ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md)
 - [`ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md`](./ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md)
 
+### Avrupa / İngiliz–Fransız–Haçlı kaleleri
+- [`EUROPEAN-CASTLES-AND-FORTIFICATIONS.md`](./EUROPEAN-CASTLES-AND-FORTIFICATIONS.md) — Motte → donjon → concentric; Krak / Beaumaris dual keep; 7-layer stack
+
 ## Ortak tasarım kuralı
 Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
