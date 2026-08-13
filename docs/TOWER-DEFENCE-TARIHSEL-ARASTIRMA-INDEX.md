@@ -60,7 +60,7 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 ### Japonya
 - [`JAPANESE-TOWER-DEFENCE-RESEARCH.md`](./JAPANESE-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; Kofun→Edo; peaks, weaknesses, campaign acts
 - [`JAPANESE-MILITARY-UNITS-AND-TACTICS.md`](./JAPANESE-MILITARY-UNITS-AND-TACTICS.md) — Periodised bushi/ashigaru/teppō; Nagashino debates; shinobi FOLK vs espionage
-- [`JAPANESE-CASTLES-AND-FORTIFICATIONS.md`](./JAPANESE-CASTLES-AND-FORTIFICATIONS.md) — (if present) yamajiro → Azuchi–Momoyama baileys
+- [`JAPANESE-CASTLES-AND-FORTIFICATIONS.md`](./JAPANESE-CASTLES-AND-FORTIFICATIONS.md) — Himeji brand keep (~46.4 m); masugata/umadashi; 7-layer bailey stack
 
 ## Ortak tasarım kuralı
 Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
