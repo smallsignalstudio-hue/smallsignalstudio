@@ -53,6 +53,7 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 - [`EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md) — chronology / mythology–ideology (Norman → Crusades → Capetian/Plantagenet → Edwardian Wales → HYW → Roses light)
 
 ### Moğol
+- [`MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) — **Türkçe master** (çift keep Ordu/Karakorum + Dadu ~28,6 km; saldırgan specialty; ondalık; *huihui pao*; Japonya fail; Tengri dikkatli)
 - [`MONGOL-MILITARY-UNITS-AND-TACTICS.md`](./MONGOL-MILITARY-UNITS-AND-TACTICS.md) — Decimal cavalry; siege learning curve; Japan naval limits
 - [`MONGOL-FORTIFICATIONS-AND-CAMPS.md`](./MONGOL-FORTIFICATIONS-AND-CAMPS.md) — Ordu/Karakorum brand + Yuan Dadu military keep; siege-camp reverse maps
 - [`MONGOL-TOWER-DEFENCE-RESEARCH.md`](./MONGOL-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; peaks, weaknesses, campaign acts
