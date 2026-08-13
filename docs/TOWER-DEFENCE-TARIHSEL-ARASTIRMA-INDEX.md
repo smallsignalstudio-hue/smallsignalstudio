@@ -58,6 +58,7 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 - [`MONGOL-TOWER-DEFENCE-RESEARCH.md`](./MONGOL-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; peaks, weaknesses, campaign acts
 
 ### Japonya
+- [`JAPANESE-TOWER-DEFENCE-RESEARCH.md`](./JAPANESE-TOWER-DEFENCE-RESEARCH.md) — Chronology/mythology bible; Kofun→Edo; peaks, weaknesses, campaign acts
 - [`JAPANESE-MILITARY-UNITS-AND-TACTICS.md`](./JAPANESE-MILITARY-UNITS-AND-TACTICS.md) — Periodised bushi/ashigaru/teppō; Nagashino debates; shinobi FOLK vs espionage
 - [`JAPANESE-CASTLES-AND-FORTIFICATIONS.md`](./JAPANESE-CASTLES-AND-FORTIFICATIONS.md) — (if present) yamajiro → Azuchi–Momoyama baileys
 
