@@ -67,3 +67,11 @@ Kaynak branch: `cursor/tower-defence-historical-research-bundle-2959`.
 
 ## Ortak tasarım kuralı
 Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
+
+
+## Oyun tasarım incili (GDD)
+
+Tüm medeniyet araştırmalarını ürünleşiren ana tasarım dokümanı:
+
+- [`HISTORICAL-CIV-TOWER-DEFENCE-OYUN-TASARIMI.md`](./HISTORICAL-CIV-TOWER-DEFENCE-OYUN-TASARIMI.md) — tam GDD (dinamikler, kamera, defans/saldırı, monetizasyon, retention, sentiment, SWOT)
+- Araştırma alt notları: [`_research/`](./_research/) (`GDD-*.md`)
