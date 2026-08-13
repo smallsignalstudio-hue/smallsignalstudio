@@ -16,6 +16,7 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 | Maya–Mexica | [`MAYA-AZTEC-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./MAYA-AZTEC-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Çift medeniyet; Maya ≠ Aztek |
 | Viking / Norse | [`VIKING-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./VIKING-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Ringfort + Jelling |
 | Antik Yunan | [`ANCIENT-GREEK-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./ANCIENT-GREEK-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Polis ≠ tek krallık; Akropolis + Long Walls |
+| Avrupa kalesi (~1000–1500) | [`EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Beaumaris + Krak çift keep; eşmerkezli 7-katman; yağ FOLK; plate age-gate |
 
 ## İngilizce eşlikçi brief’ler
 
