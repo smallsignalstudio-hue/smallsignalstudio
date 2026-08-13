@@ -34,6 +34,10 @@
 Ek A. Terimler sözlüğü
 Ek B. Do / Don't kontrol listesi (üretim boyunca kullanılacak)
 Ek C. Kaynak haritası
+Ek D. Medeniyet kule matrisleri
+Ek E. Örnek map brief'leri
+Ek F. 90 günlük takvim
+Ek G. Kodlamaya ilk 20 görev
 
 ---
 
@@ -2774,5 +2778,128 @@ Bu GDD **canlı bir belgedir**, tek seferlik bir teslimat değil. Her playtest t
 | `TOWER-DEFENCE-TARIHSEL-ARASTIRMA-INDEX.md` | §8 (11 medeniyet listesi ve her civ'in ayrıntılı tarihsel araştırma dosyalarına yönlendirme) |
 
 **Not:** Tüm araştırma dosyaları mevcuttu ve tam olarak sentezlendi; eksik dosya nedeniyle varsayım yapılmasını gerektiren bir durum oluşmadı.
+
+---
+
+## Ek D. Medeniyet kule matrisleri
+
+*(Kaynak: `GDD-DEFENSE-SYSTEMS.md` §9–§10, §6.3/§8 ile çapraz-referans)*
+
+### D.1 T1–T8 çekirdek kule arketipleri (tüm civ'lerde paylaşılır)
+
+| ID | Arketip | Birincil etiketler | Rol | Lansman durumu |
+|---|---|---|---|---|
+| **T1** | Okçu/mızrak (Archer/missile) | Pierce/Single | Ucuz güvenilir DPS | Zorunlu, gün-1 |
+| **T2** | Mızrakçı karakolu (Spearmen nest) | Anti-Cav, hafif Splash | Erken Hold yardımı/duvar pad'i | Zorunlu, gün-1 |
+| **T3** | Kışla (Barracks) | Block | Örs (anvil) | Zorunlu, gün-1 |
+| **T4** | Taş atıcı/hafif topçu (Stone-throw) | Splash | Yığın temizliği | Zorunlu, gün-1 |
+| **T5** | Ağır motor (Heavy engine — balista/mancınık) | Anti-Siege/tekil-büyük | Elit/motor silme; düşük atış hızı | Zorunlu, gün-1 |
+| **T6** | Destek/sancak (Support/standard) | Aura (küçük), Reveal | Maaş/moral; görüş | Act 1+ açılır |
+| **T7** | Ateş/özel mühimmat (Fire/specialty) | Burn | Bölge inkârı; harita-riski | Act 1+ açılır |
+| **T8** | Kutsal/ideoloji (Sacred/ideology) | Ideology, Favor emici | Yumuşak kalkan, anti-korku; düşük çıplak DPS | Act 2+ açılır |
+
+**Kural:** T1–T5 FTUE'yi temiz tutmak için launch loadout'unda zorunlu; T6–T8 kampanya act'leriyle kilidi açılır (§6.2, §9.2).
+
+### D.2 Civ × arketip dalı örnekleri (paylaşılan dallanma dilbilgisi)
+
+| Arketip | Dal A | Dal B |
+|---|---|---|
+| T1 | Volley (atış hızı) | Bodkin (Armor-Break) |
+| T4 | Geniş Splash | Stun çakılı (kısa Root) |
+| T5 | Bolt (Pierce hattı) | Crush (kuşatma bonusu) |
+| T7 | Yer ateşi | Yapışkan zift (Slow+Burn) |
+| T8 | Ward (Core kalkanı) | Wrath (Favor nükü, uzun CD) |
+
+### D.3 Civ başına benzersiz kuleler (İmza kuleler — §8'den konsolide)
+
+| Civ | Benzersiz kule(ler) | Kanca |
+|---|---|---|
+| **Babylon** | İştar Kapısı aslan-atışı; ziggurat işaret kulesi (Favor görüşü) | Processional öldürme kutusu + ideoloji |
+| **Rome** | Scorpio bataryası; *testudo* tatbikat sahası (mobil-benzeri Hold buff'ı) | Doktrin + mühendislik bilimi |
+| **Persia** | Sparabara perde kulesi; satrap rölesi (takviye feneri) | Yumuşak Block + imparatorluk çağrısı |
+| **Egypt** | Nil taşkın savağı (yol Slow'u); tapınak pylonu keskin nişancısı | Nehir kontrolü + kutsal eksenel ateş |
+| **China** | Wengcheng gözcü kulesi; çekme mancınığı; opsiyonel erken gunpowder coda'sı | Tuzak-avlusu ustalığı + motor derinliği |
+| **Maya–Mexica** | Atlatl platformları; mızrak/obsidyen bataryası; kano/göl kuleleri (Mexica) | Causeway choke'ları + yakalama-öncelikli düşman karşı-oyunu |
+| **Viking** | Kapı-tüneli öldürme hunileri; gemi-spawn iskeleleri | Sahil savunması tersine çevrilmiş |
+| **Greece** | Perde mural kuleleri (Messene); Propylaia kapı boss'u; trireme deniz katmanı | Falanks blokerleri + deniz yan-hedefi |
+| **Japan** | Yagura dağıtılmış DPS; masugata avlusu; teppō mazgalları | Spiral patika + ateşli silah geçişi |
+| **Mongol** | Okçu-süvari kiting karakolları; ele geçirilmiş mancınık bataryaları | Saldırgan-lezzetli attacker-civ kanca |
+| **European Castle** | Çift kapı evi + portcullis yığınları; machicolation; İngiliz uzun-yayı uzmanlığı | Concentric duvar ustalığı |
+
+**Denetim notu:** Bu tablo §8'deki her act'in "İmza kuleler" satırının konsolide edilmiş halidir; tutarsızlık tespit edilirse §8 kaynak kabul edilir, bu tablo ona göre güncellenir (Ek C bakım kuralı).
+
+### D.4 Sinerji etiketi × arketip kesişimi (build gramerinin hızlı referansı)
+
+`Pierce` `Splash` `Single` `Slow` `Root` `Block` `Armor-Break` `Anti-Shield` `Anti-Climb` `Anti-Cav` `Anti-Siege` `Flying` `Naval` `Burn` `Reveal` `Ideology` `Wage` — bu etiketler §6.3'teki nesne taksonomisiyle çapraz-beslenir; her yeni kule tasarımı en az bir mevcut etikete bağlanmalı, yeni etiket icat etmek son çare olmalı (§17.2 R6 balans borcu azaltımı).
+
+---
+
+## Ek E. Örnek map brief'leri
+
+*(Format: her satır bir üretim brief'i — sanat/tasarım ekibine devredilebilir minimum spesifikasyon)*
+
+| # | Civ / Act | Fiil odağı | Choke/imza öge | Dalga teması | Boss/imza olay |
+|---|---|---|---|---|---|
+| **1** | Babylon Act 0, M1 | Shoot + Shape | İştar Kapısı öldürme kutusu | Kabile/Elam-stilize giriş dalgaları | Kapıdaki Kyros (M5 boss, §8.1.7) |
+| **2** | Rome Act 1 teaser | Hold + Shape | Castrum katmanları, ikiz-kule çapraz ateş | Gallia/Germen akın fantazisi | *Testudo* modifikatörü önizlemesi |
+| **3** | Greece Act 7 (dual-keep showcase) | Pivot + Shape | Propylaia kapı boss'u + Messene mural vitrini | Persia-temalı fantazi baskı | Trireme *diekplous* deniz yan-hedefi |
+| **4** | Persia Act 2 (Kral Yolu) | Punish + Shoot | Kral Yolu istasyonu + qanat düğümü | Ölümsüzler + tırpanlı-savaş arabası rampası | Elma-taşıyıcı muhafız event'i |
+| **5** | Egypt Act 3 (Nil Nöbeti) | Shape + Punish | Buhen-sınıfı kale + sel-kapısı mekaniği | Deniz Halkları-esinli baskı | Savaş arabası şeridi finali |
+| **6** | China Act 4 (Wengcheng) | Shape + Hold | Wengcheng tuzak-avlusu kompleksi | Bozkır süvari baskısı | İşaret-kulesi görüş event'i |
+| **7** | Maya–Mexica Act 5 (ikiz civ) | Punish + Pivot | Causeway choke'ları + Becán kapı boss'u | Rakip şehir-devlet akınları | Calmecac/telpochcalli elit spawn'ı |
+| **8** | Viking Act 6 (Ringfort) | Shape + Shoot | Danevirke doğrusal duvar + kapı-tüneli hunileri | Frank/Anglo kale savunması tersine çevrilmiş | Alfred *burh* ayna kiti event'i |
+| **9** | Japan Act 8 (Masugata) | Shape + Hold | Masugata avlusu + spiral patika-vergisi | — (tutorial-benzeri civ tanıtımı) | Yagura-gun markası finali |
+| **10** | Mongol Act 9 (attacker-flavor) | Pivot + Punish | Remount ekonomisi + Yam/paiza lojistik düğümleri | Oyuncu saldırgan senaryosu (ayna-offense) | Ele geçirilmiş mancınık bataryası |
+
+**Brief disiplini:** Her satır üretime girmeden önce §6.2'deki 10 maddelik "çekirdek defans direkleri" kontrol listesinden ve §15.1'deki 7 sorudan geçirilir (VFX kapalıyken okunabilirlik).
+
+---
+
+## Ek F. 90 günlük takvim
+
+*(§14.1/§16.2 kadanslarının somut hafta-hafta uygulaması; lansman = Hafta 0)*
+
+| Hafta | Faz | Ana teslimat |
+|---|---|---|
+| **0** | Global launch | Tutorial Babylon + Egypt + Persia + Greece + Rome teaser; günlük döngü; kozmetik mağazası; rewarded reklamlar canlı (§16.2) |
+| **1** | İzleme | Telemetri panosu canlı; D1/D7 erken sinyaller (§18.1); ilk hotfix penceresi |
+| **2–3** | Sezon 1 hazırlığı | S1 "Etemenanki Yükseliyor" içerik bütçesi (§14.4) üretimde; balans yaması #1 |
+| **4** | Sezon 1 lansmanı | Battle Pass Sezon 1 canlı (§13.7); ilk civ paketleri (Rome/Egypt, §13.8) mağazada |
+| **5–6** | Sosyal Faz A tamamlama | Cohort'lar, async Watch kuşatması, paylaşım kartları, referral tam aktif (§12.10 Faz A) |
+| **7–8** | Etkinlik haftası #1 | Modifikatör playlist'i + boss önizlemesi + 2× ustalık (§14.1); ilk hafta-sonu raid'i |
+| **9–10** | Metrik kapısı #1 | Mağaza puanı + D7/D30 değerlendirmesi (§18.3, §18.6) — China/Japan act kararı için veri toplama |
+| **11–12** | China veya Japan act üretimi | Metrik-güdümlü seçime göre act üretim boru hattı devrede (§16.4) |
+| **13 (~90g)** | +90 gün teslimatı | Seçilen act + BP Sezon 2 hazırlığı + Lonca async Faz B genişlemesi (§12.10 Faz B, §16.2 "+90 gün") |
+
+**Kural:** Her hafta sonunda §18'deki KPI panosu güncellenir; herhangi bir metrik "taban" eşiğinin altına düşerse (§18.1–§18.3) o haftanın yeni-içerik teslimatı durur, önce düzeltme yapılır (§17.2 R6 disiplini).
+
+---
+
+## Ek G. Kodlamaya ilk 20 görev
+
+*(Üretim başlangıcı için önerilen sıra; her görev bir GDD bölümüne bağlıdır)*
+
+1. Kilitli yüksek-oblik kamera controller'ı (pan+zoom, serbest rotasyon yok) — §5.1
+2. Erişilebilirlik ayarları iskeleti (sarsıntı, reduce motion, colorblind, UI ölçeği) — §5.8/§15.4
+3. Pad-tabanlı kule yerleştirme sistemi + placement ghost (geçerli/geçersiz kontrast) — §6.5, §15.1
+4. T1–T5 çekirdek kule arketipleri (paylaşılan kod, civ-agnostik) — Ek D.1
+5. Kışla/garnizon blokeri spawn + despawn mantığı (Hold fiili) — §6.3.2
+6. Duvar/kapı segment sistemi (HP, upgrade, çok-aşamalı kilit) — §6.3.5
+7. Dalga spawn/pathing sistemi (çoklu şerit desteğiyle) — §7
+8. Düşman rol taksonomisi (hızlı/zırhlı/uçan/boss) + hedefleme önceliği çözümleyici — §6.3.1, §7
+9. Kaynak sistemi: Gold/Wood/Stone/Favor (kazanım + emici bağlama) — §6.2, §9.5
+10. Erken çağırma (early call) mekaniği + risk/ödül UI'ı — §7
+11. Yıldız/madalya değerlendirme sistemi (Heroic/Iron) — §9.7
+12. Juice geri bildirim yığını: yerel aktör → ses → UI tik → ekran-uzayı → kamera (sırayla) — §15.5
+13. Ekran sarsıntısı bütçe sistemi (olay-türü başına süre/genlik sınırları) — §15.5
+14. FTUE M0–M7 script'i + analitik hook'ları (her adımda event gönderimi) — §10
+15. Account Level + Civilization Mastery XP boru hattı — §9.2–§9.3
+16. Codex/Museum veri modeli (kart taksonomisi + doğruluk etiketi alanı) — §9.4
+17. EDU/ARC mod anahtarı (hesap varsayılanı + oturum override'ı + HUD rozeti) — §9.6, §14.6
+18. Sunucu-yetkili skor gönderimi + IAP doğrulama servis sınırı — §16.1, §16.5
+19. Günlük/haftalık görev sistemi + bildirim tetikleyici altyapısı (frekans tavanlı) — §11.7, §13.15
+20. Kozmetik katalog + mağaza UI (deterministik, savaş-etkisiz doğrulama bayrağıyla) — §13.6, §13.15
+
+**Sıralama mantığı:** İlk 13 görev P0 "bir kez daha" deneyimini (§17.3) kanıtlar; 14–17 FTUE + meta'yı kilitler; 18–20 launch-kritik altyapı ve monetizasyon temelini kurar. Sosyal (§12) ve live-ops (§14) sistemleri bu 20 görevin **üzerine** inşa edilir, önce değil.
 
 ---
