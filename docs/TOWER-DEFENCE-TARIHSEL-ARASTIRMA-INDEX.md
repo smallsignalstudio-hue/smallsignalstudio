@@ -50,5 +50,8 @@ Eski tek-medeniyet PR’ları bu bundle lehine kapatılmıştır. Kaynak branch:
 ### Avrupa / İngiliz–Fransız–Haçlı kaleleri
 - [`EUROPEAN-CASTLES-AND-FORTIFICATIONS.md`](./EUROPEAN-CASTLES-AND-FORTIFICATIONS.md) — Motte → donjon → concentric; Krak / Beaumaris dual keep; 7-layer stack
 
+### Moğol
+- [`MONGOL-FORTIFICATIONS-AND-CAMPS.md`](./MONGOL-FORTIFICATIONS-AND-CAMPS.md) — Ordu/Karakorum brand + Yuan Dadu military keep; siege-camp reverse maps
+
 ## Ortak tasarım kuralı
 Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
