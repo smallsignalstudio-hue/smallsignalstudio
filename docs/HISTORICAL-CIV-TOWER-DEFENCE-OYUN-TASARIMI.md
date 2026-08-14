@@ -1,7 +1,7 @@
 # Historical Civilizations Tower Defence — Kapsamlı Oyun Tasarım Dokümanı (GDD)
 
 **Doküman türü:** Ana Tasarım Kutsal Kitabı (Master Design Bible) — Türkçe, sentezlenmiş  
-**Kapsam:** Ürün vizyonu → rakip analizi → oyuncu sentiment → çekirdek döngü → kamera/juice → defans → saldırı/dalga → 11 medeniyet kampanyası (Act 0–10) → meta progresyon → FTUE → retention/viral → sosyal → monetizasyon → live ops → UI/UX → teknik kapsam → risk/SWOT → KPI → açık sorular  
+**Kapsam:** Ürün vizyonu → rakip analizi → oyuncu sentiment → çekirdek döngü → kamera/juice → defans → saldırı/dalga → 11 medeniyet kampanyası (Act 0–10) → meta progresyon → FTUE → retention/viral → sosyal → monetizasyon → live ops → UI/UX → teknik kapsam → risk/SWOT → KPI → açık sorular → **yeni medeniyet ekleme protokolü (§20, non-breaking)**  
 **Kaynak:** `docs/_research/GDD-*.md` (16 araştırma dosyası) + `docs/TOWER-DEFENCE-TARIHSEL-ARASTIRMA-INDEX.md` + 11 medeniyetlik Türkçe/İngilizce tarihsel araştırma kütüphanesi  
 **Durum:** Sentez tasarım dokümanı — sayısal dengeler (balance numbers) tasarım *hedefleri*dir, kilitli değildir; playtest ile revize edilecektir.  
 **Dil politikası:** Tam Türkçe; teknik/oyun terimleri parantez içinde İngilizce korunur (örn. "erken çağırma (early call)").  
@@ -31,6 +31,7 @@
 17. SWOT, riskler, odak öncelikleri
 18. KPI'lar ve başarı kriterleri
 19. Açık sorular / sonraki adımlar
+20. Yeni medeniyet ekleme protokolü (non-breaking) — zorunlu intake
 Ek A. Terimler sözlüğü
 Ek B. Do / Don't kontrol listesi (üretim boyunca kullanılacak)
 Ek C. Kaynak haritası
@@ -1313,6 +1314,7 @@ Oyuncular bir **savunmacı civ** seçer; saldırgan destesi döner veya seçilir
 3. **FOLK/LIT/SAGA/SPN** içeriğini etiketle; hiçbirinin sessizce ARCH kronolojisinin üzerine yazmasına izin verme.
 4. İmza düşmanlar genelde **başka roster civ'leri** + çağa özel boss'lar olmalı (paylaşılan asset, rekabet action'ları sağlar).
 5. Babylon Act 0 dilbilgiyi öğretir; sayılar kilitlenmeden önce **özel araştırma dosyası gerekiyordu** — bu boşluk `GDD-BABYLON-ACT0.md` ile dolduruldu (bu bölümün §8.1'i).
+6. **Yeni medeniyet / ırk ekleme** yalnızca **§20 Yeni medeniyet ekleme protokolü** üzerinden yapılır: araştırma MD intake checklist → eksikse yeniden araştırma (kod yok) → data/skin/script entegrasyonu → regresyon kapıları. Mevcut act'leri, çekirdek döngüyü veya monetizasyon anayasasını bozan PR reddedilir.
 
 ---
 
@@ -2466,6 +2468,8 @@ Ana hub şu sırayla önceliklendirilir: (1) **Kampanya haritası** (birincil CT
 | Codex/Museum varlığı | Kart metni + doğruluk etiketi + 3D diyorama | Civ + kule başına bir kez üretilir, sonsuza dek yeniden kullanılır |
 | Sensitivity/FOLK geçişi | ARCH/LIT/FOLK/SPN/MOD/CHR etiket denetimi | Her civ'in lansmanından önce zorunlu (§0 kanıt disiplini) |
 
+**Yeni civ / ırk için zorunlu kapı:** Bu tablo üretim *nasıl* üretilir sorusunu cevaplar; **ne zaman ve hangi şartla** eklenebileceğini **§20** cevaplar. Kullanıcı yeni bir araştırma MD'si (örn. `lübnan.md`) verdiğinde önce §20.1 intake checklist + §20.2 gap raporu çalıştırılır; §20.3 bozmama anayasası + §20.4 regresyon kapıları geçilmeden merge yok. §16.4 aşamaları, §20 geçildikten sonra çalışır.
+
 ### 16.5 Teknik risk azaltımı (mühendislik)
 
 | Risk | Azaltım |
@@ -2680,7 +2684,130 @@ Eğer tek bir "sağlık" metriği seçilecekse: **D7/D1 oranı × F2P kampanya t
 
 ### 19.6 Doküman bakım kuralı
 
-Bu GDD **canlı bir belgedir**, tek seferlik bir teslimat değil. Her playtest turu §4/§6/§7/§9'daki sayısal dengeleri güncellemeli; her live-ops fazı sonunda §14/§18 gerçek telemetriyle yeniden kalibre edilmeli; her yeni civ eklendiğinde §8 civ profili + §16.4 üretim boru hattı kaydı eklenmeli. Sürüm geçmişi (changelog) tutulması önerilir: hangi bölüm, hangi playtest/telemetri bulgusuyla, hangi tarihte değişti.
+Bu GDD **canlı bir belgedir**, tek seferlik bir teslimat değil. Her playtest turu §4/§6/§7/§9'daki sayısal dengeleri güncellemeli; her live-ops fazı sonunda §14/§18 gerçek telemetriyle yeniden kalibre edilmeli; her yeni civ eklendiğinde **önce §20 protokolü**, sonra §8 civ profili + §16.4 üretim boru hattı kaydı + index güncellemesi yapılmalı. Sürüm geçmişi (changelog) tutulması önerilir: hangi bölüm, hangi playtest/telemetri bulgusuyla, hangi tarihte değişti.
+
+---
+
+## 20. Yeni medeniyet ekleme protokolü (non-breaking)
+
+*(Bu bölüm anayasadır. Kullanıcı veya ajan yeni bir araştırma MD'si verdiğinde — örn. `lübnan.md`, `carthage.md` — uygulama koduna / içerik ship'ine geçmeden önce burası zorunlu kapıdır. §8.0, §16.4, Ek B ile çapraz-referanslıdır.)*
+
+### 20.0 Kuzey yıldızı — bozmama
+
+> **Yeni medeniyet, mevcut oyunun çalışan düzenini bozmaz.** Çekirdek döngü (§4), kamera (§5), beş defans fiili (§6), dalga/rol grameri (§7), monetizasyon anayasası (§13), FTUE (§10) ve launch civ deneyimi **değişmez**. Yeni civ yalnızca **veri + skin/trim + map/wave script + Codex** olarak eklenir. Mevcut bir şeyi kırmak = **merge reddi**.
+
+| Katman | Yeni civ ne yapabilir | Ne yapamaz |
+|---|---|---|
+| Çekirdek motor | Mevcut fiilleri / rolleri / etiketleri **kullanır** | Yeni global currency, enerji, P2W güç, serbest-orbit kamera, yeni zorunlu hub akışı ekleyemez |
+| Kuleler | Paylaşılan T1–T8 arketipe map + **1–3 civ-unique** | Global T1–T8 stat'larını “yeni civ için” buff'layamaz |
+| Kampanya | Yeni act / sezon drip / civ pack olarak **opsiyonel** unlock | Mevcut Act 0–launch act balansı, yıldız kapıları veya FTUE sırasını bozamaz |
+| Monetizasyon | Kozmetik / early-access civ pack (§13) | Güç satamaz; enerji ekleyemez |
+| Sosyal | Mevcut lonca/async çerçeveye civ skin | Zorunlu PvP / yeni toksik chat yüzeyi dayatamaz |
+
+**Tanım — “bozmak”:** Yeni civ kapalıyken eski oyuncunun Act 0 / launch haritaları, FTUE, kule maliyetleri, dalga okunabilirliği, reklam/IAP kuralları veya keep lose-condition'ı önceki build ile **davranışsal olarak farklı** hale gelirse bozulmuştur.
+
+### 20.1 Araştırma intake checklist (base şema)
+
+Kullanıcı MD'si (veya ajanın ürettiği master) aşağıdaki alanları **karşılamadan** uygulamaya kod, harita datası veya ship içeriği **yazılmaz**. Her satır: `VAR` / `YOK` / `ZAYIF`.
+
+| # | Zorunlu alan | Minimum kabul | Referans |
+|---|---|---|---|
+| 1 | **Merkez keep** | İsim + silüet/marka + lose-condition (ne “düşerse” yenilirsin) | §8 kart şeması, Index ortak kural |
+| 2 | **~7 katman savunma fantazisi** | ARCH-öncelikli istif; oyunda ≤4 oynanabilir strata'ya map notu | §6.7, §8.0 |
+| 3 | **Defans — Shoot** | İmza kuleler: paylaşılan arketiplere map + **1–3 civ-unique** | §6, Ek D |
+| 4 | **Defans — Hold** | En az 1 kışla/garnizon / blocker rolü | §6.4 |
+| 5 | **Defans — Punish / Shape** | En az 1 site-authored tuzak veya kapı/choke dili | §6.5–§6.6 |
+| 6 | **Defans — Pivot** | 1–2 komutan/kahraman kiti (gacha güç yok) | §6.5, §13 |
+| 7 | **Saldırı rosteri** | SWARM / ARMORED / FAST / SIEGE / BOSS rollerine map; SAPPER/FLYER varsa etiketli | §7.2 |
+| 8 | **Rule-change boss** | En az 1 boss; HP süngeri değil, kural değiştiren faz | §7.7 |
+| 9 | **Kronoloji** | Güçlü / zayıf dönem + kampanya hinge olay(lar)ı | Index master kuralı |
+| 10 | **Mit ultimates** | Varsa FOLK/LIT etiketli; Historical modda kapalı yol belirtilmeli | §0.4, §9 |
+| 11 | **Do-not-assume tuzakları** | En az 3 maddelik “bunu varsayma” listesi | §8 civ kartları |
+| 12 | **Kanıt disiplini** | ARCH/LIT/FOLK/MOD/SPN/CHR kullanımı tutarlı | §0 |
+| 13 | **Oyunda nasıl kullanılır** | ≥2–3 map topolojisi + 1 boss brief + erken pacing notu | Index, Ek E |
+| 14 | **Hassasiyet bayrakları** | Yaşayan kültür / dini keep / birleşik-çorba riski (split gerekir mi?) | §0.4 Maya≠Aztek kuralı |
+
+**Eşik:** Herhangi bir satır `YOK` veya kritik satırlar (`1–8`, `11–14`) `ZAYIF` ise → **§20.2 gap raporu** + **Stop_NoCode**. Varsayımla doldurmak (**ASLA ASSUME ETME**) yasaktır.
+
+### 20.2 Gap → araştırma talep şablonu
+
+Eksik MD için ajan/ürün şu tabloyu üretir ve **yalnızca araştırma turu** ister (ship/kod yok):
+
+| Alan (#) | Durum | Kanıt (MD’de nerede) | İstenen çıktı (yeniden araştırma) |
+|---|---|---|---|
+| örn. 2 — 7 katman | YOK | — | Keep dış→iç askeri/ideoloji istifi; ≤4 strata map önerisi |
+| örn. 8 — Boss | ZAYIF | “büyük general” tek satır | Rule-change fazları + telegraph + kanıt etiketi |
+
+**Kural:** `YOK`/`ZAYIF` varken:
+
+1. Uygulama koduna civ ID / harita / kule datası **eklenmez**.
+2. PR açılmaz (veya yalnızca araştırma dokümanı PR'ı).
+3. Kullanıcıya net liste + örnek sorular döner (örn. “Lübnan keep’i nedir — Byblos suru mu, Crac des Chevaliers komşu coğrafya mı, modern Beyrut mu? Kronoloji kilidi?”).
+4. Araştırma tamamlanıp checklist yeniden `VAR` olana kadar bekle.
+
+### 20.3 Entegrasyon kuralları (bozmama anayasası)
+
+Checklist geçildikten sonra entegrasyon **yalnızca** şu kalıpta yapılır:
+
+1. **Data-driven civ paketi:** `civ_id`, keep tanımı, strata map’leri, tower skin map (T1–T8 → civ trim), 1–3 unique tower defs, enemy role skins, boss script, Codex kartları, FOLK bayrakları.
+2. **Shared skeleton:** Yeni global sistem fiili, yeni para birimi, kamera değişikliği, enerji, VIP hasar%, zorunlu interstitial **yasak** (§0.4, §5, §13).
+3. **Unlock yüzeyi:** Sezon drip, Chronicle’da opsiyonel act, veya kozmetik/early-access civ pack — mevcut act’lerin zorunlu sırasını kırmaz.
+4. **Balans izolasyonu:** Civ-unique kulelerle fark yarat; “Roma’nın scorpio’sunu %20 güçlendir ki Lübnan gelsin” tipi global buff **yasak**.
+5. **Birleşik çorba reddi:** Tek MD iki ayrı kültürü (Maya≠Aztek benzeri) tek “ırk” diye yutuyorsa → split et veya §20.2’ye geri dön; sessiz birleştirme yok.
+6. **Doküman güncellemesi aynı değişiklikte:** §8’e civ profili, Index’e master link, gerekirse `GDD-CIV-HOOKS` kartı, §16.4 üretim kaydı — §20.5 son adımı.
+
+### 20.4 Regresyon / güvenlik kapıları (merge öncesi)
+
+Hepsi geçmeden merge **yok**:
+
+| Kapı | Geçiş kriteri |
+|---|---|
+| **R-A Smoke eski içerik** | Act 0 + launch civ haritaları açılır, clear edilir; yıldız koşulları öncekiyle uyumlu |
+| **R-B FTUE** | İlk 10 dk script (§10) kırılmadı; IAP/ads FTUE’de yok |
+| **R-C Shared towers** | T1–T8 arketip maliyet/rol regression (yeni civ kapalıyken aynı) |
+| **R-D Okunabilirlik** | §15.1 yedi soru VFX kapalıyken yeni map’lerde de geçer; eski map’lerde bozulma yok |
+| **R-E Etiket UI** | Educational/Arcade + FOLK/ARCH rozetleri çalışır |
+| **R-F Feature flag** | Yeni civ **kapalıyken** eski oyuncu deneyimi birebir aynı (bozmama tanımı, §20.0) |
+| **R-G Telemetri** | Soft launch’da leak rate / crash / FTUE drop baseline’dan anlamlı sapma yok; varsa rollback |
+| **R-H Sensitivity** | §20.1 madde 14 + FOLK denetimi imzalı |
+
+**Fail → FixOrReject:** Ya izole düzelt (yalnızca yeni civ datası) ya da feature flag ile geri al. Eski act’leri “yeni civ yüzünden” yeniden yazmak çözüm değildir.
+
+### 20.5 Ajan / geliştirici iş akışı (`lübnan.md` örneği)
+
+```mermaid
+flowchart TD
+  mdIn[UserResearchMD_ornek_lubnan_md] --> intake[IntakeChecklist_20_1]
+  intake -->|eksik_YOK_veya_ZAYIF| gap[GapReport_ResearchRequest_20_2]
+  gap --> wait[Stop_NoCode]
+  wait --> mdIn
+  intake -->|tam_tum_VAR| design[CivHookCard_plus_ActProfile_S8]
+  design --> integrate[DataSkinMapsOnly_20_3]
+  integrate --> regress[RegressionGates_20_4]
+  regress -->|fail| fix[FixOrReject_featureFlag]
+  fix --> regress
+  regress -->|pass| ship[SeasonDrip_or_CivPack]
+  ship --> updateDocs[Update_GDD_S8_Index_S16_4]
+```
+
+**Adım adım (ajan talimatı):**
+
+1. Kullanıcı `lübnan.md` (veya eşdeğer master) verir.
+2. §20.1 checklist’i satır satır doldur; varsayma.
+3. Eksik varsa §20.2 gap tablosunu kullanıcıya ver; **Stop_NoCode** — uygulama koduna dokunma.
+4. Tamamsa §8 formatında civ kartı + act pitch yaz; Index’e aday satır ekle (henüz ship değilse “aday” notu).
+5. Entegrasyon: yalnızca data/skin/map/codex (§20.3); çekirdek sistemlere dokunma.
+6. §20.4 kapılarını çalıştır; fail ise fix veya flag-off.
+7. Pass ise sezon drip / civ pack olarak aç; §8 + Index + §16.4 kaydını güncelle.
+8. PR açıklamasında şu cümleyi zorunlu kıl: *“§20 intake + regresyon geçildi; yeni civ kapalıyken mevcut act’ler değişmedi.”*
+
+### 20.6 Hızlı red bayrakları (anında Stop_NoCode)
+
+- Araştırma MD’si keep / 7 katman / saldırı-defans rosteri olmadan “şu birimleri koy” diyor.
+- “Şu civ gelsin diye enerji / gacha güç / global hasar” istiyor.
+- Mevcut FTUE veya Act 0’ı yeniden yazmadan yeni civ’in anlaşılmayacağını iddia ediyor (yanlış — Act 0 grameri öğretir; yeni civ remix’tir).
+- FOLK’u ARCH gibi sessiz satıyor.
+- İki kültürü tek ırk diye birleştiriyor ve split reddediyor.
 
 ---
 
@@ -2703,6 +2830,7 @@ Bu GDD **canlı bir belgedir**, tek seferlik bir teslimat değil. Her playtest t
 | **Favor (İnanç/Onay kaynağı)** | Dört kaynaktan biri; mit güçleri ve civ-özel ultimate'ları besler (§6.6). |
 | **FTUE** | First-Time User Experience — ilk oturum onboarding akışı (§10). |
 | **Hook Model** | Tetikleyici → Eylem → Değişken Ödül → Yatırım döngüsü; retention tasarımının temeli (§11.1). |
+| **Intake / §20** | Yeni medeniyet ekleme protokolü: araştırma MD checklist → gap ise Stop_NoCode → data/skin entegrasyon → regresyon kapıları (§20). |
 | **Keep (Kale)** | Her medeniyetin savunma merkezi yapısı; 7 katmanlı tarihsel mimariden 4 oynanabilir strataya indirgenir (§6.4). |
 | **LHOK (Locked High-Oblique Keep) kamera** | Sabit yaw/pitch açılı, sadece pan+zoom izin veren kamera sistemi (§5.1). |
 | **Maya ≠ Aztec kuralı** | Maya ve Mexica (Aztek) medeniyetlerinin ayrı, birbirine indirgenmeyen kültürler olarak ele alınması zorunluluğu (§0.4, §8.9). |
@@ -2733,8 +2861,10 @@ Bu GDD **canlı bir belgedir**, tek seferlik bir teslimat değil. Her playtest t
 10. Her sosyal özelliği opt-in yap; guild/PvP'yi asla zorunlu ilerleme kapısı olarak kullanma (§12.1).
 11. Launch kesitini kapsam disiplinine göre sınırla — 4 civ + 1 teaser ile başla, kalanı damla (§16.2–§16.3).
 12. Balans değişikliklerini haftalık ritüel olarak telemetriyle besle (§16.5, §17.2 R6).
-13. Her yeni civ'i sensitivity pass'ten geçirmeden gemiye bindirme (§8.9, §16.4).
+13. Her yeni civ'i **§20 intake checklist + sensitivity pass** geçirmeden gemiye bindirme (§8.0, §16.4, **§20**).
 14. Mağaza puanını (§18.3) canlı bir kill-switch tetikleyicisi olarak izle.
+15. Yeni civ eklerken yalnızca data/skin/script kullan; regresyon kapıları (§20.4) geçmeden merge etme.
+16. Kullanıcı eksik araştırma MD'si verdiyse gap raporu üret ve **Stop_NoCode** uygula (§20.2).
 
 ### Yapma (Don't)
 
@@ -2752,6 +2882,8 @@ Bu GDD **canlı bir belgedir**, tek seferlik bir teslimat değil. Her playtest t
 12. Balans değişikliklerini telemetri kanıtı olmadan "hissi öyle" diye yapma (§16.5, §17.2 R6).
 13. Erken-çağırma butonu gibi kas-hafızası pozisyonlarını sezondan sezona değiştirme (§15.6, §15.8).
 14. Hile/imkânsız skorları sunucu-taraflı doğrulama olmadan liderlik tablosunda gösterme (§12.6, §17.2 R9).
+15. §20.1 checklist tamamlanmadan yeni civ kodu / harita datası yazma (§20.0–§20.2).
+16. Yeni civ için mevcut act'leri, FTUE'yi veya global T1–T8 stat'larını bozacak şekilde "uyduruk entegrasyon" yapma (§20.3–§20.4).
 
 ---
 
@@ -2775,9 +2907,10 @@ Bu GDD **canlı bir belgedir**, tek seferlik bir teslimat değil. Her playtest t
 | `GDD-LIVEOPS-FTUE-META.md`, `GDD-LIVEOPS-FTUE.md` | §9 (Meta progresyon), §10 (FTUE), §14 (Live ops takvimi), §15 (UI/UX hub) |
 | `GDD-SOCIAL-GUILD.md` | §12 (Sosyal/lonca/paylaşım) |
 | `GDD-RISKS-SWOT-SCOPE.md` | §16 (Teknik/üretim kapsamı), §17 (SWOT/riskler/öncelikler) |
-| `TOWER-DEFENCE-TARIHSEL-ARASTIRMA-INDEX.md` | §8 (11 medeniyet listesi ve her civ'in ayrıntılı tarihsel araştırma dosyalarına yönlendirme) |
+| `TOWER-DEFENCE-TARIHSEL-ARASTIRMA-INDEX.md` | §8 (11 medeniyet listesi), **§20** (yeni civ intake base şeması / ortak tasarım kuralı) |
+| *(bu GDD §20)* | Yeni araştırma MD → checklist → gap → non-breaking entegrasyon → regresyon; ajan iş akışı |
 
-**Not:** Tüm araştırma dosyaları mevcuttu ve tam olarak sentezlendi; eksik dosya nedeniyle varsayım yapılmasını gerektiren bir durum oluşmadı.
+**Not:** Tüm araştırma dosyaları mevcuttu ve tam olarak sentezlendi; eksik dosya nedeniyle varsayım yapılmasını gerektiren bir durum oluşmadı. **İleride** kullanıcı yeni bir civ MD’si verdiğinde eksik alanlar §20.2 ile bilinçli olarak listelenir — sessiz varsayım değil.
 
 ---
 
