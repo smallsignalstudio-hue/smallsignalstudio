@@ -356,7 +356,7 @@ Revisit in Week 4; record decisions in `tasks/todo.md` before marking App Store 
 
 ### Handoff
 
-Next session: read `{SLUG}.md` + `{SLUG}_BUILD.md` + `tasks/todo.md`. **Do not write app code until Week 0 boxes are checked.**
+Next session: read `{SLUG}.md` + `{SLUG}_BUILD.md` + `tasks/todo.md`. If `tasks/epics/` is empty, run Let's Todo Init. **Do not write app code until Week 0 boxes are checked.**
 
 See `AGENTS.md` for Definition of Done and pre-merge checklist.
 ```
@@ -374,11 +374,17 @@ Before saying "done":
 
 - [ ] Tests written **first** (Red), then code to pass (Green), then refactor
 - [ ] Coverage: line + branch coverage complete in every changed module; `npm run test:coverage` passes (100% statements/branches/functions/lines on `lib/`, `services/`, `store/` per `jest.config.js`, plus documented exclusions only)
-- [ ] Edge cases: at least **two distinct edge-case tests** per happy-path scenario (for `lib/` and `services/` exports, treat each export as its own happy path unless documented otherwise)
+- [ ] Edge cases: at least **five distinct edge-case tests** per business function (for `lib/` and `services/` exports, treat each export as its own happy path unless documented otherwise)
 - [ ] Integration tests cover every business case end-to-end
 - [ ] App builds from a clean state; all tests pass locally
-- [ ] Security: no secrets in repo or client bundles; `.env.example` updated if new vars added
+- [ ] Security: no secrets in repo or client bundles; `.env.example` updated if new vars added; **OWASP Top 10** reviewed for the change (those failure classes must not ship)
+- [ ] Privacy: **GDPR** scenarios considered (lawful basis, minimize, no PII in logs/analytics; export/delete if accounts exist)
 - [ ] SOLID review on new abstractions (single responsibility, clear boundaries, dependency direction)
+- [ ] Architecture: engine vs content data; new civ/map extends without forking the loop
+- [ ] Logging: structured success/failure/security events; no secrets or raw PII
+- [ ] Regression: existing campaign/FTUE/combat behavior unchanged unless the story says otherwise
+- [ ] Feature work: Reddit + 4chan related categories + competitor research completed **before** implementation (see Let's Todo Init S01)
+- [ ] UI/UX: target-audience psychology + planned hierarchy (one primary CTA; quiet luxury)
 - [ ] Version control: after each completed todo (or separable slice), `git commit` (scoped message) + `git push` to tracked remote — not end-of-session batch
 
 ### TDD Workflow
@@ -386,7 +392,7 @@ Before saying "done":
 1. **Red:** Write a failing test that describes the desired behavior
 2. **Green:** Implement the minimum code to make it pass
 3. **Refactor:** Clean up while keeping tests green
-4. Add two edge-case tests minimum per happy path
+4. Add **five** edge-case tests minimum per business function
 5. Add or extend integration tests for the full business flow
 6. Run full test suite for every touched module
 
@@ -396,8 +402,10 @@ Before saying "done":
 [ ] TDD: tests existed before production code for this change
 [ ] Line + branch coverage complete (with documented exclusions only)
 [ ] `npm run test:coverage` — clean pass (thresholds on lib/services/store)
-[ ] >= 2 edge-case tests per happy path (per export in lib/services unless documented)
+[ ] >= 5 edge-case tests per business function (per export in lib/services unless documented)
 [ ] Integration tests cover all new business cases
+[ ] OWASP Top 10 reviewed; GDPR considered; no PII in logs
+[ ] Feature S01 research done (Reddit/4chan/competitors) before this code
 [ ] npm test — clean pass
 [ ] No secrets in repo or client bundles; .env.example updated if new vars
 [ ] Each completed todo/slice was committed and pushed (unless user waived push)
@@ -413,7 +421,8 @@ Before saying "done":
 | `{SLUG}_STITCH_DESIGN.md` | Visual brief — before any UI component |
 | `{SLUG}_BUILD.md` | Technical blueprint — includes Week 0 + pre-launch §11 |
 | `AGENTS.md` | Agent standards — this document |
-| `tasks/todo.md` | Active task checklist |
+| `tasks/todo.md` | Week 0 + Let's Todo Init epic index |
+| `tasks/epics/` | Scrum stories (Let's Todo Init) |
 | `tasks/lessons.md` | Self-improvement log |
 | `docs/ENGINEERING_STANDARDS.md` | TDD / coverage gates |
 | `docs/SECURITY.md` | Security checklist |
@@ -433,6 +442,7 @@ Documentation-only changes must still:
 - **RevenueCat:** Only integrate after core loop is stable (see BUILD timeline). Week 0 may define project/entitlement names only
 - **Week 0:** Do not scaffold application code until `{SLUG}_BUILD.md` §7 Required rows are checked in `tasks/todo.md`
 - **Pre-launch §11:** Before "App Store Submission" can be marked complete, every item in `{SLUG}_BUILD.md` §11 must have explicit Implement in v1 or Defer to v2
+- **Backlog:** Implement one Let's Todo Init story per commit. Do not ship v1 in one change.
 - {App-specific bans: privacy, AR, content paths, etc.}
 ```
 
@@ -451,9 +461,9 @@ Documentation-only changes must still:
 - [ ] {Other Required Week 0}
 - [ ] `docs/API.md` updated with project IDs/URLs (no secrets)
 
-## Week 1 — Foundation
+## Scrum backlog
 
-- [ ] (fill from BUILD timeline after Week 0)
+Run **Let's Todo Init** after this pack exists. Do not list v1 implementation stories here until that skill writes `tasks/epics/`.
 
 ## Pre-launch (Week 4)
 

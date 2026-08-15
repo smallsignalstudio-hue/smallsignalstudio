@@ -14,7 +14,7 @@ disable-model-invocation: true
 
 End-to-end **documentation pack** for a new Small Signal Studio mobile app — before any application code.
 
-Sibling: [`lets-release`](../lets-release/SKILL.md) ships later. Sibling: [`genius-ideas`](../genius-ideas/SKILL.md) finds ideas; this skill **specifies** them.
+Sibling: [`lets-todo-init`](../lets-todo-init/SKILL.md) expands Scrum epics after this pack. Sibling: [`lets-release`](../lets-release/SKILL.md) ships later. Sibling: [`genius-ideas`](../genius-ideas/SKILL.md) finds ideas; this skill **specifies** them.
 
 ## When to use (auto-trigger phrases)
 
@@ -57,6 +57,7 @@ Copy this checklist and track progress:
 - [ ] Phase 4: Outline lock
 - [ ] Phase 5: Write docs
 - [ ] Phase 6: Git init + docs commit
+- [ ] Phase 6b: Offer Let's Todo Init (do not emit epic backlog here)
 - [ ] Phase 7: Week 0 provisioning walkthrough
 ```
 
@@ -65,7 +66,7 @@ Do not write files until Phases 0–4 are done (except reading existing files in
 ### Phase 0 — Workspace
 
 1. Confirm cwd is `~/Repo/<project>/` (or the folder the user named).
-2. If empty or docs-only, proceed. If app code already exists, ask before overwriting any `{SLUG}*.md` / `AGENTS.md`.
+2. If empty or docs-only, proceed. If app code already exists, ask before overwriting any `{SLUG}*.md` / `AGENTS.md`. **Never delete** an existing `mobile/` / Expo shell; do not re-run `create-expo-app`.
 3. Note whether `.git` already exists.
 
 ### Phase 1 — Intake
@@ -122,7 +123,7 @@ Use section skeletons in [templates.md](templates.md). Write **all** of the foll
 | `{SLUG}_BUILD.md` | Technical SoT + Week 0 + §10 decisions + agent workflow |
 | `AGENTS.md` | TDD / DoD / commit protocol / app-specific mobile standards |
 | `README.md` | Short pointer to the docs |
-| `tasks/todo.md` | Week 0 first, then build weeks |
+| `tasks/todo.md` | Week 0 provisioning **only** + pointer to Let's Todo Init |
 | `tasks/lessons.md` | Empty self-improvement starter |
 | `docs/ENGINEERING_STANDARDS.md` | Stub → AGENTS + coverage gates |
 | `docs/SECURITY.md` | Stub checklist |
@@ -155,6 +156,10 @@ Only those two answers are acceptable. Submission is blocked until every item is
 3. **Ask before push.** Remote may not exist yet — that is a Week 0 GitHub step.
 4. Never force-push; never invent remotes/secrets.
 
+### Phase 6b — Let's Todo Init handoff
+
+Do **not** generate epic/story backlogs in this skill. After the docs commit, tell the user to run **Let's Todo Init** (`lets-todo-init`) so `tasks/epics/` is filled from `{SLUG}.md` + BUILD + GDD. If they already asked for both in one session, run Todo Init **after** Phase 5 files exist, as a **separate git commit**.
+
 ### Phase 7 — Week 0 provisioning
 
 For each **Required Week 0** service, present numbered human steps and **wait for confirmation** before the next service. Do not start Expo/app scaffolding in this skill.
@@ -170,7 +175,7 @@ Update `tasks/todo.md` checkboxes as the user confirms.
 
 **Ready-to-code handoff line** (end of BUILD + final reply):
 
-> Next session: read `{SLUG}.md` + `{SLUG}_BUILD.md` + `tasks/todo.md`. Do not write app code until Week 0 boxes are checked.
+> Next session: read `{SLUG}.md` + `{SLUG}_BUILD.md` + `tasks/todo.md`. If `tasks/epics/` is empty, run Let's Todo Init. Do not write app code until Week 0 boxes are checked.
 
 ## Final operator reply
 
@@ -179,7 +184,7 @@ Keep it short:
 1. Paths of files written
 2. `{SLUG}` + GitHub repo name (if known)
 3. Week 0 remaining checklist
-4. Reminder: no app code until Week 0 is green
+4. Reminder: no app code until Week 0 is green; backlog via Let's Todo Init, not this skill
 
 ## Additional resources
 

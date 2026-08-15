@@ -10,6 +10,7 @@ Version-controlled Cursor Agent Skills for Small Signal Studio.
 | Skill | Description |
 |-------|-------------|
 | [lets-blueprint](lets-blueprint/) | **Let's Blueprint** — idea → full md pack (overview, Stitch, Build, AGENTS) + Week 0 third-party gates; no app code |
+| [lets-todo-init](lets-todo-init/) | **Let's Todo Init** — after Blueprint, emit Scrum epic/story backlog (`tasks/epics/`); no app code |
 | [lets-release](lets-release/) | **Let's Release** — pre-upload gate: preflight + ASO/keywords + ASC metadata/pricing (no screenshots; no binary unless asked) |
 | [genius-ideas](genius-ideas/) | JARVIS for researching monetizable solo-buildable mobile app ideas |
 | [app-store-preflight](app-store-preflight/) | App Store pre-submission compliance (Greenlight + learned rejection rules) |
@@ -68,7 +69,15 @@ Use app-store-preflight skill — Apple rejected with this message: <paste>
 Let's Blueprint — işte fikir / agent dump: …
 ```
 
-Önce `~/Repo/<proje-adi>/` klasörünü oluşturup Cursor'da o klasörü aç. Skill Stitch + Build + AGENTS yazar; uygulama kodu scaffold etmez.
+Önce `~/Repo/<proje-adi>/` klasörünü oluşturup Cursor'da o klasörü aç. Skill Stitch + Build + AGENTS yazar; uygulama kodu scaffold etmez. Backlog için ardından **Let's Todo Init**.
+
+**Let's Todo Init (Scrum backlog):**
+
+```
+Let's Todo Init — GDD ve BUILD'den epic/story çıkar
+```
+
+`tasks/todo.md` + `tasks/epics/*.md` yazar; uygulama kodu yazmaz.
 
 **Genius ideas:**
 

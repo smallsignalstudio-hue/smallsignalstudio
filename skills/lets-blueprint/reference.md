@@ -141,10 +141,12 @@ Never store secret API keys in git. Public anon keys / project URLs may go in `d
 Start from Sippin/Enoch AGENTS pattern, then:
 
 - [ ] Deep References table points at this app's `{SLUG}*.md` files
-- [ ] Coverage gates: `lib/`, `services/`, `store/` (or note N/A until scaffold)
+- [ ] Coverage gates: `lib/`, `services/`, `store/` (or note N/A until scaffold); **5** edge-case tests per business function
+- [ ] OWASP Top 10 + GDPR + regression + research-before-feature gates
 - [ ] Mobile standards match Phase 3 (no AR unless explicit; offline-first statement; RC week lock)
 - [ ] App-specific bans (privacy bucketing, content file paths, etc.)
 - [ ] Section 10 / pre-launch decision gate referenced
+- [ ] Let's Todo Init / `tasks/epics/` mentioned; one story per commit
 - [ ] "When no application code exists yet" paragraph kept for docs-only phase
 
 ## Agent workflow block (paste into BUILD)
@@ -152,9 +154,9 @@ Start from Sippin/Enoch AGENTS pattern, then:
 Mirror Antigravity / Sippin workflow:
 
 1. Read `{SLUG}.md` + `{SLUG}_BUILD.md` every session start
-2. Read `tasks/todo.md` + `tasks/lessons.md`
+2. Read `tasks/todo.md` + `tasks/epics/` + `tasks/lessons.md`
 3. Plan mode for non-trivial work
-4. Todo → implement → verify → commit+push per slice
+4. **One Let's Todo Init story** → implement → verify → commit+push per slice
 5. Update lessons after corrections
 
 ## Git conventions
