@@ -96,6 +96,12 @@ Abbreviated outputs showing expected quality and format. Full runs include all p
 
 ---
 
+## Example F — $5 cap
+
+Default session budget is **$5**. REST starts the Meta Actor with `maxTotalChargeUsd=5`. After the run, agent reports `usageTotalUsd` (e.g. $1.12) and remaining $3.88 for Instagram. User can say "spend up to $15" to override.
+
+---
+
 ## Example E — Re-roll
 
 **Rejected:** One-habit widget (user: "too close to apps I already use").

@@ -67,7 +67,8 @@ Also accept: "ads-ideas", "clone from ads", "Meta Ad Library", "Apify ads", "fin
 | `{VERTICAL}` or competitor | OPEN unless user named a topic or URL |
 | Country | `US` (use `TR` if user says so) |
 | Platform | iOS-first |
-| `maxAds` | **150** per search-term×country. Warn before **400+**. 766 is a cost choice, not the default |
+| `maxAds` | **150** total-ish (see reference). Warn before **400+**. 766 is a cost choice, not the default |
+| Apify spend cap | **$5 USD** for the whole skill run (all Actor calls). Override only if the user names a higher cap |
 | Instagram organic | **On for the finalist advertiser only** |
 | Resolve landing-page snapshots | Off on the bulk pull; on only for the top ~20 ads if destinations are missing |
 | Phase 6 mode | Interactive unless user says **full auto** |
@@ -80,8 +81,9 @@ This environment has **no Apify MCP**. Call Apify **REST** (or `apify` CLI if in
 1. Read token from env (`APIFY_TOKEN`), `~/Repo/.cursor-env.sh`, or a `.env` the user points at.
 2. **If missing:** stop. Ask for the token **or** a pasted Ad Library JSON/CSV. Do **not** invent ad rows, days-running, or advertiser lists.
 3. Save every Actor dataset to disk before analyzing. Do not re-download the same dataset every follow-up.
-4. Always set `maxAds` / `resultsLimit`. Warn the user before runs of 400+ ads (cost).
-5. Label every dollar figure **Verified / Estimated / Unknown**. Ad longevity is a **proxy**, not MRR.
+4. Always set `maxAds` / `resultsLimit` **and** Apify `maxTotalChargeUsd`.
+5. **Spend cap is $5** for the entire ads-ideas session unless the user explicitly raises it. Pass remaining budget on every Actor run (`maxTotalChargeUsd`). Do not start another Actor if remaining budget is under ~$0.10. This is separate from Apify's own Free-plan **$5/month platform credit**.
+6. Label every dollar figure **Verified / Estimated / Unknown**. Ad longevity is a **proxy**, not MRR.
 
 Actor IDs, curl examples, field mapping, and scoring weights: [reference.md](reference.md).
 
@@ -113,7 +115,7 @@ Infer defaults from context. Ask **at most 3 questions** via `AskQuestion` only 
 
 1. Missing `APIFY_TOKEN` and no pasted dataset — token **or** file?
 2. Vertical / competitor ambiguous (two niches, or OPEN with no hint)?
-3. `maxAds` above 400 — confirm spend?
+3. `maxAds` above 400 **or** spend cap above $5 — confirm spend?
 
 Do not ask generic brainstorming questions. Proceed with defaults if unstated.
 
@@ -139,11 +141,11 @@ Also WebSearch for 3–5 named apps in the niche (store links). Those names beco
 
 Read [reference.md](reference.md) for exact Actor input.
 
-1. Primary: `brilliant_gum/facebook-ads-library-scraper` with `searchTerms`, `countries`, `adActiveStatus: "ACTIVE"`, `maxAds` as calibrated.
+1. Primary: `brilliant_gum/facebook-ads-library-scraper` with `searchTerms`, `countries`, `adActiveStatus: "ACTIVE"`, `maxAds` as calibrated. **Always** pass `maxTotalChargeUsd` = remaining session budget (default **5**).
 2. `resolveSnapshotUrls: false` on the bulk run.
-3. Start the run, poll until `SUCCEEDED`, fetch dataset, **write** `~/Documents/ads-ideas/raw/{runId}.json` (create dirs). If the Documents path is unavailable, use `./ads-ideas/raw/{runId}.json` in the workspace.
-4. If the primary returns 0 rows or fails: fallback `apify/facebook-ads-scraper` with Ad Library URLs (`q=` + country). Map fields per reference.
-5. Report item count, cost estimate, and console run URL.
+3. Start the run, poll until `SUCCEEDED` (or `ABORTED` because the $5 cap was hit — still fetch whatever items exist), **write** `~/Documents/ads-ideas/raw/{runId}.json` (create dirs). If the Documents path is unavailable, use `./ads-ideas/raw/{runId}.json` in the workspace.
+4. If the primary returns 0 rows or fails: fallback `apify/facebook-ads-scraper` with Ad Library URLs (`q=` + country), same remaining `maxTotalChargeUsd`. Map fields per reference.
+5. Report item count, **usageTotalUsd**, remaining cap, and console run URL. Subtract `usageTotalUsd` from the session budget before Phase 5 Instagram / optional crawler.
 
 Do not proceed to scoring on an empty dataset — widen terms or ask one question.
 

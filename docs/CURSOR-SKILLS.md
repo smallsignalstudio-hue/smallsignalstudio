@@ -97,7 +97,7 @@ Agent chat'e Apple'ın gönderdiği red mesajını yapıştır:
 
 ### Reklamlardan doğrulanmış fikir (Meta / Instagram — Apify)
 
-Önce `APIFY_TOKEN` olsun (`~/Repo/.cursor-env.sh` veya ortam değişkeni). Yoksa Ad Library JSON/CSV yapıştır.
+Önce `APIFY_TOKEN` olsun (`~/Repo/.cursor-env.sh` veya ortam değişkeni). Yoksa Ad Library JSON/CSV yapıştır. Apify harcaması varsayılan **oturum başı $5** (Actor `maxTotalChargeUsd`).
 
 > ads-ideas skill ile habit tracking'te çalışan bir uygulama bul
 

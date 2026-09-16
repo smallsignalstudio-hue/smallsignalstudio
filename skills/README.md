@@ -86,7 +86,7 @@ Let's Todo Init — GDD ve BUILD'den epic/story çıkar
 Use the genius-ideas skill to find something related to astrology
 ```
 
-**Ads ideas** (paid demand from Meta/Instagram ads → idea). Needs `APIFY_TOKEN` in env, or a pasted Ad Library JSON/CSV:
+**Ads ideas** (paid demand from Meta/Instagram ads → idea). Needs `APIFY_TOKEN` in env, or a pasted Ad Library JSON/CSV. Default Apify spend cap is **$5 per run**:
 
 ```
 Use the ads-ideas skill to find a working app in habit tracking

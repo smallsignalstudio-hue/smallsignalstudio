@@ -24,13 +24,18 @@ apify actors call "brilliant_gum/facebook-ads-library-scraper" \
   --json
 ```
 
-From the JSON take `.id` (run ID), `.status`, `.defaultDatasetId`, `.consoleUrl`.
+CLI may not expose a spend cap. **Billed runs must use REST** (below) so `maxTotalChargeUsd` is actually enforced. If you only have CLI, do not start a Meta scrape without the REST cap.
 
-### Start a run (REST)
+From the JSON take `.id` (run ID), `.status`, `.defaultDatasetId`, `.consoleUrl`, `.usageTotalUsd`.
+
+### Start a run (REST) — required for the $5 cap
 
 ```bash
+# Session cap default $5. Pass remaining budget on later Actors (IG, crawler).
+CAP="${APIFY_MAX_TOTAL_CHARGE_USD:-5}"
+
 curl -sS -X POST \
-  "https://api.apify.com/v2/acts/brilliant_gum~facebook-ads-library-scraper/runs?token=${APIFY_TOKEN}" \
+  "https://api.apify.com/v2/acts/brilliant_gum~facebook-ads-library-scraper/runs?token=${APIFY_TOKEN}&maxTotalChargeUsd=${CAP}" \
   -H "Content-Type: application/json" \
   -d '{"searchTerms":["habit tracker"],"countries":["US"],"adType":"ALL","adActiveStatus":"ACTIVE","maxAds":150,"resolveSnapshotUrls":false}'
 ```
@@ -159,16 +164,22 @@ Ignore or kill rows that are clearly political (`categories`, `fundingEntity`, `
 
 ## Cost caps
 
+**Hard default: $5 USD per ads-ideas session** (every Actor call combined). Apify enforces this per run via query `maxTotalChargeUsd`. The agent tracks remaining budget from each run's `usageTotalUsd`.
+
+This is **not** the same as Apify Free's ~$5/month platform credit — that is an account limit. Our cap is so one skill run cannot burn more than $5 even on a paid plan.
+
 | Actor | Ballpark | Cap |
 |-------|----------|-----|
-| `brilliant_gum/facebook-ads-library-scraper` | ~$0.0005–$0.015 per ad (plan-dependent) + tiny start fee | Default product of terms×countries×maxAds **≤ 150**. Warn at **400+**. Hard-stop ask at **800+** |
-| `apify/facebook-ads-scraper` | ~$3.40–$5.80 / 1k ads | Same row budget |
-| `apify/instagram-profile-scraper` | ~$1.60 / 1k profiles | **1 profile** (finalist) |
-| `apify/website-content-crawler` | compute + proxy | **≤ 5 pages**, one domain |
+| `brilliant_gum/facebook-ads-library-scraper` | ~$0.0005–$0.015 per ad (plan-dependent) + tiny start fee | `maxTotalChargeUsd` = remaining session budget (start at **5**). Also keep terms×countries×maxAds **≤ 150** so you usually land well under $5. Warn at **400+** rows |
+| `apify/facebook-ads-scraper` | ~$3.40–$5.80 / 1k ads | Same remaining `maxTotalChargeUsd` |
+| `apify/instagram-profile-scraper` | ~$1.60 / 1k profiles | **1 profile**; skip if remaining budget < $0.10 |
+| `apify/website-content-crawler` | compute + proxy | **≤ 5 pages**; skip if remaining budget < $0.25 |
 
 150 ads is the default because the source video's 766-ad pull is a spend choice, not a quality floor. A clean 80–150 active ads in-niche beats a noisy 766.
 
-If a run `FAILED` / `TIMED-OUT`: open `consoleUrl`, reduce `maxAds` or terms, retry once. Never silently skip.
+After each run, read `usageTotalUsd` (or `stats` / charged events if that field is null). If Apify **ABORTED** the run at the cap, still use partial dataset items — say the cap was hit.
+
+If a run `FAILED` / `TIMED-OUT`: open `consoleUrl`, reduce `maxAds` or terms, retry once **inside the remaining cap**. Never silently skip. Never retry in a way that would stack extra uncapped runs.
 
 ## Scoring rubric (0–100)
 
@@ -216,7 +227,8 @@ Skip as OPEN seeds: fashion, dropshipping, crypto, betting, dating mega-apps, "C
 | 401 / auth | Token missing or revoked — stop and ask |
 | `Actor not found` | Check `user~name` spelling |
 | 0 items | Fallback Actor; then different `searchTerms` / country; then one user question |
-| Timeout | Lower `maxAds`; split terms into separate runs |
+| Run `ABORTED` at spend cap | Fetch partial dataset; report `usageTotalUsd`; do not start another uncapped run |
+| Timeout | Lower `maxAds`; split terms into separate runs **inside remaining cap** |
 | `proxy is required` | Add `"proxyConfiguration": {"useApifyProxy": true}` |
 | Spend/impressions all null | Normal for commercial ads — do not treat as zero spend |
 | Instagram private / no handle | Skip Phase 5; say so |
