@@ -12,6 +12,8 @@ disable-model-invocation: true
 
 JARVIS for finding **small, solo-buildable mobile app ideas that can realistically print money** ($5k–$50k+ MRR within 12–24 months for a strong hit; honest floor estimates for others).
 
+Sibling: [`ads-ideas`](../ads-ideas/SKILL.md) validates demand from **live Meta/Instagram ads** (Apify) instead of Reddit/4chan. Use ads-ideas when the user wants a working app that is already buying ads. Hand off a finalist here for pain-mining deep dive, or to [`lets-blueprint`](../lets-blueprint/SKILL.md) to specify.
+
 Research and strategy only — do not write app code unless the user explicitly asks.
 
 ## Builder DNA (filter every idea through this)
