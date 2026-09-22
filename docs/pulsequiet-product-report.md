@@ -294,7 +294,8 @@ Yeni teşhis, ilaç denemesi, white-coat. Daha teknolojik; yine de **sadelik** i
 2. Caregiver: “PDF’i her Pazar çocuğa Mail ile” (local shortcut / paylaşım hatırlatması — sunucu yok)  
 3. İlaç adı notu (hatırlatma değil; serbest metin) — DoseSure’a kaymamak için sınırlı  
 4. TR / EN / DE lokalizasyon  
-5. Apple Watch complication (sadece “bugün ✓/✗”)  
+5. **Quiet Premium** tema (35–54) — §9.5; onboarding’de “Büyük yazı / Klasik” yanında “Premium görünüm”  
+6. **watchOS companion (kayıt — ölçüm değil)** — §7.6  
 
 ### 7.5 Bilinçli olarak YAPILMAYACAKLAR (v1–v1.5)
 
@@ -307,6 +308,23 @@ Yeni teşhis, ilaç denemesi, white-coat. Daha teknolojik; yine de **sadelik** i
 - Şeker, kilo, ECG all-in-one  
 - Haftalık abonelik  
 - Zorunlu hesap / bulut  
+- **Apple Watch’tan tansiyon mmHg “ölçme” iddiası** (donanım yok; regülasyon + güven riski)  
+
+### 7.6 Apple Watch — gerçekçi kapsam (2026)
+
+**Donanım gerçeği (Apple Support / AHA Hypertension 2025–26):**  
+Apple Watch **sistolik/diyastolik mmHg ölçmez**. Series 9+ / Ultra 2+’ta *Hypertension Notifications* vardır: ~30 gün PPG paterninden “olası hipertansiyon” uyarısı. Bu özellik **daha önce teşhis almamış** yetişkinler içindir; **tedavi takibi / teşhis yerine geçmez**; bildirim sonrası Apple bile **üçüncü parti manşet + 7 gün log** ister.
+
+PulseQuiet birincil kitle = **zaten takip eden hipertansiyon hastası** → Apple’ın HTN notification’ı bizim core job değil.
+
+| Watch özelliği | Karar | Neden |
+|----------------|-------|--------|
+| Saat ile tansiyon ölç (tek tuş) | **Hayır** | API/sensör mmHg vermez; yalan iddia = App Review + güven kaybı |
+| Gün içi hatırlatma + **Kaydet** complication | **Evet (v1.1)** | Manşet ölç → bilekten 1 tap log; iPhone’suz sabah ritüeli |
+| Digital Crown ile SYS/DIA/HR gir | **Evet** | Saat klavyesi zayıf; crown + büyük ± iyi |
+| “Bugün ✓/✗” complication | **Evet** | Widget wedge’in bilek uzantısı |
+| Apple HTN notification’ı okuyup upsell | **İsteğe bağlı / dikkatli** | Yeni teşhis funnel’ı; mevcut hastaya spam etme |
+| HealthKit BP yazma (log sonrası) | **Evet** | Apple’ın kendi manşet-log akışıyla uyumlu |
 
 ---
 
@@ -388,6 +406,23 @@ Yeni teşhis, ilaç denemesi, white-coat. Daha teknolojik; yine de **sadelik** i
 | Marka | PulseQuiet — derin yeşil, bold; “sessiz güven” |
 | İkonografi | Kalın, az detay; her ikonda metin etiketi |
 | Animasyon | 2–3: kayıt onayı, widget durum geçişi, PDF hazır — abartısız |
+
+### 9.5 İkinci tema: Quiet Premium (35–54 / caregiver kendisi)
+
+Aynı bilgi mimarisi (Bugün · Kaydet · Doktor). Farklı **görsel yoğunluk** — feature şişirme yok.
+
+| Token | Quiet Access (55+) | Quiet Premium |
+|-------|--------------------|---------------|
+| Zemin | Sıcak taş `#F4F0E8` | Kömür grafit `#121416` |
+| Yüzey | Düz / minimal | Grafit panel `#1E2228` + ince kenar |
+| Vurgu | Derin sıcak yeşil `#1F6B4A` | Keskin zümrüt `#2BB673` (seyrek) |
+| Tip | ≥20 pt, weight 700+, BP ~48–56 | ~15–17 pt body, BP ~40–44, Display semibold marka |
+| CTA yüksekliği | ~56–64 pt | ~48 pt (hâlâ ≥44) |
+| İkincil aksiyon | Büyük outline butonlar | Metin + chevron (daha az “kutu”) |
+| Mockup | `pulsequiet-v2-*.png` | `pulsequiet-premium-*.png` |
+
+**Seçim:** Onboarding “Nasıl görünsün?” → Büyük yazı (önerilen 55+) / Premium. Sistem Dynamic Type her iki temada açık kalır.  
+**Neden iki tema:** Caregiver ve 40–54 “erken takip” App Store’da Access temasını “yaşlı app” diye reddedebilir; tek ortak IA ile churn’ü azaltırız. MVP’de Access ship; Premium v1.1.
 
 ---
 
