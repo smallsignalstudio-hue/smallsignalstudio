@@ -343,15 +343,51 @@ Yeni teşhis, ilaç denemesi, white-coat. Daha teknolojik; yine de **sadelik** i
 
 ---
 
-## 9. Görsel dil (premium ama sakin)
+## 9. Görsel dil (araştırma temelli — 55+ savunması)
+
+> Amaç “tasarımcıya güzel” değil; **hedef kullanıcının okuyabildiği, kaygıyı yükseltmeyen, rakip şikâyetlerini tersine çeviren** sistem. v2 mockup’lar: `pulsequiet-v2-*.png`.
+
+### 9.1 Kanıt kaynakları (kararların dayanağı)
+
+| Kaynak | Ne söylüyor | PulseQuiet kararı |
+|--------|-------------|-------------------|
+| arXiv 2504.12690 (seniors mobile a11y, 2025) | Body ≥**20 pt**; weight **≥700**; WCAG **AAA 7:1**; hedef ≥**48×48** dp | Varsayılan Large Text profili; CTA ~56–64 pt yükseklik |
+| NN/G aging / seniors | Küçük tip + soluk gri = engel; hedefleri ayır; static UI | Açık gri metin yok; mis-tap için kontroller arası ≥12–16 pt |
+| SmartBP App Store (senior review) | “Type super tiny… big white screen full of blank space” → silindi | Boşluğu “lüks whitespace” değil **büyük sayı/etiket** ile doldur |
+| Elderly-Centric Chromatics (IJHCI 2024) | Saf beyaz uzun vadede “buz gibi”; yaşlılar **sıcak hue + yüksek lightness + orta doygunluk**; turuncu/sarı/yeşil tercih; **mavi/cyan/mor zayıf**; geniş **kırmızı** stresi/BP yükseltebilir | Zemin sıcak taş-fildişi; vurgu **derin sıcak yeşil**; cool teal bırakıldı; kırmızı chrome yok |
+| Aging lens / cataract literatürü | Lens sararır → mavi-yeşil soluklaşır; ince ton farkı kaybolur | Pastel mint/cyan yok; doygun koyu yeşil + near-black metin |
+| Hipertansiyon / anxiety UX | Kırmızı alarm HR/stres; eksik görev panik üçgeni ters etki | “Henüz kayıt yok” = sakin kehribar + metin; ⚠ üçgen yok |
+| UPM systematic review (60+) | **Simplify** + **size and distance between controls** en güçlü kurallar | 3 sekme; tek sütun; stepper’lar arasında geniş boşluk |
+
+### 9.2 Token’lar (v2)
+
+| Token | Değer | Neden |
+|-------|-------|-------|
+| `--bg` | `#F4F0E8` (sıcak taş) | Saf beyazın “buz” hissi (IJHCI); parlama azaltma |
+| `--ink` | `#1A1A1A` | AAA kontrast; soluk gri yasak (NN/G) |
+| `--ink-secondary` | `#3A3A3A` | İkincil de koyu — “light gray on white” yok |
+| `--accent` | `#1F6B4A` (derin sıcak yeşil) | Yaşlı tercih sırası yeşili öne alır; sağlıkta sakin; cyan’den daha görünür |
+| `--missing` | `#A66A00` (sakin kehribar) | Önemli ama acil değil; kırmızı/turuncu panik yok |
+| Tipografi | Bold humanist sans, weight 700+ | arXiv seniors; ince display font yok |
+| BP sayıları | ~48–56 pt | SmartBP “tiny numbers” şikâyetinin tersi |
+| Tap | ≥48 pt (CTA ≥56) | Material + seniors a11y |
+| Kartlar | Varsayılan yok | Düz blok + boşluk; kart = sadece gerçek form alanı |
+
+### 9.3 Bilinçli redler
+
+- Cool teal / pastel mint (önceki v1) — aging lens + cyan tercih düşüklüğü  
+- Geniş kırmızı “tıbbi” chrome — BP/stres literatürü  
+- Eksik-gün ⚠ üçgeni — hipertansiyon kaygısını besler  
+- Mor, glow, glass, ince hairline-on-gray — hem a11y hem AI klişe  
+- “Premium boşluk + küçük tip” — senior SmartBP review’ının aynısı  
+
+### 9.4 Marka / hareket
 
 | Öğe | Yön |
 |-----|-----|
-| Atmosfer | Açık nötr zemin + yumuşak mavi/teal vurgu (klinik mor / krem AI klişesi yok) |
-| Marka | PulseQuiet — “sessiz güven” |
-| İkonografi | Kalın, az detay; emoji yok |
+| Marka | PulseQuiet — derin yeşil, bold; “sessiz güven” |
+| İkonografi | Kalın, az detay; her ikonda metin etiketi |
 | Animasyon | 2–3: kayıt onayı, widget durum geçişi, PDF hazır — abartısız |
-| Kartlar | Mümkün olduğunca yok; liste + net bloklar |
 
 ---
 
