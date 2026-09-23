@@ -1,0 +1,79 @@
+# Tower Defence — Tarihsel Araştırma Paketi (Tek Bundle)
+
+Bu branch, tüm medeniyet / faction araştırmalarını **tek yerde** toplar.
+
+Kaynak branch: `cursor/tower-defence-historical-research-bundle-2959`.
+
+## Türkçe master raporlar (oyun incili)
+
+| Medeniyet / Faction | Dosya | Not |
+|---|---|---|
+| Roma | [`ROMAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./ROMAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Capitolium / sur stack |
+| Pers (Achaemenid) | [`PERSIAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./PERSIAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Türkçe özet |
+| Pers (derin master) | [`PERS-IMPARATORLUGU-TOWER-DEFENCE-MASTER-ARASTIRMA.md`](./PERS-IMPARATORLUGU-TOWER-DEFENCE-MASTER-ARASTIRMA.md) | Daha derin Türkçe master |
+| Mısır | [`EGYPTIAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./EGYPTIAN-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Buhen / Nil |
+| Çin | [`CHINESE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./CHINESE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Weiyang / wengcheng |
+| Maya–Mexica | [`MAYA-AZTEC-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./MAYA-AZTEC-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Çift medeniyet; Maya ≠ Aztek |
+| Viking / Norse | [`VIKING-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./VIKING-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Ringfort + Jelling |
+| Antik Yunan | [`ANCIENT-GREEK-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./ANCIENT-GREEK-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Polis ≠ tek krallık; Akropolis + Long Walls |
+| **Japonya** | [`JAPANESE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./JAPANESE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Himeji ~46,4 m; masugata; ashigaru/teppō |
+| **Moğol** | [`MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./MONGOL-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Ordu/Karakorum + Dadu ~28,6 km; saldırgan specialty |
+| **Avrupa Kalesi** | [`EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-TARIHSEL-ARASTIRMA.md) | Beaumaris / Krak; konsantrik 7 katman |
+
+## İngilizce eşlikçi brief’ler
+
+### Pers
+- [`ACHAEMENID-PERSIAN-MILITARY-UNITS-AND-TACTICS.md`](./ACHAEMENID-PERSIAN-MILITARY-UNITS-AND-TACTICS.md)
+- [`PERSIAN-IMPERIAL-TOWER-DEFENCE-RESEARCH.md`](./PERSIAN-IMPERIAL-TOWER-DEFENCE-RESEARCH.md)
+
+### Mısır
+- [`ANCIENT-EGYPTIAN-MILITARY-UNITS-AND-TACTICS.md`](./ANCIENT-EGYPTIAN-MILITARY-UNITS-AND-TACTICS.md)
+- [`EGYPTIAN-IMPERIAL-TOWER-DEFENCE-RESEARCH.md`](./EGYPTIAN-IMPERIAL-TOWER-DEFENCE-RESEARCH.md)
+- [`EGYPTIAN-TOWER-DEFENCE-RESEARCH.md`](./EGYPTIAN-TOWER-DEFENCE-RESEARCH.md)
+
+### Çin
+- [`ANCIENT-CHINESE-MILITARY-UNITS-AND-TACTICS.md`](./ANCIENT-CHINESE-MILITARY-UNITS-AND-TACTICS.md)
+- [`CHINESE-IMPERIAL-TOWER-DEFENCE-RESEARCH.md`](./CHINESE-IMPERIAL-TOWER-DEFENCE-RESEARCH.md)
+
+### Maya / Mexica
+- [`ANCIENT-MAYA-WARFARE-UNITS-AND-FORTIFICATIONS.md`](./ANCIENT-MAYA-WARFARE-UNITS-AND-FORTIFICATIONS.md)
+- [`AZTEC-MEXICA-MILITARY-UNITS-AND-TACTICS.md`](./AZTEC-MEXICA-MILITARY-UNITS-AND-TACTICS.md)
+- [`MAYA-AZTEC-TOWER-DEFENCE-RESEARCH.md`](./MAYA-AZTEC-TOWER-DEFENCE-RESEARCH.md)
+
+### Viking
+- [`VIKING-AGE-MILITARY-UNITS-AND-TACTICS.md`](./VIKING-AGE-MILITARY-UNITS-AND-TACTICS.md)
+- [`VIKING-AGE-FORTIFICATIONS-AND-DEFENCE.md`](./VIKING-AGE-FORTIFICATIONS-AND-DEFENCE.md)
+- [`VIKING-TOWER-DEFENCE-RESEARCH.md`](./VIKING-TOWER-DEFENCE-RESEARCH.md)
+
+### Antik Yunan
+- [`ANCIENT-GREEK-MILITARY-UNITS-AND-TACTICS.md`](./ANCIENT-GREEK-MILITARY-UNITS-AND-TACTICS.md)
+- [`ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md`](./ANCIENT-GREEK-FORTIFICATIONS-AND-DEFENCE.md)
+- [`ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md`](./ANCIENT-GREEK-TOWER-DEFENCE-RESEARCH.md)
+
+### Japonya
+- [`JAPANESE-MILITARY-UNITS-AND-TACTICS.md`](./JAPANESE-MILITARY-UNITS-AND-TACTICS.md)
+- [`JAPANESE-CASTLES-AND-FORTIFICATIONS.md`](./JAPANESE-CASTLES-AND-FORTIFICATIONS.md)
+- [`JAPANESE-TOWER-DEFENCE-RESEARCH.md`](./JAPANESE-TOWER-DEFENCE-RESEARCH.md)
+
+### Moğol
+- [`MONGOL-MILITARY-UNITS-AND-TACTICS.md`](./MONGOL-MILITARY-UNITS-AND-TACTICS.md)
+- [`MONGOL-FORTIFICATIONS-AND-CAMPS.md`](./MONGOL-FORTIFICATIONS-AND-CAMPS.md)
+- [`MONGOL-TOWER-DEFENCE-RESEARCH.md`](./MONGOL-TOWER-DEFENCE-RESEARCH.md)
+
+### Avrupa Kalesi (~1000–1500)
+- [`EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md`](./EUROPEAN-CASTLE-MILITARY-UNITS-AND-TACTICS.md)
+- [`EUROPEAN-CASTLES-AND-FORTIFICATIONS.md`](./EUROPEAN-CASTLES-AND-FORTIFICATIONS.md)
+- [`EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md`](./EUROPEAN-CASTLE-TOWER-DEFENCE-RESEARCH.md)
+
+## Ortak tasarım kuralı
+Her Türkçe master: merkez keep, ~7 katman savunma, birimler/taktikler, kronoloji (güç/zayıf), mitoloji, kıyıda köşe, **ASLA ASSUME ETME**, “Oyunda Nasıl Kullanılır” notları.
+
+**Yeni medeniyet / ırk ekleme (zorunlu):** Kullanıcı veya ajan yeni bir araştırma MD’si verdiğinde (örn. `lübnan.md`) uygulamaya kod veya ship içeriği yazmadan önce GDD **§20 Yeni medeniyet ekleme protokolü** uygulanır — intake checklist, eksikse yeniden araştırma (`Stop_NoCode`), non-breaking data/skin entegrasyonu, regresyon kapıları. Mevcut çalışan düzeni bozan ekleme reddedilir. Ayrıntı: [`HISTORICAL-CIV-TOWER-DEFENCE-OYUN-TASARIMI.md`](./HISTORICAL-CIV-TOWER-DEFENCE-OYUN-TASARIMI.md) §20.
+
+
+## Oyun tasarım incili (GDD)
+
+Tüm medeniyet araştırmalarını ürünleşiren ana tasarım dokümanı:
+
+- [`HISTORICAL-CIV-TOWER-DEFENCE-OYUN-TASARIMI.md`](./HISTORICAL-CIV-TOWER-DEFENCE-OYUN-TASARIMI.md) — tam GDD (dinamikler, kamera, defans/saldırı, monetizasyon, retention, sentiment, SWOT, **§20 yeni civ intake**)
+- Araştırma alt notları: [`_research/`](./_research/) (`GDD-*.md`)
