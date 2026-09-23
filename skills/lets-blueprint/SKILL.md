@@ -14,7 +14,7 @@ disable-model-invocation: true
 
 End-to-end **documentation pack** for a new Small Signal Studio mobile app — before any application code.
 
-Sibling: [`lets-todo-init`](../lets-todo-init/SKILL.md) expands Scrum epics after this pack. Sibling: [`lets-release`](../lets-release/SKILL.md) ships later. Sibling: [`genius-ideas`](../genius-ideas/SKILL.md) finds ideas; this skill **specifies** them.
+Sibling: [`lets-todo-init`](../lets-todo-init/SKILL.md) expands Scrum epics after this pack. Sibling: [`lets-release`](../lets-release/SKILL.md) ships later. Siblings: [`genius-ideas`](../genius-ideas/SKILL.md) (Reddit/4chan pain) and [`ads-ideas`](../ads-ideas/SKILL.md) (Meta ads paid demand) find ideas; this skill **specifies** them.
 
 ## When to use (auto-trigger phrases)
 
@@ -71,7 +71,7 @@ Do not write files until Phases 0–4 are done (except reading existing files in
 
 ### Phase 1 — Intake
 
-Parse the user's paste (idea, genius-ideas report, or full agent dump). Extract **only** what is explicitly stated into a working fact list. Mark unknowns as `UNKNOWN`.
+Parse the user's paste (idea, genius-ideas / ads-ideas report, or full agent dump). Extract **only** what is explicitly stated into a working fact list. Mark unknowns as `UNKNOWN`.
 
 Read [reference.md](reference.md) for the interview bank and third-party catalog.
 

@@ -6,3 +6,9 @@ export APPSTORE_COMPLIANCE_HUB="${APPSTORE_COMPLIANCE_HUB:-$HOME/Repo/SmallSigna
 export REPO_ROOT="${REPO_ROOT:-$HOME/Repo}"
 
 export PATH="$APPSTORE_COMPLIANCE_HUB/compliance/scripts:$PATH"
+
+# ads-ideas skill — Meta/Instagram Ad Library via Apify REST (never commit the real token)
+# https://console.apify.com/settings/integrations
+# export APIFY_TOKEN="apify_api_xxxxxxxx"
+# Optional override; ads-ideas defaults to $5 per skill session if unset
+# export APIFY_MAX_TOTAL_CHARGE_USD="5"

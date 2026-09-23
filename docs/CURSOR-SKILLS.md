@@ -11,7 +11,8 @@ Skill'ler projeye özel değil; **bilgisayarına global kurulur**:
   ├── lets-blueprint/
   ├── lets-release/
   ├── app-store-preflight/
-  └── genius-ideas/
+  ├── genius-ideas/
+  └── ads-ideas/
 ```
 
 Cursor'da **hangi klasörü açarsan aç** (ör. `~/Repo/sippin`), Agent chat'te bu skill'leri çağırabilirsin.
@@ -90,9 +91,17 @@ Agent chat'e Apple'ın gönderdiği red mesajını yapıştır:
 
 **Ne olur?** Agent, `SmallSignalStudio/compliance/rejections/` altına kayıt açar; gelecekteki tüm projelerde aynı hata taranır.
 
-### Yeni uygulama fikri araştırması
+### Yeni uygulama fikri araştırması (Reddit / unpaid pain)
 
 > genius-ideas skill ile astrolojiyle ilgili bir fikir bul.
+
+### Reklamlardan doğrulanmış fikir (Meta / Instagram — Apify)
+
+Önce `APIFY_TOKEN` olsun (`~/Repo/.cursor-env.sh` veya ortam değişkeni). Yoksa Ad Library JSON/CSV yapıştır. Apify harcaması varsayılan **oturum başı $5** (Actor `maxTotalChargeUsd`).
+
+> ads-ideas skill ile habit tracking'te çalışan bir uygulama bul
+
+**Ne olur?** Agent Apify ile Meta Ad Library çeker, uzun süre dönen reklamları skorlar, App Store/landing ile eşler, studio DNA'ya uyan bir wedge raporu yazar. Uygulama kodu yok. Sonra **genius-ideas** (deep dive) veya **Let's Blueprint**.
 
 ---
 
