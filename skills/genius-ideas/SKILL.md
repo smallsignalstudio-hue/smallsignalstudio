@@ -100,7 +100,15 @@ Do not skip phases 0–6 on the first pass. Do not deep-dive one idea before Pha
 
 ### Phase 0 — Calibrate
 
-Infer defaults from context. Ask **at most 3 questions** via `AskQuestion` only if blocked:
+**Pending idea queue (mandatory):** Before Phase 1, read
+`docs/genius-ideas/PENDING.md` (repo root relative). If any item has
+`status: open`, **ask the user first** whether this run should research one of
+those queued ideas (name them) or proceed with the vertical they just stated.
+Do not silently ignore open queue items. After researching a queued idea, update
+its status in `PENDING.md`.
+
+Infer defaults from context. Ask **at most 3 questions** via `AskQuestion` only if blocked
+(plus the pending-queue question above, which does not count against the 3):
 
 1. Platform priority (iOS-first / Android / both)?
 2. MVP time budget (2 / 4 / 8 weeks)?
