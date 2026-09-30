@@ -4,7 +4,8 @@
 **Vertical:** Pregnancy → postpartum → newborn → first solids (legal-safe only)  
 **Mode:** Focused (health / maternal) + ASO alternatives  
 **Defaults:** iOS-first · 4-week MVP · subscription-first · no medical diagnosis/advice/device claims  
-**Recommendation (finalist):** Ship research → validate killer feature mock → then MVP **FirstBite**
+**Recommendation (finalist):** FirstBite — **iterated 2026-09-30** (see `2026-09-30-firstbite-iterate.md`). Do **not** ship Phase 5 as-is; ship only as **Allergen Runway + $9.99 OTP**, or re-roll to MamaDose if Log gains ratings.  
+**Pending queue:** `PENDING.md` → **Doctolog** (ask on next genius-ideas run).
 
 ---
 
