@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Java GC — Pen &amp; Box Interview Notes (Dark)</title>
+<title>Java GC — Full Pen-Box Interview Guide (Dark)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet" />
 <style>
-  /* ========== DARK PAPER ========== */
   :root {
     --paper: #12151c;
     --ink: #e8e2d6;
@@ -22,7 +21,6 @@
     --purple: #d8b4fe;
     --box-bg: #1a1f2b;
   }
-
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -33,240 +31,178 @@
       radial-gradient(ellipse at 80% 100%, #1c1828 0%, transparent 45%),
       var(--paper);
     font-family: "Patrick Hand", "Comic Sans MS", cursive;
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     line-height: 1.45;
   }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 14px 80px; }
 
-  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 14px 72px; }
-
-  h1, h2, h3 {
+  h1, h2, h3, h4 {
     font-family: "Caveat", "Patrick Hand", cursive;
     font-weight: 700;
-    letter-spacing: 0.01em;
   }
-  h1 { font-size: clamp(2.2rem, 6vw, 3rem); margin: 0 0 6px; color: var(--ink); }
+  h1 { font-size: clamp(2.1rem, 5vw, 2.9rem); margin: 0 0 6px; }
   h2 {
-    font-size: 2rem;
-    margin: 44px 0 12px;
-    color: var(--teal);
+    font-size: 1.9rem; margin: 46px 0 12px; color: var(--teal);
     border-bottom: 3px solid var(--teal);
     border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
     padding-bottom: 4px;
   }
-  h3 { font-size: 1.45rem; color: var(--amber); margin: 18px 0 8px; }
-  .sub { color: var(--faint); margin: 0 0 16px; font-size: 1.2rem; }
+  h3 { font-size: 1.4rem; color: var(--amber); margin: 20px 0 8px; }
+  h4 { font-size: 1.25rem; color: var(--teal); margin: 0 0 6px; }
+  .sub { color: var(--faint); margin: 0 0 14px; font-size: 1.15rem; }
 
   .badge {
-    display: inline-block;
-    border: 2px solid var(--teal);
-    color: var(--teal);
-    padding: 4px 12px;
-    margin-bottom: 10px;
-    font-family: "Caveat", cursive;
-    font-size: 1.1rem;
+    display: inline-block; border: 2px solid var(--teal); color: var(--teal);
+    padding: 4px 12px; margin-bottom: 10px; font-family: "Caveat", cursive; font-size: 1.1rem;
     border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
   }
 
-  /* sticky nav */
   .sticky {
     position: sticky; top: 0; z-index: 20;
     background: rgba(18,21,28,0.95);
     border-bottom: 2px solid #2a3142;
-    margin: 0 -14px 16px;
-    padding: 8px 14px;
-    display: flex; flex-wrap: wrap; gap: 6px 12px;
-    font-size: 1rem;
+    margin: 0 -14px 16px; padding: 8px 14px;
+    display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.98rem;
   }
   .sticky a { color: var(--faint); text-decoration: none; }
   .sticky a:hover { color: var(--teal); }
 
-  /* ========== PEN BOXES ========== */
   .sketch {
     border: 2.5px solid var(--line);
     background: var(--box-bg);
     border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-    padding: 12px 14px;
-    position: relative;
+    padding: 10px 12px;
   }
-  .sketch.wiggle-l { transform: rotate(-0.6deg); }
-  .sketch.wiggle-r { transform: rotate(0.7deg); }
-  .sketch.wiggle-0 { transform: rotate(-0.2deg); }
-
-  .sketch.teal  { border-color: var(--teal); }
-  .sketch.green { border-color: var(--green); }
-  .sketch.amber { border-color: var(--amber); }
-  .sketch.red   { border-color: var(--red); }
-  .sketch.blue  { border-color: var(--blue); }
-  .sketch.purple{ border-color: var(--purple); }
+  .wiggle-l { transform: rotate(-0.55deg); }
+  .wiggle-r { transform: rotate(0.65deg); }
+  .wiggle-0 { transform: rotate(-0.15deg); }
+  .teal { border-color: var(--teal); }
+  .green { border-color: var(--green); }
+  .amber { border-color: var(--amber); }
+  .red { border-color: var(--red); }
+  .blue { border-color: var(--blue); }
+  .purple { border-color: var(--purple); }
 
   .board {
     border: 2.5px dashed var(--faint);
     border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
-    padding: 16px 12px;
-    margin: 14px 0;
-    background: #161a24;
+    padding: 14px 12px; margin: 14px 0; background: #161a24;
   }
-  .board .label {
-    font-family: "Caveat", cursive;
-    font-size: 1.15rem;
-    color: var(--faint);
-    margin-bottom: 12px;
+  .board > .label {
+    font-family: "Caveat", cursive; font-size: 1.15rem;
+    color: var(--faint); margin-bottom: 12px;
   }
   .board .draw {
-    margin-top: 12px;
-    color: var(--amber);
-    font-family: "Caveat", cursive;
-    font-size: 1.2rem;
-    border-top: 2px dashed #3a4255;
-    padding-top: 8px;
+    margin-top: 12px; color: var(--amber);
+    font-family: "Caveat", cursive; font-size: 1.15rem;
+    border-top: 2px dashed #3a4255; padding-top: 8px;
   }
   .board .draw::before { content: "✏️ draw: "; }
 
-  .row {
-    display: flex; flex-wrap: wrap;
-    gap: 10px; align-items: center; justify-content: center;
-  }
-  .col {
-    display: flex; flex-direction: column;
-    gap: 6px; align-items: center;
-  }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; justify-content: center; }
+  .col { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .arr { font-family: "Caveat", cursive; font-size: 1.9rem; color: var(--amber); line-height: 1; padding: 0 4px; align-self: center; }
+  .arr-v { font-size: 1.5rem; color: var(--amber); }
 
-  .arr {
-    font-family: "Caveat", cursive;
-    font-size: 2rem;
-    color: var(--amber);
-    line-height: 1;
-    user-select: none;
-    padding: 0 4px;
+  .bt { font-family: "Caveat", cursive; font-size: 1.3rem; font-weight: 700; margin: 0 0 4px; }
+  .bs { color: var(--faint); font-size: 1rem; margin: 0; }
+  .mini {
+    border: 2px solid #4a5568; background: #12161f;
+    border-radius: 12px 18px 10px 16px / 14px 10px 16px 12px;
+    padding: 6px 8px; margin: 4px 0; font-size: 0.95rem; width: 100%;
   }
-  .arr-v { font-size: 1.6rem; color: var(--amber); }
+  .mini b { color: var(--ink); }
 
-  .box-title {
-    font-family: "Caveat", cursive;
-    font-size: 1.35rem;
-    font-weight: 700;
-    margin: 0 0 4px;
-  }
-  .box-sub {
-    color: var(--faint);
-    font-size: 1.05rem;
-    margin: 0;
-  }
-
-  /* tiny cells inside a box (objects / garbage) */
-  .cells {
-    display: flex; flex-wrap: wrap; gap: 5px;
-    justify-content: center; margin-top: 8px;
-  }
+  .cells { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 8px; }
   .cell {
-    width: 28px; height: 28px;
-    border: 2px solid;
-    border-radius: 4px 8px 3px 7px;
+    width: 28px; height: 28px; border: 2px solid; border-radius: 4px 8px 3px 7px;
     display: flex; align-items: center; justify-content: center;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; font-weight: 600;
   }
-  .cell.g { border-color: #7a8294; color: #7a8294; }          /* garbage */
-  .cell.s { border-color: var(--green); color: var(--green); } /* survivor */
-  .cell.o { border-color: var(--blue); color: var(--blue); }   /* old */
+  .cell.g { border-color: #7a8294; color: #7a8294; }
+  .cell.s { border-color: var(--green); color: var(--green); }
+  .cell.o { border-color: var(--blue); color: var(--blue); }
 
-  /* problem / solution */
   .pair {
     display: grid; grid-template-columns: 1fr auto 1fr;
     gap: 8px; align-items: stretch; margin: 12px 0;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 700px) {
     .pair { grid-template-columns: 1fr; }
     .pair .arr { transform: rotate(90deg); justify-self: center; }
+    .map3 { grid-template-columns: 1fr !important; }
   }
   .prob {
-    border: 2.5px solid var(--red);
-    background: #2a1518;
+    border: 2.5px solid var(--red); background: #2a1518;
     border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
     padding: 10px 12px;
   }
   .prob .t { color: var(--red); font-family: "Caveat", cursive; font-size: 1.15rem; }
   .sol {
-    border: 2.5px solid var(--green);
-    background: #14241a;
+    border: 2.5px solid var(--green); background: #14241a;
     border-radius: 18px 255px 18px 225px / 225px 18px 255px 18px;
     padding: 10px 12px;
   }
   .sol .t { color: var(--green); font-family: "Caveat", cursive; font-size: 1.15rem; }
 
   .memo {
-    border: 2px dashed var(--teal);
-    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-    padding: 10px 12px;
-    margin: 12px 0;
-    color: var(--teal);
-    background: #12201e;
+    border: 2px dashed var(--teal); border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 10px 12px; margin: 12px 0; color: var(--teal); background: #12201e;
   }
   .memo b { font-family: "Caveat", cursive; font-size: 1.25rem; }
 
   .gold {
-    border: 2.5px solid var(--amber);
-    background: #2a210f;
+    border: 2.5px solid var(--amber); background: #2a210f;
     border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
-    padding: 12px 14px;
-    margin: 14px 0;
+    padding: 12px 14px; margin: 14px 0;
   }
   .gold strong { color: var(--amber); font-family: "Caveat", cursive; font-size: 1.3rem; }
 
   .story {
     border-left: 4px solid var(--teal);
-    padding: 6px 0 6px 12px;
-    margin: 10px 0;
-    color: var(--ink);
+    padding: 6px 0 6px 12px; margin: 10px 0;
   }
 
-  /* timeline strip */
-  .tl {
-    display: flex; flex-wrap: wrap; gap: 8px;
-    justify-content: center; align-items: stretch;
+  .warn-banner {
+    border: 2.5px solid var(--red); background: #2a1518;
+    border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    padding: 12px 14px; margin: 12px 0; color: var(--red);
   }
-  .tl .step {
-    flex: 1 1 120px;
-    max-width: 160px;
-    text-align: center;
+
+  .map3 {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
   }
+  .map3 > .sketch { min-height: 100%; }
+
+  .tl { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .tl .step { flex: 1 1 120px; max-width: 160px; text-align: center; }
   .tl .n {
-    display: inline-block;
-    width: 28px; height: 28px;
+    display: inline-block; width: 28px; height: 28px;
     border: 2.5px solid var(--teal);
     border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.85rem;
-    line-height: 24px;
-    color: var(--teal);
-    margin-bottom: 4px;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; line-height: 24px;
+    color: var(--teal); margin-bottom: 4px;
   }
 
-  /* pause bars — hand drawn feel */
-  .bars { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .bars { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
   .bar-row { display: grid; grid-template-columns: 90px 1fr; gap: 8px; align-items: center; }
   .bar-track {
-    height: 26px;
-    border: 2.5px solid var(--line);
+    height: 26px; border: 2.5px solid var(--line);
     border-radius: 255px 10px 225px 10px / 10px 225px 10px 255px;
     display: flex; overflow: hidden;
   }
   .bar-track .g { background: var(--green); height: 100%; }
   .bar-track .r { background: var(--red); height: 100%; }
 
-  /* G1 region grid */
   .grid8 {
     display: grid; grid-template-columns: repeat(8, 1fr);
     gap: 6px; max-width: 400px; margin: 0 auto;
   }
   .rg {
-    aspect-ratio: 1;
-    border: 2.5px solid;
+    aspect-ratio: 1; border: 2.5px solid;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     display: flex; align-items: center; justify-content: center;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.85rem; font-weight: 600;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; font-weight: 600;
   }
   .rg.E { border-color: var(--green); color: var(--green); }
   .rg.S { border-color: var(--teal); color: var(--teal); }
@@ -276,49 +212,39 @@
 
   .legend {
     display: flex; flex-wrap: wrap; gap: 10px 14px;
-    justify-content: center; margin-top: 10px;
-    color: var(--faint); font-size: 1.05rem;
+    justify-content: center; margin-top: 10px; color: var(--faint);
   }
 
+  .grid3 {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0;
+  }
+  @media (max-width: 700px) { .grid3 { grid-template-columns: 1fr; } }
+
   table {
-    width: 100%; border-collapse: collapse;
-    margin: 12px 0; font-size: 1.05rem;
+    width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 1.02rem;
   }
   th, td {
-    border: 2px solid #2e3648;
-    padding: 8px 10px;
+    border: 2px solid #2e3648; padding: 8px 10px;
     text-align: left; vertical-align: top;
   }
   th {
-    color: var(--faint);
-    font-family: "Caveat", cursive;
-    font-size: 1.15rem;
-    font-weight: 700;
+    color: var(--faint); font-family: "Caveat", cursive;
+    font-size: 1.15rem; font-weight: 700;
   }
 
   pre, code { font-family: "IBM Plex Mono", Menlo, monospace; }
   pre {
-    background: #0b0e14;
-    border: 2.5px solid #2e3648;
+    background: #0b0e14; border: 2.5px solid #2e3648;
     border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-    padding: 12px 14px;
-    overflow-x: auto;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: #c8d4e4;
+    padding: 12px 14px; overflow-x: auto; font-size: 0.82rem;
+    line-height: 1.45; color: #c8d4e4;
   }
-  code.i {
-    background: #243044;
-    padding: 0.05em 0.3em;
-    border-radius: 4px;
-    font-size: 0.88em;
-  }
+  code.i { background: #243044; padding: 0.05em 0.3em; border-radius: 4px; font-size: 0.88em; }
 
   .toc {
     border: 2.5px dashed var(--faint);
     border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
-    padding: 12px 16px;
-    margin: 14px 0;
+    padding: 12px 16px; margin: 14px 0;
   }
   .toc a { color: var(--teal); }
   .toc ol { margin: 6px 0 0; padding-left: 1.3rem; }
@@ -327,27 +253,22 @@
   .qa {
     border: 2.5px solid #2e3648;
     border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
-    padding: 12px 14px;
-    margin: 10px 0;
-    background: var(--box-bg);
+    padding: 12px 14px; margin: 10px 0; background: var(--box-bg);
   }
-  .qa h4 {
-    margin: 0 0 6px;
-    font-family: "Caveat", cursive;
-    font-size: 1.35rem;
-    color: var(--teal);
+
+  .tip {
+    border: 2px dashed var(--teal); background: #12201e;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 10px 12px; margin: 12px 0; color: var(--faint);
   }
+  .tip strong { color: var(--teal); }
+
+  ul.tight { margin: 6px 0; padding-left: 1.2rem; }
+  ul.tight li { margin: 4px 0; }
 
   footer {
-    margin-top: 36px;
-    padding-top: 12px;
-    border-top: 2px dashed #2e3648;
-    color: var(--faint);
-    font-size: 1.05rem;
-  }
-
-  @media print {
-    body { background: #111; }
+    margin-top: 40px; padding-top: 12px;
+    border-top: 2px dashed #2e3648; color: var(--faint);
   }
 </style>
 </head>
@@ -368,223 +289,316 @@
   <a href="#s10">10 say</a>
 </nav>
 
-<span class="badge">GetYourGuide · Senior SWE · pen boxes · dark</span>
-<h1>Java GC — boxes &amp; arrows</h1>
-<p class="sub">Every figure is something you can draw with a pen in ~30 seconds. Dark paper. Trace → write the notebook line → say the answer out loud.</p>
+<span class="badge">GetYourGuide · Senior SWE · full notes · pen boxes · dark</span>
+<h1>Java GC — Junior → Senior</h1>
+<p class="sub">
+  Full interview depth + pen-sketch diagrams you can copy into a notebook.
+  Trace each figure → write the notebook line → practice Section 10 out loud.
+</p>
+
+<div class="tip">
+  <strong>How to draw:</strong> rectangles = regions/objects · arrows = references/flow · numbered strip = timeline.
+  Labels matter more than art. Don’t shade fancy.
+</div>
 
 <div class="gold">
-  <strong>one line:</strong> GC deletes heap objects that roots cannot reach.<br/>
-  <strong>answer shape:</strong> mechanism → trade-off → measure → decide
+  <strong>Thesis:</strong> GC finds heap objects unreachable from roots and reclaims them.
+  Your job is to manage <em>pauses</em> and <em>leaks</em> — not recite flags.<br/><br/>
+  <strong>Answer every GC question:</strong> Mechanism → Trade-off → Measurement → Decision
 </div>
 
 <nav class="toc" id="toc">
+  <strong>Contents</strong>
   <ol>
-    <li><a href="#s1">Memory — 3 boxes</a></li>
-    <li><a href="#s2"><code>new User()</code> — arrow between 2 boxes</a></li>
-    <li><a href="#s3">Roots / garbage / leak</a></li>
-    <li><a href="#s4">Eden → Survivor → Old</a></li>
-    <li><a href="#s5">Life timeline</a></li>
-    <li><a href="#s6">3 collectors (bars)</a></li>
-    <li><a href="#s7">G1 grid + cycle</a></li>
-    <li><a href="#s8">Problem → Solution</a></li>
-    <li><a href="#s9">Flags + log</a></li>
-    <li><a href="#s10">Mock answers</a></li>
+    <li><a href="#s1">JVM memory map — Stack / Heap / Metaspace (detailed)</a></li>
+    <li><a href="#s2">What happens on <code>new User()</code></a></li>
+    <li><a href="#s3">Garbage = unreachable · Leaks</a></li>
+    <li><a href="#s4">Generational hypothesis — Eden → Survivor → Old</a></li>
+    <li><a href="#s5">Object life journey (timeline)</a></li>
+    <li><a href="#s6">Three collectors (pause bars + when to pick)</a></li>
+    <li><a href="#s7">G1 — regions, cycle, Full GC causes, one-liners</a></li>
+    <li><a href="#s8">Problem → Solution cards (full set)</a></li>
+    <li><a href="#s9">Flags, log reading, answer formula</a></li>
+    <li><a href="#s10">GetYourGuide-style mock answers</a></li>
   </ol>
 </nav>
 
-<!-- ===== 1 ===== -->
-<h2 id="s1">1 · Memory — 3 boxes</h2>
+<!-- ===================== 1 ===================== -->
+<h2 id="s1">1 · JVM memory map</h2>
 
 <div class="board">
-  <div class="label">figure — draw 3 boxes in a row</div>
-  <div class="row">
-    <div class="sketch blue wiggle-l" style="min-width:150px;text-align:center">
-      <div class="box-title">STACK</div>
-      <p class="box-sub">per thread<br/>method ends → gone<br/><b>no GC</b></p>
+  <div class="label">figure — JVM MEMORY MAP (3 columns, draw internals)</div>
+  <div class="map3">
+
+    <div class="sketch blue wiggle-l">
+      <div class="bt">STACK</div>
+      <p class="bs">per thread · cleared when method ends · <b>NO GC</b></p>
+      <div class="mini"><b>main()</b></div>
+      <div class="arr-v">▼</div>
+      <div class="mini"><b>doWork()</b></div>
+      <div class="mini" style="border-style:dashed">
+        Local variables<br/>
+        <code>int x = 5</code> ← value here<br/>
+        <code>User u</code> ← reference only
+      </div>
+      <p class="bs" style="margin-top:8px">one stack per thread (private)</p>
     </div>
-    <div class="sketch amber wiggle-0" style="min-width:150px;text-align:center">
-      <div class="box-title">HEAP</div>
-      <p class="box-sub">objects from new<br/><b>GC ONLY HERE</b></p>
+
+    <div class="sketch amber wiggle-0">
+      <div class="bt">HEAP</div>
+      <p class="bs">objects created with <code>new</code> · <b>GC cleans ONLY here</b></p>
+      <div class="mini"><b>User</b><br/>id: int · name: String</div>
+      <div class="mini"><b>Order</b><br/>id · user: User · items: List</div>
+      <div class="mini"><b>ArrayList</b><br/>elementData[] · size</div>
+      <p class="bs" style="margin-top:8px">shared across threads (GC-managed)</p>
     </div>
-    <div class="sketch purple wiggle-r" style="min-width:150px;text-align:center">
-      <div class="box-title">METASPACE</div>
-      <p class="box-sub">class metadata<br/>native · often unlimited</p>
+
+    <div class="sketch purple wiggle-r">
+      <div class="bt">METASPACE</div>
+      <p class="bs">class metadata · native memory · unlimited by default</p>
+      <div class="mini"><b>User.class</b><br/>methods, fields, constructors, annotations…</div>
+      <div class="mini"><b>Order.class</b><br/>methods, fields, constructors, annotations…</div>
+      <p class="bs" style="margin-top:8px">not Java heap (native memory)</p>
     </div>
+
   </div>
-  <div class="draw">3 rectangles. Under HEAP write “GC ONLY HERE”.</div>
+
+  <div style="text-align:center;margin:12px 0 4px;font-family:Caveat,cursive;font-size:1.3rem;color:var(--amber)">
+    STACK: <code>User u</code> ──────────► HEAP: User object
+  </div>
+
+  <div class="draw">
+    3 big columns. Inside STACK: main → doWork → locals (int + User u).
+    Arrow from u into HEAP User box. HEAP: 2–3 object boxes with fields.
+    METASPACE: ClassName.class boxes. Write under HEAP: “GC ONLY HERE”.
+  </div>
 </div>
 
-<div class="story">Stack = your desk. Heap = shared warehouse. Metaspace = class archive.</div>
+<div class="story">
+  <strong>Story — office building:</strong>
+  <em>Stack</em> = each employee’s (thread’s) desk — work ends, desk clears, no janitor.
+  <em>Heap</em> = shared warehouse — everyone drops boxes with <code>new</code>; janitor (GC) sweeps only here.
+  <em>Metaspace</em> = archive of class blueprints — can grow even when the heap looks fine.
+</div>
+
+<table>
+  <tr><th>Region</th><th>What lives here</th><th>GC?</th></tr>
+  <tr><td><strong>Stack</strong></td><td>Per-thread call frames, locals, references</td><td>No — auto cleared</td></tr>
+  <tr><td><strong>Heap</strong></td><td>Everything created with <code>new</code></td><td><strong>Yes — GC’s only job site</strong></td></tr>
+  <tr><td><strong>Metaspace</strong></td><td>Class metadata (native memory)</td><td>Outside Java heap; unlimited by default</td></tr>
+</table>
+
+<div class="warn-banner">
+  ⚠ <b>OOMKilled but no Java OOM?</b>
+  Heap is only part of JVM memory (metaspace + thread stacks + direct buffers).
+</div>
 
 <div class="pair">
-  <div class="prob"><div class="t">PROBLEM</div>OOMKilled, no Java OOM</div>
+  <div class="prob"><div class="t">PROBLEM</div>Pod OOMKilled, but no Java <code>OutOfMemoryError</code></div>
   <div class="arr">→</div>
-  <div class="sol"><div class="t">SOLUTION</div>Heap ≠ all RAM. MaxRAMPercentage=70 + NMT</div>
+  <div class="sol"><div class="t">SOLUTION</div>Heap ≠ all JVM RAM. Use <code>-XX:MaxRAMPercentage=70</code> + Native Memory Tracking (NMT). Also watch MaxMetaspaceSize / MaxDirectMemorySize / -Xss.</div>
 </div>
 
-<div class="memo"><b>notebook →</b> GC cleans only Heap. Stack auto-clears. OOMKilled ≠ Java OOM.</div>
+<div class="memo"><b>notebook →</b> GC cleans only the Heap. Stack auto-clears. OOMKilled ≠ Java OOM.</div>
 
-<!-- ===== 2 ===== -->
-<h2 id="s2">2 · <code>new User()</code></h2>
+<!-- ===================== 2 ===================== -->
+<h2 id="s2">2 · What happens on <code>new User()</code></h2>
+
 <pre>User u = new User("Ali");</pre>
 
 <div class="board">
-  <div class="label">figure — left box, arrow, right box</div>
+  <div class="label">figure — reference on stack, object on heap</div>
   <div class="row">
-    <div class="sketch blue wiggle-l" style="min-width:160px;text-align:center">
-      <div class="box-title">STACK</div>
-      <p class="box-sub">int x = 5<br/>User <b>u</b></p>
+    <div class="sketch blue wiggle-l" style="min-width:200px">
+      <div class="bt">STACK frame</div>
+      <div class="mini"><code>int x = 5</code> ← primitive value lives here</div>
+      <div class="mini"><code>User u</code> ← only an address / pointer</div>
     </div>
     <div class="arr">──►</div>
-    <div class="sketch amber wiggle-r" style="min-width:160px;text-align:center">
-      <div class="box-title">HEAP</div>
-      <p class="box-sub">User<br/>name = "Ali"</p>
+    <div class="sketch amber wiggle-r" style="min-width:200px">
+      <div class="bt">HEAP</div>
+      <div class="mini"><b>User object</b><br/>name = "Ali"<br/>(+ other fields)</div>
     </div>
   </div>
-  <div class="draw">STACK holds <b>u</b> (arrow). HEAP holds the object.</div>
+  <div class="draw">Left STACK box with u. Arrow right. Right HEAP box = User. Primitives stay in stack; objects in heap.</div>
 </div>
 
-<div class="row" style="margin:12px 0">
-  <div class="sketch green wiggle-l" style="text-align:center;min-width:100px">1 ref born</div>
-  <div class="arr">→</div>
-  <div class="sketch green wiggle-0" style="text-align:center;min-width:100px">2 obj born</div>
-  <div class="arr">→</div>
-  <div class="sketch amber wiggle-r" style="text-align:center;min-width:100px">3 method ends</div>
-  <div class="arr">→</div>
-  <div class="sketch red" style="text-align:center;min-width:100px">4 no root?<br/>GARBAGE</div>
+<div class="grid3">
+  <div class="sketch green wiggle-l"><div class="bt">1. Stack</div>Reference <code>u</code> is born (an address).</div>
+  <div class="sketch amber wiggle-0"><div class="bt">2. Heap</div><code>User</code> object (with fields) is born.</div>
+  <div class="sketch red wiggle-r"><div class="bt">3. Later</div>Method ends → <code>u</code> dies. If no other root holds the object → garbage candidate.</div>
 </div>
 
-<div class="memo"><b>notebook →</b> Stack = reference. Heap = object.</div>
+<div class="story">
+  <strong>Primitives vs references:</strong>
+  <code>int x = 5</code> stores the value in the stack frame.
+  <code>User u</code> stores only a pointer on the stack; the real object is on the heap.
+  Arrays, Strings, boxed Integer — all objects → heap.
+</div>
 
-<!-- ===== 3 ===== -->
-<h2 id="s3">3 · Roots / garbage / leak</h2>
+<div class="memo"><b>notebook →</b> Stack holds the reference; Heap holds the object.</div>
+
+<!-- ===================== 3 ===================== -->
+<h2 id="s3">3 · Garbage = unreachable · Leaks</h2>
 
 <div class="board">
-  <div class="label">figure — root on top, live below, dead cycle on the side</div>
+  <div class="label">figure — roots on top, live tree, dead cycle aside</div>
   <div class="col">
-    <div class="sketch amber wiggle-0" style="text-align:center;min-width:220px">
-      <div class="box-title">GC ROOTS</div>
-      <p class="box-sub">stack · static · JNI</p>
+    <div class="sketch amber wiggle-0" style="text-align:center;min-width:260px">
+      <div class="bt">GC ROOTS</div>
+      <p class="bs">stack locals · static fields · JNI / native refs</p>
     </div>
-    <div class="arr-v">▼</div>
+    <div class="arr-v">▼ follow references</div>
     <div class="row">
       <div class="sketch green wiggle-l" style="min-width:70px;text-align:center">A</div>
       <div class="sketch green wiggle-0" style="min-width:70px;text-align:center">B</div>
       <div class="sketch green wiggle-r" style="min-width:70px;text-align:center">C</div>
     </div>
-    <p class="box-sub" style="margin-top:8px">live = reachable</p>
+    <p class="bs">LIVE = reachable from a root</p>
   </div>
   <div style="height:14px"></div>
   <div class="row">
     <div class="col">
       <div class="sketch red wiggle-l" style="min-width:70px;text-align:center">X</div>
-      <div class="arr-v">↕</div>
+      <div class="arr-v">↕ cycle</div>
       <div class="sketch red wiggle-r" style="min-width:70px;text-align:center">Y</div>
-      <p style="color:var(--red);margin:4px 0 0;font-family:Caveat,cursive;font-size:1.25rem">cycle, no root = GARBAGE</p>
+      <p style="color:var(--red);font-family:Caveat,cursive;font-size:1.25rem;margin:4px 0 0">
+        no root → still GARBAGE (cycles don’t save you)
+      </p>
     </div>
   </div>
-  <div class="draw">Top ROOTS → arrows to A B C. Separate X↔Y with a big X mark.</div>
+  <div class="draw">Top ROOTS → arrows down to A B C. Separate X↔Y with a big X. Write: “cycle without root = dead”.</div>
+</div>
+
+<div class="story">
+  <strong>Story — GC is an electrician, not a detective:</strong>
+  It follows wires from roots. Lights that turn on are live.
+  Two lamps wired only to each other (not to the wall) → dark → garbage.
 </div>
 
 <div class="gold">
-  <strong>leak =</strong> should be garbage, but static Map / ThreadLocal / listener still holds it
+  <strong>Java memory leak:</strong>
+  The object’s job is done — it <em>should</em> be garbage — but something still holds a reference.<br/>
+  Classic culprits:
+  <ul class="tight">
+    <li><code>static Map</code> / unbounded cache (no eviction)</li>
+    <li>forgotten <code>ThreadLocal</code> (no remove)</li>
+    <li>unregistered listener / callback</li>
+  </ul>
 </div>
 
 <div class="pair">
-  <div class="prob"><div class="t">PROBLEM</div>heap baseline rising</div>
+  <div class="prob"><div class="t">PROBLEM</div>Heap baseline keeps rising (sawtooth bottom drifts up)</div>
   <div class="arr">→</div>
-  <div class="sol"><div class="t">SOLUTION</div>dump + MAT → find retainer</div>
+  <div class="sol"><div class="t">SOLUTION</div>Heap dump → MAT dominator tree → find retainer → usually static / ThreadLocal / listener</div>
 </div>
 
-<div class="memo"><b>notebook →</b> Garbage = unreachable. Leak = still on a root chain.</div>
+<div class="memo"><b>notebook →</b> Garbage = unreachable. Leak = should be unreachable, but still on a root chain.</div>
 
-<!-- ===== 4 ===== -->
-<h2 id="s4">4 · Eden → Survivor → Old</h2>
+<!-- ===================== 4 ===================== -->
+<h2 id="s4">4 · Generational hypothesis</h2>
 
 <div class="board">
-  <div class="label">figure — MOST OBJECTS DIE YOUNG (3 boxes)</div>
+  <div class="label">figure — MOST OBJECTS DIE YOUNG</div>
   <div class="row">
-    <div class="sketch green wiggle-l" style="min-width:180px;text-align:center">
-      <div class="box-title">1 EDEN</div>
-      <p class="box-sub">many born<br/>most = garbage</p>
+    <div class="sketch green wiggle-l" style="min-width:190px;text-align:center">
+      <div class="bt">1 EDEN</div>
+      <p class="bs">Young Generation<br/>many born · most = garbage</p>
       <div class="cells">
         <div class="cell g">×</div><div class="cell g">×</div><div class="cell g">×</div>
         <div class="cell g">×</div><div class="cell s">•</div><div class="cell g">×</div>
         <div class="cell g">×</div><div class="cell s">•</div><div class="cell g">×</div>
       </div>
-      <p class="box-sub" style="margin-top:6px">× garbage · • survivor</p>
+      <p class="bs" style="margin-top:6px">× garbage · • survivor (rare)</p>
     </div>
     <div class="arr">→</div>
-    <div class="sketch teal wiggle-0" style="min-width:180px;text-align:center">
-      <div class="box-title">2 SURVIVOR</div>
-      <p class="box-sub">S0 ⇄ S1<br/>age +1 each GC</p>
+    <div class="sketch teal wiggle-0" style="min-width:190px;text-align:center">
+      <div class="bt">2 SURVIVOR</div>
+      <p class="bs">S0 ⇄ S1<br/>age +1 each GC</p>
       <div class="cells">
         <div class="cell s">1</div><div class="cell s">2</div><div class="cell s">3</div>
         <div class="cell s">4</div><div class="cell s">5</div><div class="cell s">6</div>
       </div>
+      <p class="bs" style="margin-top:6px">ping-pong between S0/S1</p>
     </div>
     <div class="arr">→</div>
-    <div class="sketch blue wiggle-r" style="min-width:180px;text-align:center">
-      <div class="box-title">3 OLD</div>
-      <p class="box-sub">age ~15+ promote<br/>rare · expensive</p>
+    <div class="sketch blue wiggle-r" style="min-width:190px;text-align:center">
+      <div class="bt">3 OLD</div>
+      <p class="bs">age ~15+ promote<br/>rare · expensive GC</p>
       <div class="cells">
         <div class="cell o">15</div><div class="cell o">16</div><div class="cell o">17</div>
       </div>
+      <p class="bs" style="margin-top:6px">PROMOTE (rare)</p>
     </div>
   </div>
 
   <div class="sketch red" style="margin-top:14px;text-align:center">
-    <div class="box-title" style="color:var(--red)">STW = Stop-The-World</div>
-    <p class="box-sub">GC pauses the app. All GC engineering shortens that pause.</p>
+    <div class="bt" style="color:var(--red)">STW = Stop-The-World</div>
+    <p class="bs">GC pauses the app. All GC engineering is about shortening that pause.</p>
   </div>
-  <div class="draw">3 boxes + arrows. Inside Eden: many × and few •. Survivor: ages. Old: 15+. Red STW banner under.</div>
+  <div class="draw">3 boxes + arrows. Eden: many × few •. Survivor: ages 1…n. Old: 15+. Red STW banner under.</div>
 </div>
 
-<div class="memo"><b>notebook →</b> Young = often &amp; cheap. Old = rare &amp; expensive. Pause = users wait.</div>
+<table>
+  <tr><th>Term</th><th>Meaning</th></tr>
+  <tr><td><strong>Minor / Young GC</strong></td><td>Cleans Eden (+ Survivors) — frequent, usually short</td></tr>
+  <tr><td><strong>Major / Old / Mixed</strong></td><td>Also touches Old — more expensive</td></tr>
+  <tr><td><strong>STW</strong></td><td>Stop-The-World: app threads pause = <strong>PAUSE</strong></td></tr>
+  <tr><td><strong>Promotion</strong></td><td>Object survives enough Young GCs → moves to Old</td></tr>
+</table>
 
-<!-- ===== 5 ===== -->
-<h2 id="s5">5 · Life timeline</h2>
+<div class="memo"><b>notebook →</b> Young = frequent &amp; cheap. Old = rare &amp; expensive. Pause = users wait.</div>
+
+<!-- ===================== 5 ===================== -->
+<h2 id="s5">5 · Object life journey</h2>
 
 <div class="board">
-  <div class="label">figure — numbered strip</div>
+  <div class="label">figure — numbered life timeline</div>
   <div class="tl">
     <div class="step">
       <div class="n">1</div>
-      <div class="sketch green wiggle-l" style="text-align:center">BIRTH<small style="display:block;color:var(--faint)">new in Eden</small></div>
+      <div class="sketch green wiggle-l" style="text-align:center">BIRTH<small class="bs" style="display:block">new in Eden</small></div>
     </div>
     <div class="step">
       <div class="n">2</div>
-      <div class="sketch teal wiggle-0" style="text-align:center">Minor GC<small style="display:block;color:var(--faint)">→ Survivor</small></div>
+      <div class="sketch teal wiggle-0" style="text-align:center">Minor GC<small class="bs" style="display:block">→ Survivor age=1</small></div>
     </div>
     <div class="step">
       <div class="n">3</div>
-      <div class="sketch teal wiggle-r" style="text-align:center">age 2…15<small style="display:block;color:var(--faint)">S0 ⇄ S1</small></div>
+      <div class="sketch teal wiggle-r" style="text-align:center">age 2…15<small class="bs" style="display:block">S0 ⇄ S1</small></div>
     </div>
     <div class="step">
       <div class="n">4</div>
-      <div class="sketch blue wiggle-l" style="text-align:center">PROMOTE<small style="display:block;color:var(--faint)">→ Old</small></div>
+      <div class="sketch blue wiggle-l" style="text-align:center">PROMOTE<small class="bs" style="display:block">→ Old</small></div>
     </div>
     <div class="step">
       <div class="n">5</div>
-      <div class="sketch red wiggle-r" style="text-align:center">root gone<small style="display:block;color:var(--faint)">= GARBAGE</small></div>
+      <div class="sketch red wiggle-r" style="text-align:center">root gone<small class="bs" style="display:block">= GARBAGE</small></div>
     </div>
   </div>
-  <div class="draw">5 numbered boxes. Also arrow from 1 straight to “DIE IN EDEN” (common path).</div>
+  <div class="draw">5 numbered boxes. Also shortcut from 1 → “DIE IN EDEN” (most objects take this path).</div>
+</div>
+
+<div class="story">
+  <strong>Good life (request DTO):</strong>
+  HTTP arrives → <code>new RequestDto()</code> in Eden → handler finishes → no refs → next Minor GC deletes it.<br/><br/>
+  <strong>Bad life:</strong>
+  Same DTO stuffed into <code>static List&lt;RequestDto&gt; ALL</code> → ages in Survivors → promotes to Old → Mixed/Full GC pain.
 </div>
 
 <div class="pair">
-  <div class="prob"><div class="t">PROBLEM</div>Old fills fast</div>
+  <div class="prob"><div class="t">PROBLEM</div>Old fills quickly; short-lived objects promote too early</div>
   <div class="arr">→</div>
-  <div class="sol"><div class="t">SOLUTION</div>cut allocation · grow heap · no -Xmn with G1</div>
+  <div class="sol"><div class="t">SOLUTION</div>1) Reduce allocation 2) Grow heap (more Young room) 3) Do <b>not</b> set <code>-Xmn</code> with G1</div>
 </div>
 
-<div class="memo"><b>notebook →</b> Good objects die in Eden. Retainers force promotion.</div>
+<div class="memo"><b>notebook →</b> Good objects die in Eden. Accidental retainers force promotion and Old pressure.</div>
 
-<!-- ===== 6 ===== -->
+<!-- ===================== 6 ===================== -->
 <h2 id="s6">6 · Three collectors</h2>
 
 <div class="board">
-  <div class="label">figure — 3 hand-drawn bars (green = run, red = pause)</div>
+  <div class="label">figure — pause bars (green = app runs, red = PAUSE)</div>
   <div class="bars">
     <div class="bar-row">
       <div>Parallel</div>
@@ -600,28 +614,47 @@
     </div>
   </div>
   <div class="legend"><span>green = app runs</span><span>red = PAUSE</span></div>
-  <div class="draw">3 lines. Parallel = one long red. G1 = several short red. ZGC = tiny red dots.</div>
+  <div class="draw">3 lines. Parallel = rare long red. G1 = several short red. ZGC = tiny red dots.</div>
+</div>
+
+<div class="grid3">
+  <div class="sketch amber wiggle-l">
+    <div class="bt">Parallel</div>
+    Throughput king. Batch/ETL. Long pauses OK.
+  </div>
+  <div class="sketch teal wiggle-0">
+    <div class="bt">G1 (default)</div>
+    Balanced, pause-targeted. Java 9+ default. Start here for most services.
+  </div>
+  <div class="sketch green wiggle-r">
+    <div class="bt">ZGC</div>
+    Pause ≈ &lt;1ms. Concurrent mark/relocate. Costs CPU + memory. Java 21+.
+  </div>
 </div>
 
 <table>
-  <tr><th>collector</th><th>when</th></tr>
-  <tr><td>Parallel</td><td>batch / throughput</td></tr>
-  <tr><td>G1 (default)</td><td>most services — start here</td></tr>
-  <tr><td>ZGC</td><td>measured p99 broken by GC (Java 21+)</td></tr>
+  <tr><th>Collector</th><th>Pick when</th></tr>
+  <tr><td><strong>Parallel</strong></td><td>Batch / throughput; pauses OK</td></tr>
+  <tr><td><strong>G1</strong></td><td>Most services — default starting point</td></tr>
+  <tr><td><strong>ZGC</strong></td><td>Measured p99 broken by GC pauses (Java 21+)</td></tr>
 </table>
 
-<div class="gold"><strong>golden:</strong> cut allocation → measure → then change collector</div>
-<div class="sketch red wiggle-0" style="margin:10px 0">
-  trap: &lt;2 CPU or &lt;~1.8GB → JVM may pick Serial (tiny pods)
+<div class="gold">
+  <strong>Golden interview sentence:</strong>
+  “I first reduce allocation in code, then measure, and only then change the collector or flags.”
 </div>
 
-<div class="memo"><b>notebook →</b> service→G1 · batch→Parallel · proven GC p99→ZGC</div>
+<div class="warn-banner">
+  ⚠ <b>Trap:</b> If the JVM sees &lt;2 CPUs or &lt;~1.8GB memory, it may silently pick <b>Serial GC</b> (common in tiny Kubernetes pods).
+</div>
 
-<!-- ===== 7 ===== -->
-<h2 id="s7">7 · G1 — grid + cycle</h2>
+<div class="memo"><b>notebook →</b> Service→G1 · Batch→Parallel · Proven GC p99 pain→ZGC. Measure before switching.</div>
+
+<!-- ===================== 7 ===================== -->
+<h2 id="s7">7 · G1 — the interview star</h2>
 
 <div class="board">
-  <div class="label">figure — equal squares (regions 1–32MB)</div>
+  <div class="label">figure — equal regions (1–32 MB). Roles are not fixed. Dirtiest first.</div>
   <div class="grid8">
     <div class="rg E">E</div><div class="rg E">E</div><div class="rg S">S</div><div class="rg O">O</div>
     <div class="rg O">O</div><div class="rg E">E</div><div class="rg x">·</div><div class="rg H">H</div>
@@ -631,118 +664,148 @@
   <div class="legend">
     <span>E Eden</span><span>S Survivor</span><span>O Old</span><span>H Humongous</span><span>· empty</span>
   </div>
-  <div class="draw">chess grid of equal squares. label E/S/O/H/·. write: roles not fixed · dirtiest first</div>
+  <div class="draw">Chess-like grid of equal squares. Label E/S/O/H/·. Write: “roles not fixed · Garbage-First = dirtiest first”.</div>
+</div>
+
+<div class="story">
+  <strong>Humongous:</strong> object larger than 50% of a region → special H regions (giant <code>byte[]</code> / arrays are common culprits).<br/>
+  <strong>MaxGCPauseMillis</strong> = TARGET (not a guarantee), default 200ms.
 </div>
 
 <div class="board">
-  <div class="label">figure — 4-step cycle</div>
+  <div class="label">figure — G1 cycle (4 steps)</div>
   <div class="tl">
     <div class="step">
       <div class="n">1</div>
-      <div class="sketch red wiggle-l" style="text-align:center">Young GC<small style="display:block;color:var(--faint)">STW evacuate</small></div>
+      <div class="sketch red wiggle-l" style="text-align:center">Young GC<small class="bs" style="display:block">STW evacuate Eden+Surv</small></div>
     </div>
     <div class="step">
       <div class="n">2</div>
-      <div class="sketch green wiggle-0" style="text-align:center">Conc Mark<small style="display:block;color:var(--faint)">app runs · IHOP</small></div>
+      <div class="sketch green wiggle-0" style="text-align:center">Conc. Mark<small class="bs" style="display:block">app runs · IHOP ~45%</small></div>
     </div>
     <div class="step">
       <div class="n">3</div>
-      <div class="sketch red wiggle-r" style="text-align:center">Mixed GC<small style="display:block;color:var(--faint)">Young+dirty Old</small></div>
+      <div class="sketch red wiggle-r" style="text-align:center">Mixed GC<small class="bs" style="display:block">Young + dirty Old</small></div>
     </div>
     <div class="step">
       <div class="n">4</div>
-      <div class="sketch red" style="text-align:center;background:#3a1212">FULL GC<small style="display:block;color:var(--faint)">LAST RESORT</small></div>
+      <div class="sketch red" style="text-align:center;background:#3a1212">FULL GC<small class="bs" style="display:block">LAST RESORT = ALARM</small></div>
     </div>
   </div>
-  <div class="draw">4 boxes. 1+3 = STW. 2 = concurrent. 4 = ALARM.</div>
+  <div class="draw">4 boxes. Mark 1 &amp; 3 as STW, 2 as concurrent, 4 as ALARM.</div>
 </div>
 
-<p><code class="i">MaxGCPauseMillis</code> = TARGET (not guarantee), default 200ms</p>
+<h3>Frequent Full GC? 3 causes → 3 fixes</h3>
+<div class="pair">
+  <div class="prob"><div class="t">PROBLEM</div>Humongous objects</div>
+  <div class="arr">→</div>
+  <div class="sol"><div class="t">SOLUTION</div>Grow region size (<code>G1HeapRegionSize</code>) / split the giant array</div>
+</div>
+<div class="pair">
+  <div class="prob"><div class="t">PROBLEM</div>to-space exhausted (no free region to copy into)</div>
+  <div class="arr">→</div>
+  <div class="sol"><div class="t">SOLUTION</div>Grow heap / raise <code>G1ReservePercent</code></div>
+</div>
+<div class="pair">
+  <div class="prob"><div class="t">PROBLEM</div>Mark starts too late → Old fills → Full GC</div>
+  <div class="arr">→</div>
+  <div class="sol"><div class="t">SOLUTION</div>Lower IHOP (<code>InitiatingHeapOccupancyPercent</code>) / cut allocation</div>
+</div>
 
-<div class="pair">
-  <div class="prob"><div class="t">PROBLEM</div>Humongous</div>
-  <div class="arr">→</div>
-  <div class="sol"><div class="t">SOLUTION</div>grow region / split array</div>
-</div>
-<div class="pair">
-  <div class="prob"><div class="t">PROBLEM</div>to-space exhausted</div>
-  <div class="arr">→</div>
-  <div class="sol"><div class="t">SOLUTION</div>grow heap / raise reserve</div>
-</div>
-<div class="pair">
-  <div class="prob"><div class="t">PROBLEM</div>mark too late</div>
-  <div class="arr">→</div>
-  <div class="sol"><div class="t">SOLUTION</div>lower IHOP / cut alloc</div>
+<h3>One-line answers (memorize)</h3>
+<table>
+  <tr><th>Question</th><th>One-line answer</th></tr>
+  <tr><td>Remembered Set / Card Table?</td><td>Avoid scanning all of Old during Young GC; write barriers keep them updated.</td></tr>
+  <tr><td>SATB?</td><td>Snapshot-At-The-Beginning — a “photo” of the heap at mark start for concurrent correctness.</td></tr>
+  <tr><td>Why not <code>-Xmn</code> with G1?</td><td>Locks Young size; G1 cannot auto-tune toward the pause goal.</td></tr>
+  <tr><td>32 GB boundary?</td><td>Crossing it loses compressed oops (4-byte refs); 33GB can be worse than 30GB.</td></tr>
+  <tr><td>G1 vs ZGC?</td><td>Switch only if measurement shows GC pauses break the SLO; ZGC costs CPU/memory.</td></tr>
+  <tr><td>Is Full GC always bad in G1?</td><td>Yes — evacuation failed = alarm; find the cause.</td></tr>
+</table>
+
+<div class="memo"><b>notebook →</b> G1 = region-based, pause-targeted, Young + Mixed. Full GC in G1 is an alarm.</div>
+
+<!-- ===================== 8 ===================== -->
+<h2 id="s8">8 · Problem → Solution cards</h2>
+
+<div class="board">
+  <div class="label">figure — left red / arrow / right green (draw all six)</div>
+
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>Heap baseline keeps rising</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>Heap dump + MAT dominator tree → static Map / ThreadLocal / listener</div>
+  </div>
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>Old fills fast (early promotion)</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>Cut allocation · grow heap · never <code>-Xmn</code> with G1</div>
+  </div>
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>Frequent Full GC (G1)</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>Log cause: humongous / to-space exhausted / late mark (IHOP)</div>
+  </div>
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>OOMKilled but no Java OOM</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>MaxRAMPercentage=70 · NMT for metaspace/stack/direct</div>
+  </div>
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>p99 spikes but GC log looks clean</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>Safepoint log · swap · k8s CPU throttle — may not be GC</div>
+  </div>
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>GC overhead limit exceeded</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>Almost all time in GC, almost no reclaim → dump for leak, else grow heap</div>
+  </div>
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>Heap dump freezes the pod</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>Drain from load balancer first; or class_histogram ×2 / JFR</div>
+  </div>
+  <div class="pair">
+    <div class="prob"><div class="t">PROBLEM</div>Tight SLO, G1 pauses not enough</div>
+    <div class="arr">→</div>
+    <div class="sol"><div class="t">SOLUTION</div>Measure → if GC is the cause, try ZGC (Java 21+). Cost: CPU + RAM</div>
+  </div>
+
+  <div class="draw">Double-boxes: left = symptom, right = first action. This is your troubleshooting cheat sheet.</div>
 </div>
 
 <table>
-  <tr><th>Q</th><th>one line</th></tr>
-  <tr><td>Remembered Set?</td><td>skip scanning all Old in Young GC; write barriers</td></tr>
-  <tr><td>SATB?</td><td>mark-start photo for concurrent correctness</td></tr>
-  <tr><td>why no -Xmn?</td><td>locks Young; G1 can’t meet pause goal</td></tr>
-  <tr><td>32GB?</td><td>lose compressed oops</td></tr>
-  <tr><td>G1→ZGC?</td><td>only if measure shows GC breaks SLO</td></tr>
+  <tr><th>Symptom</th><th>First reflex</th></tr>
+  <tr><td>Heap baseline rising</td><td>Dump + MAT → leak</td></tr>
+  <tr><td>Frequent Full GC (G1)</td><td>Log cause: humongous / to-space / late mark</td></tr>
+  <tr><td>OOMKilled, no Java OOM</td><td>MaxRAMPercentage + NMT</td></tr>
+  <tr><td>p99 spikes, clean GC log</td><td>Safepoint / swap / CPU throttle</td></tr>
+  <tr><td>GC overhead limit</td><td>Leak first; else grow heap</td></tr>
+  <tr><td>Dump freezes pod</td><td>Drain LB; histogram / JFR</td></tr>
+  <tr><td>SLO tight, G1 not enough</td><td>Measure → then ZGC</td></tr>
 </table>
 
-<div class="memo"><b>notebook →</b> G1 = regions + pause target + Young/Mixed. Full GC = alarm.</div>
+<div class="memo"><b>notebook →</b> Symptom → evidence → action. Don’t start with random flags.</div>
 
-<!-- ===== 8 ===== -->
-<h2 id="s8">8 · Problem → Solution</h2>
-
-<div class="board">
-  <div class="label">figure — left red box, arrow, right green box (repeat)</div>
-  <div class="pair">
-    <div class="prob"><div class="t">PROBLEM</div>heap baseline rising</div>
-    <div class="arr">→</div>
-    <div class="sol"><div class="t">SOLUTION</div>dump + MAT → leak</div>
-  </div>
-  <div class="pair">
-    <div class="prob"><div class="t">PROBLEM</div>frequent Full GC</div>
-    <div class="arr">→</div>
-    <div class="sol"><div class="t">SOLUTION</div>humongous / to-space / late mark</div>
-  </div>
-  <div class="pair">
-    <div class="prob"><div class="t">PROBLEM</div>OOMKilled, no Java OOM</div>
-    <div class="arr">→</div>
-    <div class="sol"><div class="t">SOLUTION</div>MaxRAMPercentage + NMT</div>
-  </div>
-  <div class="pair">
-    <div class="prob"><div class="t">PROBLEM</div>p99 up, GC log clean</div>
-    <div class="arr">→</div>
-    <div class="sol"><div class="t">SOLUTION</div>safepoint / swap / CPU throttle</div>
-  </div>
-  <div class="pair">
-    <div class="prob"><div class="t">PROBLEM</div>GC overhead limit</div>
-    <div class="arr">→</div>
-    <div class="sol"><div class="t">SOLUTION</div>leak? else grow heap</div>
-  </div>
-  <div class="pair">
-    <div class="prob"><div class="t">PROBLEM</div>SLO tight, G1 not enough</div>
-    <div class="arr">→</div>
-    <div class="sol"><div class="t">SOLUTION</div>measure → then ZGC</div>
-  </div>
-  <div class="draw">6 double-boxes. Left = symptom. Right = first action.</div>
-</div>
-
-<div class="memo"><b>notebook →</b> symptom → evidence → action</div>
-
-<!-- ===== 9 ===== -->
-<h2 id="s9">9 · Flags + log</h2>
+<!-- ===================== 9 ===================== -->
+<h2 id="s9">9 · Flags, logs &amp; answer formula</h2>
 
 <div class="board">
-  <div class="label">figure — answer formula (4 boxes)</div>
+  <div class="label">figure — answer formula (use for EVERY GC question)</div>
   <div class="row">
-    <div class="sketch teal wiggle-l" style="text-align:center">1 MECHANISM</div>
+    <div class="sketch teal wiggle-l" style="text-align:center;min-width:120px"><div class="bt">1 MECHANISM</div>short how-it-works</div>
     <div class="arr">→</div>
-    <div class="sketch amber wiggle-0" style="text-align:center">2 TRADE-OFF</div>
+    <div class="sketch amber wiggle-0" style="text-align:center;min-width:120px"><div class="bt">2 TRADE-OFF</div>what it costs</div>
     <div class="arr">→</div>
-    <div class="sketch blue wiggle-r" style="text-align:center">3 MEASURE</div>
+    <div class="sketch blue wiggle-r" style="text-align:center;min-width:120px"><div class="bt">3 MEASURE</div>log · JFR · MAT</div>
     <div class="arr">→</div>
-    <div class="sketch green" style="text-align:center">4 DECIDE</div>
+    <div class="sketch green" style="text-align:center;min-width:120px"><div class="bt">4 DECIDE</div>if data shows X…</div>
   </div>
-  <div class="draw">4 boxes in a row. Use this for every GC question.</div>
+  <div class="draw">4 boxes in a row. This is your spoken answer template.</div>
 </div>
 
+<h3>Baseline container command</h3>
 <pre>java \
   -XX:MaxRAMPercentage=70 \
   -XX:+HeapDumpOnOutOfMemoryError \
@@ -751,57 +814,122 @@
   -jar app.jar</pre>
 
 <div class="board">
-  <div class="label">figure — one log line, 4 callout boxes</div>
-  <pre style="margin:0">Pause Young ... 512M-&gt;128M(1024M) 8.1ms</pre>
+  <div class="label">figure — how to read one GC log line</div>
+  <pre style="margin:0">[2.345s][info][gc] GC(12) Pause Young (Normal) (G1 Evacuation Pause) 512M-&gt;128M(1024M) 8.1ms</pre>
   <div class="row" style="margin-top:12px">
-    <div class="sketch red wiggle-l" style="text-align:center;min-width:110px">Pause Young<small style="display:block;color:var(--faint)">= STW Young</small></div>
-    <div class="sketch amber wiggle-0" style="text-align:center;min-width:110px">512→128<small style="display:block;color:var(--faint)">before→after</small></div>
-    <div class="sketch blue wiggle-r" style="text-align:center;min-width:110px">(1024M)<small style="display:block;color:var(--faint)">heap size</small></div>
-    <div class="sketch teal" style="text-align:center;min-width:110px">8.1ms<small style="display:block;color:var(--faint)">pause</small></div>
+    <div class="sketch red wiggle-l" style="text-align:center;min-width:120px"><div class="bt">Pause Young</div><span class="bs">= STW Young GC</span></div>
+    <div class="sketch amber wiggle-0" style="text-align:center;min-width:120px"><div class="bt">512→128</div><span class="bs">used before→after</span></div>
+    <div class="sketch blue wiggle-r" style="text-align:center;min-width:120px"><div class="bt">(1024M)</div><span class="bs">heap capacity</span></div>
+    <div class="sketch teal" style="text-align:center;min-width:120px"><div class="bt">8.1ms</div><span class="bs">pause duration</span></div>
   </div>
-  <div class="draw">write the log once. 4 arrows to 4 parts.</div>
+  <div class="draw">Write the log once. Draw 4 arrows to the 4 parts.</div>
 </div>
 
+<h3>Flag levels</h3>
 <table>
-  <tr><th>level</th><th>flags</th></tr>
-  <tr><td>1 memorize</td><td>MaxRAMPercentage, G1/ZGC, MaxGCPauseMillis, HeapDumpOnOOM, gc log</td></tr>
-  <tr><td>2 if asked</td><td>IHOP, G1HeapRegionSize, NMT, JFR, Parallel, MaxMetaspaceSize</td></tr>
-  <tr><td>3 don’t touch blind</td><td>AlwaysPreTouch, G1ReservePercent, MaxDirectMemorySize, Xss</td></tr>
+  <tr><th>Level</th><th>Flags</th></tr>
+  <tr>
+    <td><strong>1 Memorize</strong></td>
+    <td>
+      <code>-XX:MaxRAMPercentage=70</code><br/>
+      <code>-XX:+UseG1GC</code> / <code>-XX:+UseZGC</code><br/>
+      <code>-XX:MaxGCPauseMillis=200</code><br/>
+      <code>-XX:+HeapDumpOnOutOfMemoryError</code><br/>
+      <code>-Xlog:gc*:file=gc.log</code>
+    </td>
+  </tr>
+  <tr>
+    <td><strong>2 If asked</strong></td>
+    <td>
+      <code>InitiatingHeapOccupancyPercent</code> (IHOP)<br/>
+      <code>G1HeapRegionSize</code><br/>
+      <code>NativeMemoryTracking=summary</code> + <code>jcmd … VM.native_memory</code><br/>
+      JFR (<code>StartFlightRecording</code>)<br/>
+      <code>+UseParallelGC</code>, <code>MaxMetaspaceSize</code>, <code>+ExitOnOutOfMemoryError</code>
+    </td>
+  </tr>
+  <tr>
+    <td><strong>3 Don’t touch blindly</strong></td>
+    <td>
+      <code>AlwaysPreTouch</code>, <code>G1ReservePercent</code>,
+      <code>MaxDirectMemorySize</code>, <code>-Xss</code>
+    </td>
+  </tr>
 </table>
 
-<div class="sketch red" style="margin:10px 0">
-  do not: -Xmn with G1 · blind System.gc() · random 20-flag paste · tune without baseline
+<div class="warn-banner">
+  ⚠ <b>Do-not-touch list:</b>
+  <code>-Xmn</code> with G1 · blind <code>System.gc()</code> · random 20-flag paste from the internet · tuning without a baseline ·
+  heap past ~32GB without thinking about compressed oops
+</div>
+
+<div class="gold">
+  <strong>Change process:</strong> BASELINE → change ONE flag → canary → rollback ready
 </div>
 
 <div class="memo"><b>notebook →</b> Mids recite flags. Seniors measure first, then decide.</div>
 
-<!-- ===== 10 ===== -->
-<h2 id="s10">10 · Say out loud</h2>
+<!-- ===================== 10 ===================== -->
+<h2 id="s10">10 · GetYourGuide-style mock answers</h2>
+<p class="sub">Read these out loud. Then close the page and reproduce them without looking. Use the 4-box formula.</p>
 
 <div class="qa">
   <h4>Q: How does GC work?</h4>
-  Objects on heap. Roots → reachable = live. Rest = garbage.
-  Young dies in Eden cheaply; long-lived promote to Old.
-  Prod: allocation + leaks → measure → then tune.
-</div>
-<div class="qa">
-  <h4>Q: Which GC?</h4>
-  Services → G1. Batch → Parallel. Proven GC-broken p99 (21+) → ZGC. Watch Serial on tiny pods.
-</div>
-<div class="qa">
-  <h4>Q: Frequent Full GC?</h4>
-  G1 Full GC = alarm. Log: humongous / to-space / late mark. Also dump for leak.
-</div>
-<div class="qa">
-  <h4>Q: Optimize GC?</h4>
-  Mechanism → trade-off → measure (log/JFR/MAT) → decide from data. Cut allocation first.
+  Objects live on the heap. GC walks from roots (stack, statics, JNI) and keeps the reachable set;
+  unreachable objects are garbage. Generational collectors gather short-lived objects cheaply in Eden
+  and promote long-lived ones to Old. Pauses (STW) affect user latency, so collector choice is a
+  throughput-vs-latency trade-off. In production I look at allocation and leaks first, then measure,
+  then tune.
 </div>
 
-<div class="gold"><strong>wall line:</strong> Mids recite flags. Seniors measure first, then decide.</div>
+<div class="qa">
+  <h4>Q: Which GC would you pick?</h4>
+  For a normal request/response service I start with G1 — pause-targeted and the default.
+  For batch/throughput jobs I’d consider Parallel.
+  If p99 SLO is broken by GC pauses and logs/JFR prove it, I’d try ZGC on Java 21+.
+  I also watch for Serial GC on tiny pods.
+</div>
+
+<div class="qa">
+  <h4>Q: You’re seeing frequent Full GCs — what do you do?</h4>
+  In G1, Full GC is an alarm. I read the log cause:
+  humongous → grow region / split the object;
+  to-space exhausted → grow heap / reserve;
+  late marking → lower IHOP / cut allocation.
+  In parallel I check for a leak with a heap dump.
+</div>
+
+<div class="qa">
+  <h4>Q: How do you optimize GC?</h4>
+  1) Mechanism: G1 is region-based with Young + Mixed collections.<br/>
+  2) Trade-off: shorter pauses usually cost more CPU; ZGC also wants more memory.<br/>
+  3) Measurement: GC logs, JFR allocation, MAT if needed.<br/>
+  4) Decision: humongous → region; Old filling → IHOP/allocation; SLO → ZGC.<br/>
+  Always cut unnecessary allocation in code first.
+</div>
+
+<div class="qa">
+  <h4>Q: What is a memory leak in Java? How do you find it?</h4>
+  An object that should be unreachable still has a root path (static Map, ThreadLocal, listener).
+  Symptom: heap baseline rising. Take a heap dump, open in MAT, use dominator tree / leak suspects,
+  fix the retainer, verify with another dump or JFR allocation profiling.
+</div>
+
+<div class="qa">
+  <h4>Q: OOMKilled but no Java OOM — what’s going on?</h4>
+  The container killed the process for total RSS, not necessarily Java heap OOM.
+  Heap is only part of JVM memory: metaspace, thread stacks, direct buffers also count.
+  Leave headroom with MaxRAMPercentage, bound metaspace/direct if needed, inspect with NMT.
+</div>
+
+<div class="gold">
+  <strong>Wall line:</strong> Mids recite flags. Seniors measure first, then decide.
+</div>
 
 <footer>
-  dark paper · pen boxes · arrows · timelines<br/>
-  loop: draw → notebook line → say section 10
+  Dark paper · pen boxes · arrows · timelines · full interview depth.<br/>
+  Study loop: draw diagram → write notebook line → say Section 10 out loud.<br/>
+  Source: your GC cheatsheet v5 + this guide.
 </footer>
 
 </div>
