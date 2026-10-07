@@ -897,3 +897,15 @@ Bu beşli, kamu kaynakları + arkadaş notlarının kesişim kümesi.
 ---
 
 *Doküman bakımı: Glassdoor’dan yeni Senior SWE review’ları geldikçe §8 tablosuna satır ekle; güven seviyesini A/B/C ile işaretle.*
+
+## PDF indirme
+
+Tüm rehberlerin PDF çıktıları `pdf/` klasöründe:
+
+- [Tümü (ZIP)](./pdf/GYG-Senior-SWE-Interview-Guide-ALL.zip)
+- [Ana rehber](./pdf/README.pdf)
+- [Cheat sheet](./pdf/01-CHEATSHEET.pdf)
+- [System design playbook](./pdf/02-SYSTEM-DESIGN-PLAYBOOK.pdf)
+- [STAR worksheet](./pdf/03-STAR-WORKSHEET.pdf)
+- [Live coding drills](./pdf/04-LIVE-CODING-DRILLS.pdf)
+- [Sources & confidence](./pdf/05-SOURCES-AND-CONFIDENCE.pdf)
