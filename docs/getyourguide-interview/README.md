@@ -909,3 +909,6 @@ Tüm rehberlerin PDF çıktıları `pdf/` klasöründe:
 - [STAR worksheet](./pdf/03-STAR-WORKSHEET.pdf)
 - [Live coding drills](./pdf/04-LIVE-CODING-DRILLS.pdf)
 - [Sources & confidence](./pdf/05-SOURCES-AND-CONFIDENCE.pdf)
+
+- [Çıkmış teknik sorular (PDF)](./pdf/06-ASKED-TECHNICAL-QUESTIONS.pdf) — tarih × seviye × repo detayları
+- [Çıkmış teknik sorular (MD)](./06-ASKED-TECHNICAL-QUESTIONS.md)
