@@ -361,10 +361,38 @@
   }
 
 
+
+  .qprompt {
+    border: 2.5px solid var(--amber);
+    background: #2a210f;
+    border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    padding: 10px 14px;
+    margin: 8px 0 14px;
+  }
+  .qprompt .qlabel {
+    font-family: "Caveat", "Patrick Hand", sans-serif;
+    font-size: 1.05rem;
+    color: var(--amber);
+    margin: 0 0 4px;
+  }
+  .qprompt .qtext {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .qprompt .qtext + .qtext { margin-top: 4px; }
+  .tiny { font-size: 0.95rem; color: var(--faint); margin: 6px 0; }
+  .bigflow {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; justify-content: center;
+    margin: 10px 0;
+  }
+  .bigflow .sketch { min-width: 100px; text-align: center; flex: 1 1 100px; }
+
   /* responsive font lock — same families as desktop */
   @media (max-width: 700px) {
     body { font-family: "Patrick Hand", "Caveat", sans-serif; font-size: 1.08rem; }
-    h1, h2, h3, h4, .bt, .badge, .memo b, .gold strong, .ask, .part,
+    h1, h2, h3, h4, .bt, .badge, .memo b, .gold strong, .ask, .part, .qprompt .qlabel,
     .prob .t, .sol .t, th, .arr, .vs {
       font-family: "Caveat", "Patrick Hand", sans-serif;
     }
@@ -397,9 +425,9 @@
 </p>
 
 <div class="tip">
-  <strong>How to study:</strong> Trace each figure → write the notebook line →
-  practice the SAY blocks out loud. When they ask a follow-up, jump to the
-  <em>If they ask…</em> rows under that section.
+  <strong>How to study:</strong> Each section opens with the <em>INTERVIEW QUESTION</em> —
+  that is the prompt you are answering. Trace the figure → notebook line → SAY blocks.
+  Java Core = more shapes, fewer words.
 </div>
 
 <div class="gold">
@@ -408,453 +436,450 @@
 </div>
 
 <nav class="toc" id="toc">
-  <strong>Contents</strong>
+  <strong>Contents — your interview questions</strong>
   <ol>
-    <li><a href="#part-a">Part A — Java (core + concurrency + memory)</a></li>
-    <li><a href="#a1">HashMap &amp; collisions</a></li>
-    <li><a href="#a2">equals() / hashCode() contract</a></li>
-    <li><a href="#a3">ArrayList vs LinkedList</a></li>
-    <li><a href="#a4">Stream API (Application Programming Interface) &amp; Optional</a></li>
-    <li><a href="#a5">synchronized · volatile · AtomicInteger</a></li>
-    <li><a href="#a6">Thread pools &amp; CompletableFuture</a></li>
-    <li><a href="#a7">Heap, stack &amp; GC (quick map)</a></li>
-    <li><a href="#a8">Immutable objects</a></li>
-    <li><a href="#part-b">Part B — Spring &amp; backend architecture</a></li>
-    <li><a href="#b1">Dependency injection</a></li>
-    <li><a href="#b2">@Transactional pitfalls</a></li>
-    <li><a href="#b3">Spring Boot vs classic Spring</a></li>
-    <li><a href="#b4">MVC (Model-View-Controller) vs WebFlux</a></li>
-    <li><a href="#b5">Blocking vs non-blocking I/O (Input/Output)</a></li>
-    <li><a href="#b6">Distributed transactions</a></li>
-    <li><a href="#b7">Circuit breaker · retry · timeout</a></li>
-    <li><a href="#b8">Unit · integration · e2e (end-to-end)</a></li>
-    <li><a href="#part-c">Part C — Database, API (Application Programming Interface) &amp; performance</a></li>
-    <li><a href="#c1">SQL (Structured Query Language) joins, GROUP BY, windows</a></li>
-    <li><a href="#c2">Composite indexes</a></li>
-    <li><a href="#c3">Isolation levels &amp; anomalies</a></li>
-    <li><a href="#c4">Optimistic vs pessimistic locking</a></li>
-    <li><a href="#c5">SQL (Structured Query Language) vs NoSQL (non-relational / Not only SQL (Structured Query Language) stores) choice</a></li>
-    <li><a href="#c6">REST (Representational State Transfer) idempotency &amp; status codes</a></li>
-    <li><a href="#c7">Authentication &amp; authorization</a></li>
-    <li><a href="#c8">Pagination, filtering, sorting, compat</a></li>
-    <li><a href="#c9">Profiling &amp; query plans</a></li>
-    <li><a href="#c10">Cache consistency</a></li>
+    <li><a href="#part-a">Part A — Java Core (diagrams first)</a></li>
+    <li><a href="#a1">How does HashMap work? Collisions?</a></li>
+    <li><a href="#a2">equals() / hashCode() contract?</a></li>
+    <li><a href="#a3">ArrayList vs LinkedList?</a></li>
+    <li><a href="#a4">When Stream API &amp; Optional?</a></li>
+    <li><a href="#a5">When synchronized / volatile / AtomicInteger?</a></li>
+    <li><a href="#a6">Thread pool &amp; CompletableFuture?</a></li>
+    <li><a href="#a7">Heap, stack &amp; GC?</a></li>
+    <li><a href="#a8">Immutable object advantages?</a></li>
+    <li><a href="#part-b">Part B — Spring &amp; backend</a></li>
+    <li><a href="#b1">How does Spring DI work?</a></li>
+    <li><a href="#b2">@Transactional — how / surprises?</a></li>
+    <li><a href="#b3">Spring Boot vs classic Spring?</a></li>
+    <li><a href="#b4">MVC vs WebFlux?</a></li>
+    <li><a href="#b5">Blocking vs non-blocking I/O?</a></li>
+    <li><a href="#b6">Distributed transactions?</a></li>
+    <li><a href="#b7">Circuit breaker + retry + timeout?</a></li>
+    <li><a href="#b8">Unit vs integration vs e2e?</a></li>
+    <li><a href="#part-c">Part C — Database, API &amp; performance</a></li>
+    <li><a href="#c1">JOIN / GROUP BY / window functions?</a></li>
+    <li><a href="#c2">Composite indexes — help &amp; harm?</a></li>
+    <li><a href="#c3">Isolation levels &amp; anomalies?</a></li>
+    <li><a href="#c4">Optimistic vs pessimistic locking?</a></li>
+    <li><a href="#c5">SQL vs NoSQL criteria?</a></li>
+    <li><a href="#c6">REST idempotency &amp; status codes?</a></li>
+    <li><a href="#c7">AuthN &amp; AuthZ?</a></li>
+    <li><a href="#c8">Pagination / filter / sort / compat?</a></li>
+    <li><a href="#c9">Slow endpoint — profile &amp; plan?</a></li>
+    <li><a href="#c10">Cache consistency &amp; invalidation?</a></li>
     <li><a href="#part-d">Part D — Test, DevOps &amp; production</a></li>
-    <li><a href="#d1">Mocks vs real dependencies</a></li>
-    <li><a href="#d2">Integration test setup</a></li>
-    <li><a href="#d3">Flaky tests</a></li>
-    <li><a href="#d4">Docker image size &amp; security</a></li>
-    <li><a href="#d5">Readiness &amp; liveness probes</a></li>
-    <li><a href="#d6">CI/CD (Continuous Integration / Continuous Delivery) quality gates</a></li>
-    <li><a href="#d7">5xx spike playbook</a></li>
-    <li><a href="#d8">P95 (95th percentile) / P99 (99th percentile) latency</a></li>
-    <li><a href="#d9">Rollback decision</a></li>
+    <li><a href="#d1">Mock vs real dependency?</a></li>
+    <li><a href="#d2">How to set up integration tests?</a></li>
+    <li><a href="#d3">How to investigate flaky tests?</a></li>
+    <li><a href="#d4">Smaller, safer Docker images?</a></li>
+    <li><a href="#d5">Readiness vs liveness?</a></li>
+    <li><a href="#d6">CI/CD quality gates?</a></li>
+    <li><a href="#d7">5xx spike — what do you do?</a></li>
+    <li><a href="#d8">P95 / P99 meaning?</a></li>
+    <li><a href="#d9">When do you rollback?</a></li>
     <li><a href="#oneliners">Rapid one-liners</a></li>
     <li><a href="#deep">Deep follow-ups</a></li>
     <li><a href="#dialogue">Mock dialogue</a></li>
-    <li><a href="#saybank">Spoken answer bank (rapid fire)</a></li>
+    <li><a href="#saybank">Spoken answer bank</a></li>
   </ol>
 </nav>
 
 <!-- ===================== PART A ===================== -->
-<div class="part" id="part-a">PART A · JAVA — Core, Concurrency, Memory</div>
+<div class="part" id="part-a">PART A · JAVA CORE — diagrams first, words second</div>
 <div class="gold">
-  <strong>Java thesis:</strong> Data structures, equality, concurrency, and memory are one story:
-  where state lives, who can see it, and how you keep it correct under load.
+  <strong>Java Core mode:</strong> Draw the figure. Say the notebook line. Keep answers short.
+  Each section starts with the exact interview question.
 </div>
 
 <!-- A1 -->
-<h2 id="a1">A1 · HashMap — how it works &amp; collisions</h2>
+<h2 id="a1">A1 · HashMap</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How does HashMap work?</p>
+  <p class="qtext">How are hash collisions handled?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — HashMap bucket array + chain / tree</div>
-  <div class="col">
-    <div class="sketch amber wiggle-0" style="min-width:280px;text-align:center">
-      <div class="bt">key.hashCode() → spread → index = (n-1) &amp; hash</div>
-    </div>
-    <div class="arr-v">▼</div>
-    <div class="row" style="width:100%;justify-content:flex-start">
-      <div class="sketch teal wiggle-l" style="flex:1">
-        <div class="bt">table[] buckets</div>
-        <div class="mini">[0] empty</div>
-        <div class="mini">[1] → (K1,V1) → (K4,V4)</div>
-        <div class="mini">[2] empty</div>
-        <div class="mini">[3] TREE (red-black) when chain long</div>
-        <div class="mini">[4] → (K2,V2)</div>
+  <div class="label">figure 1 — put/get path</div>
+  <div class="bigflow">
+    <div class="sketch amber"><div class="bt">KEY</div><span class="bs">"Ali"</span></div>
+    <span class="arr">→</span>
+    <div class="sketch teal"><div class="bt">hashCode</div><span class="bs">int hash</span></div>
+    <span class="arr">→</span>
+    <div class="sketch blue"><div class="bt">index</div><span class="bs">(n-1) &amp; hash</span></div>
+    <span class="arr">→</span>
+    <div class="sketch green"><div class="bt">bucket[i]</div><span class="bs">find / insert</span></div>
+  </div>
+  <div class="draw">4 boxes in a row. This is the whole put/get story.</div>
+</div>
+
+<div class="board">
+  <div class="label">figure 2 — collision handling</div>
+  <div class="grid3">
+    <div class="sketch teal wiggle-l">
+      <div class="bt">1 SAME BUCKET</div>
+      <div class="cells">
+        <div class="cell g">·</div><div class="cell s">●</div><div class="cell g">·</div><div class="cell g">·</div>
       </div>
+      <p class="bs">two keys → one index</p>
+    </div>
+    <div class="sketch amber wiggle-0">
+      <div class="bt">2 CHAIN</div>
+      <div class="flow">
+        <span class="pill">K1,V1</span><span class="arr">→</span><span class="pill">K4,V4</span>
+      </div>
+      <p class="bs">walk + equals()</p>
+    </div>
+    <div class="sketch purple wiggle-r">
+      <div class="bt">3 TREEIFY</div>
+      <div class="mini">red-black tree<br/>when chain long<br/>(Java 8+)</div>
+      <p class="bs">O(log n) not O(n)</p>
     </div>
   </div>
-  <div class="draw">
-    Draw array of boxes. Some empty. One box has a linked list of nodes.
-    One box labeled TREE. Arrow from hash(key) into a bucket index.
+  <div class="draw">Bucket → chain → tree. Label equals() on the chain.</div>
+</div>
+
+<div class="board">
+  <div class="label">figure 3 — resize</div>
+  <div class="flow">
+    <span class="pill">size &gt; cap × 0.75</span><span class="arr">→</span>
+    <span class="pill">double table</span><span class="arr">→</span>
+    <span class="pill">re-bucket entries</span>
   </div>
-</div>
-
-<div class="story">
-  <strong>Story — coat check:</strong>
-  Hash = which rack. Collision = two coats land on the same rack number.
-  You hang them in a chain. If the chain gets long (Java 8+: usually ≥8 and table large enough),
-  the rack becomes a balanced tree so lookup stays fast.
-</div>
-
-<table>
-  <tr><th>Step</th><th>What happens</th></tr>
-  <tr><td>1 Put / get</td><td>Compute hash, map to bucket index.</td></tr>
-  <tr><td>2 Collision</td><td>Same bucket. Walk chain (or tree). Compare with <code>equals</code>.</td></tr>
-  <tr><td>3 Resize</td><td>When size &gt; capacity × loadFactor (default 0.75), double table and redistribute.</td></tr>
-  <tr><td>4 Treeify</td><td>Long chains become red-black trees (Java 8+) to avoid O(n) worst case.</td></tr>
-</table>
-
-<div class="warn-banner">
-  ⚠ <b>Trap:</b> Mutating a key after insert (changing a field used in hashCode/equals) can make the entry unreachable in the map.
-  ⚠ <b>Trap:</b> <code>HashMap</code> is not thread-safe. Concurrent put can corrupt structure. Use <code>ConcurrentHashMap</code>.
 </div>
 
 <div class="pair">
-  <div class="prob"><div class="t">PROBLEM</div>HashMap looks up slow under adversarial or bad hashCodes</div>
+  <div class="prob"><div class="t">TRAP</div>HashMap shared across threads</div>
   <div class="arr">→</div>
-  <div class="sol"><div class="t">SOLUTION</div>Fix equals/hashCode quality; Java treeifies long buckets; never share HashMap across threads without sync</div>
+  <div class="sol"><div class="t">FIX</div>CHM (ConcurrentHashMap) · never mutate key after put</div>
 </div>
 
-<div class="ask">If they ask: “How does ConcurrentHashMap differ?”</div>
-<div class="say">CHM (ConcurrentHashMap) allows concurrent readers/writers with fine-grained locking / CAS (Compare-And-Swap) on bins. No null keys/values. Size is approximate under concurrency. Prefer it for shared mutable maps.</div>
+<div class="ask">If they ask: “CHM (ConcurrentHashMap) vs HashMap?”</div>
+<div class="say">CHM (ConcurrentHashMap) allows concurrent readers/writers (CAS (Compare-And-Swap) / bin locks). No nulls. Prefer it for shared mutable maps.</div>
 
-<div class="ask">If they ask: “What is load factor?”</div>
-<div class="say">Default 0.75 balances space vs resize cost. Lower → fewer collisions, more memory. Higher → denser table, longer chains before resize.</div>
-
-<div class="memo"><b>notebook →</b> Hash → bucket → equals. Collisions = chain, then tree. Resize at 0.75. Not thread-safe.</div>
+<div class="memo"><b>notebook →</b> hash → bucket → equals. Collision = chain → tree. Resize at 0.75. Not thread-safe.</div>
 
 <!-- A2 -->
-<h2 id="a2">A2 · equals() and hashCode() contract</h2>
+<h2 id="a2">A2 · equals() &amp; hashCode()</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What is the equals() and hashCode() contract?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — contract triangle</div>
+  <div class="label">figure — the only arrow you must memorize</div>
   <div class="row">
-    <div class="sketch green wiggle-l" style="text-align:center;min-width:160px">
-      <div class="bt">equals true</div>
-      <p class="bs">a.equals(b)</p>
-    </div>
-    <div class="arr">⇒</div>
-    <div class="sketch amber wiggle-0" style="text-align:center;min-width:160px">
-      <div class="bt">hashCode equal</div>
-      <p class="bs">MUST be same int</p>
-    </div>
-    <div class="arr">⇏</div>
-    <div class="sketch red wiggle-r" style="text-align:center;min-width:160px">
-      <div class="bt">same hash</div>
-      <p class="bs">does NOT imply equals</p>
-    </div>
+    <div class="sketch green" style="text-align:center;min-width:150px"><div class="bt">equals TRUE</div></div>
+    <span class="arr">⇒ MUST</span>
+    <div class="sketch amber" style="text-align:center;min-width:150px"><div class="bt">same hashCode</div></div>
   </div>
-  <div class="draw">Left green equals → amber hashCode. Red X on reverse: same hash ≠ equals.</div>
+  <div class="row" style="margin-top:10px">
+    <div class="sketch red" style="text-align:center;min-width:150px"><div class="bt">same hash</div></div>
+    <span class="arr">⇏</span>
+    <div class="sketch teal" style="text-align:center;min-width:150px"><div class="bt">equals?</div><span class="bs">maybe / maybe not</span></div>
+  </div>
+  <div class="draw">Green→amber required. Red→teal NOT required.</div>
 </div>
 
-<table>
-  <tr><th>Rule</th><th>Meaning</th></tr>
-  <tr><td>Reflexive</td><td><code>x.equals(x)</code> is true.</td></tr>
-  <tr><td>Symmetric</td><td><code>x.equals(y)</code> ⟺ <code>y.equals(x)</code>.</td></tr>
-  <tr><td>Transitive</td><td>If x=y and y=z then x=z.</td></tr>
-  <tr><td>Consistent</td><td>Same inputs → same result while unchanged.</td></tr>
-  <tr><td>Null</td><td><code>x.equals(null)</code> is false.</td></tr>
-  <tr><td><strong>Hash contract</strong></td><td>If equals → hashCodes equal. Unequal objects may still collide.</td></tr>
-</table>
-
-<div class="gold">
-  <strong>Broken contract symptom:</strong> Put in HashMap/HashSet, cannot get it back.
-  Two equal objects land in different buckets if hashCodes differ.
+<div class="board">
+  <div class="label">figure — broken contract symptom</div>
+  <div class="flow">
+    <span class="pill">put(key,v)</span><span class="arr">→</span>
+    <span class="pill">bucket 3</span><span class="arr">… later …</span>
+    <span class="pill">get(equalKey)</span><span class="arr">→</span>
+    <span class="pill" style="border-color:var(--red);color:var(--red)">bucket 7 → MISS</span>
+  </div>
+  <div class="draw">Equal keys, different hashCodes → ghost entry.</div>
 </div>
 
-<pre>// Safe pattern (records do this for you)
-@Override public boolean equals(Object o) {
-  if (this == o) return true;
-  if (!(o instanceof User u)) return false;
-  return Objects.equals(id, u.id);
-}
-@Override public int hashCode() { return Objects.hash(id); }</pre>
+<div class="grid3">
+  <div class="sketch teal"><div class="bt">rules</div>reflexive · symmetric · transitive · consistent · null→false</div>
+  <div class="sketch amber"><div class="bt">keys</div>immutable fields only · same fields in both methods</div>
+  <div class="sketch green"><div class="bt">modern</div>use <code>record</code> / Objects.equals+hash</div>
+</div>
 
-<div class="ask">If they ask: “When do I use identity (==) vs equals?”</div>
-<div class="say">== compares references (or primitive values). equals compares logical value. For domain keys in maps/sets, always equals+hashCode. For enums, == is fine and preferred.</div>
+<div class="ask">If they ask: “== vs equals?”</div>
+<div class="say">== is reference (or primitive value). equals is logical value. Map/Set keys need equals+hashCode.</div>
 
-<div class="ask">If they ask: “Can I use mutable fields in hashCode?”</div>
-<div class="say">Avoid. If a field changes after insert into a Hash-based collection, the object can vanish logically. Prefer immutable keys (id, records).</div>
-
-<div class="memo"><b>notebook →</b> equals true ⇒ same hashCode. Same hash ⇏ equals. Break this → HashMap ghosts.</div>
+<div class="memo"><b>notebook →</b> equals true ⇒ same hashCode. Break it → HashMap ghosts. Prefer immutable keys.</div>
 
 <!-- A3 -->
 <h2 id="a3">A3 · ArrayList vs LinkedList</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What are the differences between ArrayList and LinkedList?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — contiguous array vs node chain</div>
+  <div class="label">figure — structure</div>
   <div class="grid2">
     <div class="sketch teal wiggle-l">
       <div class="bt">ArrayList</div>
       <div class="cells">
-        <div class="cell s">0</div><div class="cell s">1</div><div class="cell s">2</div>
-        <div class="cell s">3</div><div class="cell g">·</div><div class="cell g">·</div>
+        <div class="cell s">A</div><div class="cell s">B</div><div class="cell s">C</div>
+        <div class="cell s">D</div><div class="cell g">·</div><div class="cell g">·</div>
       </div>
-      <p class="bs">O(1) random access · append amortized O(1) · insert mid O(n)</p>
+      <p class="bs">contiguous array · cache-friendly</p>
     </div>
     <div class="sketch purple wiggle-r">
       <div class="bt">LinkedList</div>
       <div class="flow">
-        <span class="pill">A</span><span class="arr">↔</span>
-        <span class="pill">B</span><span class="arr">↔</span>
-        <span class="pill">C</span>
+        <span class="pill">A</span><span class="arr">↔</span><span class="pill">B</span><span class="arr">↔</span><span class="pill">C</span>
       </div>
-      <p class="bs">O(n) access by index · O(1) insert/remove if you hold the node</p>
+      <p class="bs">nodes + pointers · poor locality</p>
     </div>
   </div>
-  <div class="draw">Left: dense boxes. Right: nodes with arrows both ways. Label big-O under each.</div>
 </div>
 
-<table>
-  <tr><th></th><th>ArrayList</th><th>LinkedList</th></tr>
-  <tr><td>Structure</td><td>Resizable array</td><td>Doubly linked nodes</td></tr>
-  <tr><td>get(i)</td><td>O(1)</td><td>O(n)</td></tr>
-  <tr><td>add at end</td><td>Amortized O(1)</td><td>O(1)</td></tr>
-  <tr><td>add/remove mid</td><td>O(n) shift</td><td>O(n) to find + O(1) link</td></tr>
-  <tr><td>Memory</td><td>Compact, cache-friendly</td><td>Pointer overhead, poor locality</td></tr>
-  <tr><td>Default choice</td><td><strong>Almost always</strong></td><td>Rare; prefer Deque/ArrayDeque for queues</td></tr>
-</table>
-
-<div class="warn-banner">
-  ⚠ Interview myth: “use LinkedList for frequent inserts.” In practice ArrayList usually wins due to CPU (Central Processing Unit) cache.
-  For queue/stack use <code>ArrayDeque</code>, not LinkedList.
+<div class="board">
+  <div class="label">figure — big-O cheat strip</div>
+  <table>
+    <tr><th></th><th>get(i)</th><th>add end</th><th>add mid</th><th>memory</th></tr>
+    <tr><td><strong>ArrayList</strong></td><td>O(1)</td><td>~O(1)</td><td>O(n)</td><td>compact</td></tr>
+    <tr><td><strong>LinkedList</strong></td><td>O(n)</td><td>O(1)</td><td>find O(n)</td><td>pointer-heavy</td></tr>
+  </table>
 </div>
 
-<div class="ask">If they ask: “When would you still pick LinkedList?”</div>
-<div class="say">Almost never in modern Java services. If I truly need O(1) splice with a ListIterator already at the position, maybe. For queues I choose ArrayDeque.</div>
+<div class="gold"><strong>Default:</strong> ArrayList. Queues → ArrayDeque. LinkedList almost never in services.</div>
+
+<div class="ask">If they ask: “When LinkedList?”</div>
+<div class="say">Almost never. Cache locality usually beats pointer tricks. For queue/stack use ArrayDeque.</div>
 
 <div class="memo"><b>notebook →</b> Default ArrayList. LinkedList loses on locality. Queues → ArrayDeque.</div>
 
 <!-- A4 -->
-<h2 id="a4">A4 · Stream API (Application Programming Interface) &amp; Optional — when useful</h2>
+<h2 id="a4">A4 · Stream API (Application Programming Interface) &amp; Optional</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">When are Stream API (Application Programming Interface) and Optional useful?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — pipeline: source → intermediate → terminal</div>
-  <div class="flow">
-    <div class="sketch green" style="text-align:center"><div class="bt">source</div><span class="bs">list/stream()</span></div>
+  <div class="label">figure — Stream pipeline</div>
+  <div class="bigflow">
+    <div class="sketch green"><div class="bt">SOURCE</div><span class="bs">list.stream()</span></div>
     <span class="arr">→</span>
-    <div class="sketch amber" style="text-align:center"><div class="bt">filter/map</div><span class="bs">lazy</span></div>
+    <div class="sketch amber"><div class="bt">LAZY</div><span class="bs">filter / map</span></div>
     <span class="arr">→</span>
-    <div class="sketch blue" style="text-align:center"><div class="bt">terminal</div><span class="bs">collect/find</span></div>
+    <div class="sketch blue"><div class="bt">TERMINAL</div><span class="bs">collect / find</span></div>
   </div>
-  <div class="draw">3 boxes in a row. Write LAZY on middle. Terminal triggers work.</div>
+  <div class="draw">Work starts only at terminal.</div>
 </div>
 
-<div class="grid2">
-  <div class="sketch teal">
-    <div class="bt">Streams — USE when</div>
-    <ul class="tight">
-      <li>Declarative transform/filter/aggregate</li>
-      <li>Readable pipeline over a collection</li>
-      <li>Grouping / partitioning with collectors</li>
-      <li>parallelStream only after measuring</li>
-    </ul>
+<div class="board">
+  <div class="label">figure — Optional as a box</div>
+  <div class="grid2">
+    <div class="sketch green"><div class="bt">Optional.of(x)</div><span class="bs">value present</span></div>
+    <div class="sketch red"><div class="bt">Optional.empty()</div><span class="bs">absent — no null</span></div>
   </div>
-  <div class="sketch red">
-    <div class="bt">Streams — AVOID when</div>
-    <ul class="tight">
-      <li>Simple indexed loop is clearer</li>
-      <li>You need checked exceptions mid-pipeline</li>
-      <li>Side effects in map/filter (logging OK carefully)</li>
-      <li>Blind parallelStream on tiny lists</li>
-    </ul>
+  <div class="flow" style="margin-top:10px">
+    <span class="pill">orElse</span>
+    <span class="pill">orElseGet</span>
+    <span class="pill">orElseThrow</span>
+    <span class="pill">map / flatMap</span>
   </div>
 </div>
 
 <div class="grid2">
-  <div class="sketch green">
-    <div class="bt">Optional — USE when</div>
-    <ul class="tight">
-      <li>Return type for “maybe absent” (API (Application Programming Interface) boundary)</li>
-      <li><code>orElse</code> / <code>orElseGet</code> / <code>orElseThrow</code></li>
-      <li>Chaining <code>map</code>/<code>flatMap</code> without null checks</li>
-    </ul>
-  </div>
-  <div class="sketch red">
-    <div class="bt">Optional — AVOID when</div>
-    <ul class="tight">
-      <li>Fields / parameters / collections of Optional</li>
-      <li><code>Optional.get()</code> without isPresent (smell)</li>
-      <li>Using Optional to wrap null deep inside hot loops</li>
-    </ul>
-  </div>
+  <div class="sol"><div class="t">USE</div>clear pipelines · grouping · Optional return type</div>
+  <div class="prob"><div class="t">AVOID</div>forced cleverness · Optional fields · blind parallelStream · get() without check</div>
 </div>
 
 <div class="ask">If they ask: “orElse vs orElseGet?”</div>
-<div class="say">orElse always evaluates the default expression. orElseGet evaluates only if empty. Use orElseGet for expensive defaults.</div>
+<div class="say">orElse always builds the default. orElseGet builds it only when empty — use for expensive defaults.</div>
 
-<div class="memo"><b>notebook →</b> Streams for clear pipelines. Optional as return type, not fields. parallelStream needs proof.</div>
+<div class="memo"><b>notebook →</b> Streams = clear pipelines. Optional = return type, not fields. parallelStream needs proof.</div>
 
 <!-- A5 -->
 <h2 id="a5">A5 · synchronized · volatile · AtomicInteger</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">When do you use synchronized, volatile, and AtomicInteger?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — three tools for three problems</div>
+  <div class="label">figure — pick the tool by the job</div>
   <div class="grid3">
     <div class="sketch red wiggle-l">
       <div class="bt">synchronized</div>
-      <p class="bs">mutual exclusion + visibility</p>
-      <div class="mini">critical section<br/>one thread at a time</div>
+      <div class="mini">🔒 one thread<br/>in critical section</div>
+      <p class="bs">exclusion + visibility</p>
     </div>
     <div class="sketch amber wiggle-0">
       <div class="bt">volatile</div>
-      <p class="bs">visibility + ordering</p>
-      <div class="mini">NO atomic compound ops<br/>flag / publication</div>
+      <div class="mini">👁 latest write<br/>visible to readers</div>
+      <p class="bs">flag / safe publish<br/><b>NOT</b> atomic ++</p>
     </div>
     <div class="sketch green wiggle-r">
       <div class="bt">AtomicInteger</div>
-      <p class="bs">lock-free CAS (Compare-And-Swap) updates</p>
-      <div class="mini">incrementAndGet<br/>compareAndSet</div>
+      <div class="mini">⚡ CAS (Compare-And-Swap)<br/>incrementAndGet</div>
+      <p class="bs">counters without lock</p>
     </div>
   </div>
-  <div class="draw">3 columns. Label what each guarantees. Cross out “atomic ++” under volatile.</div>
+  <div class="draw">3 columns. Cross out “atomic ++” under volatile.</div>
 </div>
 
-<table>
-  <tr><th>Need</th><th>Tool</th><th>Why</th></tr>
-  <tr><td>Protect multi-step invariant</td><td><code>synchronized</code> / Lock</td><td>Only one thread mutates the critical section.</td></tr>
-  <tr><td>Publish a flag / reference safely</td><td><code>volatile</code></td><td>Readers see latest write; no tearing of reference.</td></tr>
-  <tr><td>Counters / CAS (Compare-And-Swap) loops</td><td><code>Atomic*</code></td><td>Hardware CAS (Compare-And-Swap); no full monitor for simple updates.</td></tr>
-  <tr><td><code>i++</code> across threads</td><td>NOT volatile alone</td><td>Read-modify-write is not atomic.</td></tr>
-</table>
-
-<div class="warn-banner">
-  ⚠ <b>volatile does not make compound actions atomic.</b>
-  <code>volatile int c; c++</code> can still lose updates.
+<div class="board">
+  <div class="label">figure — volatile ++ race</div>
+  <div class="flow">
+    <span class="pill">read 5</span><span class="arr">+</span>
+    <span class="pill">read 5</span><span class="arr">→</span>
+    <span class="pill">write 6</span><span class="arr">→</span>
+    <span class="pill">write 6</span><span class="arr">→</span>
+    <span class="pill" style="border-color:var(--red);color:var(--red)">lost update</span>
+  </div>
 </div>
 
 <div class="ask">If they ask: “Happens-before?”</div>
-<div class="say">Java Memory Model rules that make writes visible. Unlock→lock on same monitor, volatile write→later read, thread start/join, and CAS (Compare-And-Swap) success establish happens-before.</div>
+<div class="say">Rules that make writes visible: unlock→lock, volatile write→later read, thread start/join, successful CAS (Compare-And-Swap).</div>
 
-<div class="ask">If they ask: “synchronized vs ReentrantLock?”</div>
-<div class="say">synchronized is simpler and covers most cases. ReentrantLock when I need tryLock, timed lock, multiple conditions, or interruptible acquire.</div>
-
-<div class="memo"><b>notebook →</b> Exclusion→synchronized. Visibility flag→volatile. Counter/CAS (Compare-And-Swap)→Atomic. volatile ≠ atomic ++.</div>
+<div class="memo"><b>notebook →</b> Exclusion→synchronized. Flag→volatile. Counter→Atomic. volatile ≠ atomic ++.</div>
 
 <!-- A6 -->
 <h2 id="a6">A6 · Thread pools &amp; CompletableFuture</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do thread pools and CompletableFuture work?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — pool: queue + workers</div>
-  <div class="row">
-    <div class="sketch amber wiggle-l" style="min-width:140px;text-align:center">
-      <div class="bt">tasks</div>
-      <p class="bs">submit / execute</p>
-    </div>
-    <div class="arr">→</div>
-    <div class="sketch teal wiggle-0" style="min-width:160px;text-align:center">
-      <div class="bt">work queue</div>
-      <p class="bs">bounded preferred</p>
-    </div>
-    <div class="arr">→</div>
-    <div class="sketch green wiggle-r" style="min-width:160px;text-align:center">
-      <div class="bt">worker threads</div>
-      <p class="bs">core → max → reject</p>
-    </div>
+  <div class="label">figure — thread pool</div>
+  <div class="bigflow">
+    <div class="sketch amber"><div class="bt">submit</div></div>
+    <span class="arr">→</span>
+    <div class="sketch teal"><div class="bt">QUEUE</div><span class="bs">prefer bounded</span></div>
+    <span class="arr">→</span>
+    <div class="sketch green"><div class="bt">WORKERS</div><span class="bs">core → max</span></div>
+    <span class="arr">→</span>
+    <div class="sketch red"><div class="bt">REJECT</div><span class="bs">when full</span></div>
   </div>
-  <div class="draw">Task → queue → N worker sticks. Write RejectedExecutionHandler on overflow.</div>
+  <div class="draw">Task → queue → workers → reject policy.</div>
 </div>
 
-<table>
-  <tr><th>Pool</th><th>Use</th><th>Watch-out</th></tr>
-  <tr><td><code>FixedThreadPool</code></td><td>Bounded CPU (Central Processing Unit)/I/O (Input/Output) workers</td><td>Unbounded queue can OOM (Out Of Memory) under load.</td></tr>
-  <tr><td><code>CachedThreadPool</code></td><td>Short bursty tasks</td><td>Can create huge thread counts.</td></tr>
-  <tr><td><code>ForkJoinPool.commonPool</code></td><td>parallelStream / default CF (CompletableFuture) async</td><td>Don’t block it with JDBC (Java Database Connectivity)/sleep.</td></tr>
-  <tr><td>Custom <code>ThreadPoolExecutor</code></td><td>Production default</td><td>Set bounds, naming, rejection policy.</td></tr>
-</table>
-
-<div class="story">
-  <strong>CompletableFuture:</strong> a promise of a result. Chain with
-  <code>thenApply</code> (transform), <code>thenCompose</code> (flat async),
-  <code>thenCombine</code> (wait two), <code>exceptionally</code> / <code>handle</code> (errors).
-  Always pass an executor for blocking work.
+<div class="board">
+  <div class="label">figure — CompletableFuture chain</div>
+  <div class="flow">
+    <span class="pill">supplyAsync</span><span class="arr">→</span>
+    <span class="pill">thenApply</span><span class="arr">→</span>
+    <span class="pill">thenCombine</span><span class="arr">→</span>
+    <span class="pill">orTimeout</span><span class="arr">→</span>
+    <span class="pill">exceptionally</span>
+  </div>
+  <div class="draw">Always pass an executor for blocking I/O (Input/Output).</div>
 </div>
 
-<pre>CompletableFuture&lt;User&gt; u = supplyAsync(this::loadUser, ioPool);
-CompletableFuture&lt;Prefs&gt; p = supplyAsync(this::loadPrefs, ioPool);
-CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
-    .orTimeout(300, MILLISECONDS)
-    .exceptionally(ex -&gt; Dto.fallback());</pre>
-
-<div class="ask">If they ask: “Why not use commonPool for HTTP (Hypertext Transfer Protocol)/DB (database)?”</div>
-<div class="say">commonPool is shared and sized for CPU (Central Processing Unit) parallelism. Blocking I/O (Input/Output) starves everyone using parallelStream/CF (CompletableFuture) defaults. Give I/O (Input/Output) its own bounded pool.</div>
+<div class="warn-banner">
+  ⚠ Don’t block <code>ForkJoinPool.commonPool</code> with JDBC (Java Database Connectivity) / HTTP (Hypertext Transfer Protocol) / sleep.
+  Give I/O (Input/Output) its own bounded pool.
+</div>
 
 <div class="ask">If they ask: “How do you size a pool?”</div>
-<div class="say">CPU (Central Processing Unit)-bound ≈ cores (+ small). I/O (Input/Output)-bound higher, but bounded by downstream capacity. Measure queue latency and rejections; never unbounded growth.</div>
+<div class="say">CPU (Central Processing Unit)-bound ≈ cores. I/O (Input/Output)-bound higher but bounded by downstream. Watch queue latency + rejections.</div>
 
 <div class="memo"><b>notebook →</b> Bound the queue. Name threads. Don’t block commonPool. CF (CompletableFuture) needs an executor for I/O (Input/Output).</div>
 
 <!-- A7 -->
-<h2 id="a7">A7 · Heap, stack &amp; garbage collection (quick map)</h2>
-<p class="sub">Full depth lives in <code>Java-GC-Senior-Interview-Guide.html</code>. This is the interview spine.</p>
+<h2 id="a7">A7 · Heap, stack &amp; GC (Garbage Collection)</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do Java heap, stack, and garbage collection work?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — stack vs heap vs GC (Garbage Collection)</div>
+  <div class="label">figure — three regions</div>
   <div class="map3">
     <div class="sketch blue wiggle-l">
       <div class="bt">STACK</div>
-      <p class="bs">per thread · frames · refs · NO GC (Garbage Collection)</p>
+      <p class="bs">per thread</p>
+      <div class="mini">frames<br/>locals<br/>refs only</div>
+      <p class="bs"><b>NO GC</b></p>
     </div>
     <div class="sketch amber wiggle-0">
       <div class="bt">HEAP</div>
-      <p class="bs">objects · ONLY GC (Garbage Collection) site</p>
-      <div class="mini">Young (Eden/S) → Old</div>
+      <p class="bs">objects (<code>new</code>)</p>
+      <div class="mini">Young<br/>↓ promote<br/>Old</div>
+      <p class="bs"><b>GC ONLY HERE</b></p>
     </div>
     <div class="sketch purple wiggle-r">
-      <div class="bt">GC (Garbage Collection)</div>
-      <p class="bs">roots → mark live → reclaim</p>
-      <div class="mini">G1 (Garbage-First) default · ZGC (Z Garbage Collector) if proven</div>
+      <div class="bt">GC</div>
+      <p class="bs">from roots</p>
+      <div class="mini">mark live<br/>reclaim dead</div>
+      <p class="bs">G1 default</p>
     </div>
   </div>
-  <div class="draw">3 columns. Arrow from stack ref into heap object. GC (Garbage Collection) broom only over heap.</div>
+  <div style="text-align:center;margin-top:10px;font-family:Caveat,cursive;font-size:1.3rem;color:var(--amber)">
+    STACK <code>User u</code> ──────► HEAP User object
+  </div>
+  <div class="draw">3 columns. Arrow from stack ref into heap. Broom only on heap.</div>
+</div>
+
+<div class="board">
+  <div class="label">figure — object life</div>
+  <div class="tl">
+    <div class="step"><div class="n">1</div>Eden</div>
+    <div class="step"><div class="n">2</div>Survivor</div>
+    <div class="step"><div class="n">3</div>Old</div>
+    <div class="step"><div class="n">4</div>dead → reclaim</div>
+  </div>
 </div>
 
 <div class="gold">
-  <strong>Answer formula:</strong> Roots define live set → generational cheap young collects →
-  measure pauses/allocation → fix leaks/allocation before flags → G1 (Garbage-First) first, ZGC (Z Garbage Collector) if GC (Garbage Collection) breaks p99 (99th percentile).
+  <strong>Say:</strong> Roots → live set. Short-lived die in Young. Measure allocation/leaks before flags.
+  Deep dive: <code>Java-GC-Senior-Interview-Guide.html</code>
 </div>
 
 <div class="ask">If they ask: “How do you optimize GC (Garbage Collection)?”</div>
-<div class="say">Measure first (GC (Garbage Collection) log, JFR (Java Flight Recorder)). Cut allocation and leaks. Keep G1 (Garbage-First) with MaxRAMPercentage and HeapDumpOnOOM. Tune only with a baseline. Switch to ZGC (Z Garbage Collector) only when GC (Garbage Collection) pauses provably break the SLO (Service Level Objective).</div>
+<div class="say">Measure (GC log, JFR (Java Flight Recorder)) → cut allocation/leaks → keep G1 (Garbage-First) → tune only with baseline → ZGC (Z Garbage Collector) only if pauses break SLO (Service Level Objective).</div>
 
 <div class="memo"><b>notebook →</b> GC (Garbage Collection) only heap. Leak = unwanted root path. Measure before flags.</div>
 
 <!-- A8 -->
-<h2 id="a8">A8 · Immutable objects — advantages</h2>
+<h2 id="a8">A8 · Immutable objects</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What are the advantages of immutable objects?</p>
+</div>
 
 <div class="board">
-  <div class="label">figure — mutable shared state vs immutable copy</div>
+  <div class="label">figure — share safely</div>
   <div class="grid2">
     <div class="prob">
-      <div class="t">MUTABLE SHARED</div>
-      Thread A writes field · Thread B reads half-updated · needs locks
+      <div class="t">MUTABLE</div>
+      <div class="flow">
+        <span class="pill">T1 write</span>
+        <span class="pill">T2 read</span>
+      </div>
+      <p class="bs">needs locks · races</p>
     </div>
     <div class="sol">
       <div class="t">IMMUTABLE</div>
-      Construct once · all fields final · safe to share · no locks for reads
+      <div class="flow">
+        <span class="pill">T1 read</span>
+        <span class="pill">T2 read</span>
+        <span class="pill">T3 read</span>
+      </div>
+      <p class="bs">build once · share freely</p>
     </div>
   </div>
-  <div class="draw">Left messy arrows into one box. Right one sealed box shared by many readers.</div>
 </div>
 
-<table>
-  <tr><th>Advantage</th><th>Why it matters in production</th></tr>
-  <tr><td>Thread-safe sharing</td><td>No sync for readers after publication.</td></tr>
-  <tr><td>Safer keys in maps</td><td>hashCode stays stable.</td></tr>
-  <tr><td>Easier reasoning</td><td>No temporal coupling; state doesn’t change under you.</td></tr>
-  <tr><td>Cache-friendly</td><td>Can cache freely; value never mutates.</td></tr>
-  <tr><td>Fail-fast design</td><td>Validation in constructor; invalid objects never exist.</td></tr>
-</table>
-
-<div class="story">
-  <strong>How to build:</strong> <code>final</code> class (or sealed), <code>final</code> fields, no setters,
-  defensive copies for mutable inputs (Date→Instant, collections→unmodifiable/copy),
-  or use <code>record</code>. Prefer wither methods / builders that return new instances.
+<div class="board">
+  <div class="label">figure — wins</div>
+  <div class="grid3">
+    <div class="sketch teal"><div class="bt">thread-safe share</div></div>
+    <div class="sketch amber"><div class="bt">stable map keys</div></div>
+    <div class="sketch green"><div class="bt">easy to reason</div></div>
+  </div>
+  <div class="flow" style="margin-top:8px">
+    <span class="pill">final fields</span>
+    <span class="pill">no setters</span>
+    <span class="pill">record</span>
+    <span class="pill">copy on change</span>
+  </div>
 </div>
 
 <div class="ask">If they ask: “Isn’t copying expensive?”</div>
-<div class="say">Often cheaper than lock contention and bug hunts. Share the immutable instance; copy only on change. Measure hot paths before rejecting immutability.</div>
+<div class="say">Often cheaper than lock contention. Share the instance; copy only on change. Measure hot paths.</div>
 
 <div class="memo"><b>notebook →</b> Immutable = safe share, stable keys, simpler concurrency. Prefer records.</div>
 
@@ -867,6 +892,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B1 -->
 <h2 id="b1">B1 · Spring dependency injection</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How does Spring dependency injection work?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — container wires beans</div>
@@ -912,6 +942,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B2 -->
 <h2 id="b2">B2 · @Transactional — how it works &amp; surprises</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How does @Transactional work, and when can it cause unexpected results?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — proxy wraps the bean</div>
@@ -952,6 +987,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B3 -->
 <h2 id="b3">B3 · Spring Boot vs classic Spring config</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What are the differences between Spring Boot and classic Spring configuration?</p>
+</div>
+
 
 <div class="grid2">
   <div class="sketch amber">
@@ -987,6 +1027,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B4 -->
 <h2 id="b4">B4 · Spring MVC (Model-View-Controller) vs WebFlux</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What are the differences between Spring MVC (Model-View-Controller) and WebFlux?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — thread-per-request vs event-loop</div>
@@ -1026,6 +1071,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B5 -->
 <h2 id="b5">B5 · Blocking vs non-blocking I/O (Input/Output)</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What do blocking and non-blocking I/O (Input/Output) mean?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — thread waits vs callback continues</div>
@@ -1055,6 +1105,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B6 -->
 <h2 id="b6">B6 · Distributed transactions in microservices</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do you handle the distributed transaction problem in microservices?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — avoid 2PC (Two-Phase Commit); prefer saga</div>
@@ -1095,6 +1150,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B7 -->
 <h2 id="b7">B7 · Circuit breaker · retry · timeout — together</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How should circuit breaker, retry, and timeout be used together?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — defense layers around a call</div>
@@ -1127,6 +1187,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- B8 -->
 <h2 id="b8">B8 · Unit · integration · end-to-end tests</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What are the differences between unit, integration, and end-to-end tests?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — test pyramid</div>
@@ -1159,6 +1224,11 @@ CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
 
 <!-- C1 -->
 <h2 id="c1">C1 · SQL (Structured Query Language): INNER JOIN, LEFT JOIN, GROUP BY, window functions</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">Explain SQL (Structured Query Language) INNER JOIN, LEFT JOIN, GROUP BY, and window functions.</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — join Venn (conceptual)</div>
@@ -1203,6 +1273,12 @@ FROM orders o;</pre>
 
 <!-- C2 -->
 <h2 id="c2">C2 · Composite indexes — help and harm</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">Which queries do composite indexes help?</p>
+  <p class="qtext">When can an index be harmful?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — phone book ordered by (last, first)</div>
@@ -1235,6 +1311,11 @@ FROM orders o;</pre>
 
 <!-- C3 -->
 <h2 id="c3">C3 · Transaction isolation &amp; read anomalies</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">Explain transaction isolation levels and dirty / non-repeatable / phantom reads.</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — anomaly gallery</div>
@@ -1261,6 +1342,11 @@ FROM orders o;</pre>
 
 <!-- C4 -->
 <h2 id="c4">C4 · Optimistic vs pessimistic locking</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">Optimistic locking vs pessimistic locking — when do you use each?</p>
+</div>
+
 
 <div class="grid2">
   <div class="sketch green">
@@ -1286,6 +1372,11 @@ FROM orders o;</pre>
 
 <!-- C5 -->
 <h2 id="c5">C5 · SQL (Structured Query Language) vs NoSQL (non-relational / Not only SQL (Structured Query Language) stores) — selection criteria</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What criteria do you use to choose between SQL (Structured Query Language) and NoSQL?</p>
+</div>
+
 
 <table>
   <tr><th>Choose SQL (Structured Query Language) when</th><th>Choose NoSQL (non-relational / Not only SQL (Structured Query Language) stores) when</th></tr>
@@ -1307,6 +1398,11 @@ FROM orders o;</pre>
 
 <!-- C6 -->
 <h2 id="c6">C6 · REST (Representational State Transfer): idempotent methods &amp; HTTP (Hypertext Transfer Protocol) status codes</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What are idempotent methods in a REST (Representational State Transfer) API (Application Programming Interface), and which HTTP (Hypertext Transfer Protocol) status codes do you use?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — idempotent replay</div>
@@ -1350,6 +1446,11 @@ FROM orders o;</pre>
 
 <!-- C7 -->
 <h2 id="c7">C7 · API (Application Programming Interface) authentication &amp; authorization</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do API (Application Programming Interface) authentication and authorization work?</p>
+</div>
+
 
 <div class="grid2">
   <div class="sketch teal">
@@ -1379,6 +1480,11 @@ FROM orders o;</pre>
 
 <!-- C8 -->
 <h2 id="c8">C8 · Pagination, filtering, sorting, backward compatibility</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do you design pagination, filtering, sorting, and backward compatibility?</p>
+</div>
+
 
 <table>
   <tr><th>Topic</th><th>Senior practice</th></tr>
@@ -1396,6 +1502,11 @@ FROM orders o;</pre>
 
 <!-- C9 -->
 <h2 id="c9">C9 · Slow endpoint: profiling &amp; query plans</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">A slow endpoint — how do you profile it and read a query plan?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — investigation ladder</div>
@@ -1428,6 +1539,11 @@ FROM orders o;</pre>
 
 <!-- C10 -->
 <h2 id="c10">C10 · Cache consistency &amp; invalidation</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do you keep cache consistency, and what invalidation strategies do you use?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — source of truth vs cache</div>
@@ -1471,6 +1587,11 @@ FROM orders o;</pre>
 
 <!-- D1 -->
 <h2 id="d1">D1 · Mocks vs real dependencies in tests</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What is the difference between a mock and a test that uses a real dependency?</p>
+</div>
+
 
 <div class="grid2">
   <div class="sketch amber">
@@ -1500,6 +1621,11 @@ FROM orders o;</pre>
 
 <!-- D2 -->
 <h2 id="d2">D2 · How I set up service integration tests</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do you set up integration tests for a service?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — integration test harness</div>
@@ -1529,6 +1655,11 @@ FROM orders o;</pre>
 
 <!-- D3 -->
 <h2 id="d3">D3 · Investigating flaky tests</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do you investigate flaky tests?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — flake root-cause map</div>
@@ -1553,6 +1684,11 @@ FROM orders o;</pre>
 
 <!-- D4 -->
 <h2 id="d4">D4 · Smaller, safer Docker images</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do you shrink Docker images and make them safer?</p>
+</div>
+
 
 <table>
   <tr><th>Size</th><th>Security</th></tr>
@@ -1583,6 +1719,11 @@ ENTRYPOINT ["java","-jar","/app.jar"]</pre>
 
 <!-- D5 -->
 <h2 id="d5">D5 · Kubernetes readiness vs liveness</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What are readiness and liveness probes for in Kubernetes?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — two different questions</div>
@@ -1615,6 +1756,11 @@ ENTRYPOINT ["java","-jar","/app.jar"]</pre>
 
 <!-- D6 -->
 <h2 id="d6">D6 · CI/CD (Continuous Integration / Continuous Delivery) quality gates</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">How do you design quality checks in a CI/CD (Continuous Integration / Continuous Delivery) pipeline?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — pipeline stages</div>
@@ -1646,6 +1792,11 @@ ENTRYPOINT ["java","-jar","/app.jar"]</pre>
 
 <!-- D7 -->
 <h2 id="d7">D7 · Production 5xx rate rising — playbook</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">Production 5xx error rate is rising — how do you proceed?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — incident loop</div>
@@ -1679,6 +1830,11 @@ ENTRYPOINT ["java","-jar","/app.jar"]</pre>
 
 <!-- D8 -->
 <h2 id="d8">D8 · P95 (95th percentile) and P99 (99th percentile) latency</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">What do P95 (95th percentile) and P99 (99th percentile) latency mean?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — percentile bar</div>
@@ -1702,6 +1858,11 @@ ENTRYPOINT ["java","-jar","/app.jar"]</pre>
 
 <!-- D9 -->
 <h2 id="d9">D9 · Rollback decision after performance drop</h2>
+<div class="qprompt">
+  <div class="qlabel">INTERVIEW QUESTION</div>
+  <p class="qtext">Performance dropped after a deployment — how do you decide to rollback?</p>
+</div>
+
 
 <div class="board">
   <div class="label">figure — decision tree</div>
