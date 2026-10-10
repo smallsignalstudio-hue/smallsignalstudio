@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Senior SWE Interview Cheat Codex — Java · Spring · DB · DevOps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #12151c;
+    --ink: #e8e2d6;
+    --faint: #6f7788;
+    --line: #d6cbb8;
+    --teal: #5eead4;
+    --green: #86efac;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --blue: #93c5fd;
+    --purple: #d8b4fe;
+    --box-bg: #1a1f2b;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(ellipse at 20% 0%, #1a2233 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, #1c1828 0%, transparent 45%),
+      var(--paper);
+    font-family: "Patrick Hand", "Comic Sans MS", cursive;
+    font-size: 1.12rem;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 14px 80px; }
+
+  h1, h2, h3, h4 {
+    font-family: "Caveat", "Patrick Hand", cursive;
+    font-weight: 700;
+  }
+  h1 { font-size: clamp(2.1rem, 5vw, 2.9rem); margin: 0 0 6px; }
+  h2 {
+    font-size: 1.9rem; margin: 46px 0 12px; color: var(--teal);
+    border-bottom: 3px solid var(--teal);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding-bottom: 4px;
+  }
+  h3 { font-size: 1.4rem; color: var(--amber); margin: 20px 0 8px; }
+  h4 { font-size: 1.25rem; color: var(--teal); margin: 0 0 6px; }
+  .sub { color: var(--faint); margin: 0 0 14px; font-size: 1.15rem; }
+
+  .badge {
+    display: inline-block; border: 2px solid var(--teal); color: var(--teal);
+    padding: 4px 12px; margin-bottom: 10px; font-family: "Caveat", cursive; font-size: 1.1rem;
+    border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  }
+
+  .sticky {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(18,21,28,0.95);
+    border-bottom: 2px solid #2a3142;
+    margin: 0 -14px 16px; padding: 8px 14px;
+    display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.98rem;
+  }
+  .sticky a { color: var(--faint); text-decoration: none; }
+  .sticky a:hover { color: var(--teal); }
+
+  .sketch {
+    border: 2.5px solid var(--line);
+    background: var(--box-bg);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 10px 12px;
+  }
+  .wiggle-l { transform: rotate(-0.55deg); }
+  .wiggle-r { transform: rotate(0.65deg); }
+  .wiggle-0 { transform: rotate(-0.15deg); }
+  .teal { border-color: var(--teal); }
+  .green { border-color: var(--green); }
+  .amber { border-color: var(--amber); }
+  .red { border-color: var(--red); }
+  .blue { border-color: var(--blue); }
+  .purple { border-color: var(--purple); }
+
+  .board {
+    border: 2.5px dashed var(--faint);
+    border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+    padding: 14px 12px; margin: 14px 0; background: #161a24;
+  }
+  .board > .label {
+    font-family: "Caveat", cursive; font-size: 1.15rem;
+    color: var(--faint); margin-bottom: 12px;
+  }
+  .board .draw {
+    margin-top: 12px; color: var(--amber);
+    font-family: "Caveat", cursive; font-size: 1.15rem;
+    border-top: 2px dashed #3a4255; padding-top: 8px;
+  }
+  .board .draw::before { content: "✏️ draw: "; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; justify-content: center; }
+  .col { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .arr { font-family: "Caveat", cursive; font-size: 1.9rem; color: var(--amber); line-height: 1; padding: 0 4px; align-self: center; }
+  .arr-v { font-size: 1.5rem; color: var(--amber); }
+
+  .bt { font-family: "Caveat", cursive; font-size: 1.3rem; font-weight: 700; margin: 0 0 4px; }
+  .bs { color: var(--faint); font-size: 1rem; margin: 0; }
+  .mini {
+    border: 2px solid #4a5568; background: #12161f;
+    border-radius: 12px 18px 10px 16px / 14px 10px 16px 12px;
+    padding: 6px 8px; margin: 4px 0; font-size: 0.95rem; width: 100%;
+  }
+  .mini b { color: var(--ink); }
+
+  .cells { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 8px; }
+  .cell {
+    width: 28px; height: 28px; border: 2px solid; border-radius: 4px 8px 3px 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; font-weight: 600;
+  }
+  .cell.g { border-color: #7a8294; color: #7a8294; }
+  .cell.s { border-color: var(--green); color: var(--green); }
+  .cell.o { border-color: var(--blue); color: var(--blue); }
+
+  .pair {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 8px; align-items: stretch; margin: 12px 0;
+  }
+  @media (max-width: 700px) {
+    .pair { grid-template-columns: 1fr; }
+    .pair .arr { transform: rotate(90deg); justify-self: center; }
+    .map3 { grid-template-columns: 1fr !important; }
+  }
+  .prob {
+    border: 2.5px solid var(--red); background: #2a1518;
+    border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    padding: 10px 12px;
+  }
+  .prob .t { color: var(--red); font-family: "Caveat", cursive; font-size: 1.15rem; }
+  .sol {
+    border: 2.5px solid var(--green); background: #14241a;
+    border-radius: 18px 255px 18px 225px / 225px 18px 255px 18px;
+    padding: 10px 12px;
+  }
+  .sol .t { color: var(--green); font-family: "Caveat", cursive; font-size: 1.15rem; }
+
+  .memo {
+    border: 2px dashed var(--teal); border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 10px 12px; margin: 12px 0; color: var(--teal); background: #12201e;
+  }
+  .memo b { font-family: "Caveat", cursive; font-size: 1.25rem; }
+
+  .gold {
+    border: 2.5px solid var(--amber); background: #2a210f;
+    border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+    padding: 12px 14px; margin: 14px 0;
+  }
+  .gold strong { color: var(--amber); font-family: "Caveat", cursive; font-size: 1.3rem; }
+
+  .story {
+    border-left: 4px solid var(--teal);
+    padding: 6px 0 6px 12px; margin: 10px 0;
+  }
+
+  .warn-banner {
+    border: 2.5px solid var(--red); background: #2a1518;
+    border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    padding: 12px 14px; margin: 12px 0; color: var(--red);
+  }
+
+  .map3 {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+  }
+  .map3 > .sketch { min-height: 100%; }
+
+  .tl { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .tl .step { flex: 1 1 120px; max-width: 160px; text-align: center; }
+  .tl .n {
+    display: inline-block; width: 28px; height: 28px;
+    border: 2.5px solid var(--teal);
+    border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; line-height: 24px;
+    color: var(--teal); margin-bottom: 4px;
+  }
+
+  .bars { max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: grid; grid-template-columns: 90px 1fr; gap: 8px; align-items: center; }
+  .bar-track {
+    height: 26px; border: 2.5px solid var(--line);
+    border-radius: 255px 10px 225px 10px / 10px 225px 10px 255px;
+    display: flex; overflow: hidden;
+  }
+  .bar-track .g { background: var(--green); height: 100%; }
+  .bar-track .r { background: var(--red); height: 100%; }
+
+  .grid8 {
+    display: grid; grid-template-columns: repeat(8, 1fr);
+    gap: 6px; max-width: 400px; margin: 0 auto;
+  }
+  .rg {
+    aspect-ratio: 1; border: 2.5px solid;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.85rem; font-weight: 600;
+  }
+  .rg.E { border-color: var(--green); color: var(--green); }
+  .rg.S { border-color: var(--teal); color: var(--teal); }
+  .rg.O { border-color: var(--blue); color: var(--blue); }
+  .rg.H { border-color: var(--amber); color: var(--amber); }
+  .rg.x { border-color: var(--faint); color: var(--faint); }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px 14px;
+    justify-content: center; margin-top: 10px; color: var(--faint);
+  }
+
+  .grid3 {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0;
+  }
+  @media (max-width: 700px) { .grid3 { grid-template-columns: 1fr; } }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 1.02rem;
+  }
+  th, td {
+    border: 2px solid #2e3648; padding: 8px 10px;
+    text-align: left; vertical-align: top;
+  }
+  th {
+    color: var(--faint); font-family: "Caveat", cursive;
+    font-size: 1.15rem; font-weight: 700;
+  }
+
+  pre, code { font-family: "IBM Plex Mono", Menlo, monospace; }
+  pre {
+    background: #0b0e14; border: 2.5px solid #2e3648;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 12px 14px; overflow-x: auto; font-size: 0.82rem;
+    line-height: 1.45; color: #c8d4e4;
+  }
+  code.i { background: #243044; padding: 0.05em 0.3em; border-radius: 4px; font-size: 0.88em; }
+
+  .toc {
+    border: 2.5px dashed var(--faint);
+    border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+    padding: 12px 16px; margin: 14px 0;
+  }
+  .toc a { color: var(--teal); }
+  .toc ol { margin: 6px 0 0; padding-left: 1.3rem; }
+  .toc li { margin: 3px 0; }
+
+  .qa {
+    border: 2.5px solid #2e3648;
+    border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    padding: 12px 14px; margin: 10px 0; background: var(--box-bg);
+  }
+
+  .tip {
+    border: 2px dashed var(--teal); background: #12201e;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 10px 12px; margin: 12px 0; color: var(--faint);
+  }
+  .tip strong { color: var(--teal); }
+
+  ul.tight { margin: 6px 0; padding-left: 1.2rem; }
+  ul.tight li { margin: 4px 0; }
+
+  footer {
+    margin-top: 40px; padding-top: 12px;
+    border-top: 2px dashed #2e3648; color: var(--faint);
+  }
+
+  .part {
+    margin: 48px 0 8px;
+    padding: 10px 14px;
+    border: 2.5px solid var(--purple);
+    border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+    background: #1a1628;
+    color: var(--purple);
+    font-family: "Caveat", cursive;
+    font-size: 1.6rem;
+  }
+  .ask {
+    border-left: 4px solid var(--amber);
+    padding: 4px 0 4px 12px;
+    margin: 10px 0 4px;
+    color: var(--amber);
+    font-family: "Caveat", cursive;
+    font-size: 1.25rem;
+  }
+  .say {
+    border-left: 4px solid var(--green);
+    padding: 4px 0 4px 12px;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .say::before {
+    content: "SAY → ";
+    color: var(--green);
+    font-family: "Caveat", cursive;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .grid2 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0;
+  }
+  @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center;
+    margin: 10px 0;
+  }
+  .pill {
+    border: 2px solid var(--teal); color: var(--teal);
+    padding: 4px 10px;
+    border-radius: 255px 12px 225px 12px / 12px 225px 12px 255px;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.78rem;
+  }
+  .vs {
+    text-align: center; font-family: "Caveat", cursive; font-size: 1.8rem;
+    color: var(--amber); align-self: center;
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="sticky">
+  <a href="#toc">contents</a>
+  <a href="#part-a">Java</a>
+  <a href="#part-b">Spring</a>
+  <a href="#part-c">DB/API</a>
+  <a href="#part-d">DevOps</a>
+  <a href="#oneliners">1-liners</a>
+  <a href="#saybank">Say bank</a>
+</nav>
+
+<span class="badge">GetYourGuide-ready · Senior SWE · pen boxes · dark · follow-up ready</span>
+<h1>Senior Interview Cheat Codex</h1>
+<p class="sub">
+  Same methodology as the Java GC guide: pen-sketch diagrams, notebook lines,
+  PROBLEM→SOLUTION cards, and spoken answers. English is deliberate and unambiguous —
+  like checklist language in a cockpit.
+</p>
+
+<div class="tip">
+  <strong>How to study:</strong> Trace each figure → write the notebook line →
+  practice the SAY blocks out loud. When they ask a follow-up, jump to the
+  <em>If they ask…</em> rows under that section.
+</div>
+
+<div class="gold">
+  <strong>Thesis:</strong> Senior answers are Mechanism → Trade-off → Measurement → Decision.<br/><br/>
+  Never dump theory. Show you can ship: diagnose with evidence, pick a trade-off, and name the rollback.
+</div>
+
+<nav class="toc" id="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#part-a">Part A — Java (core + concurrency + memory)</a></li>
+    <li><a href="#a1">HashMap &amp; collisions</a></li>
+    <li><a href="#a2">equals() / hashCode() contract</a></li>
+    <li><a href="#a3">ArrayList vs LinkedList</a></li>
+    <li><a href="#a4">Stream API &amp; Optional</a></li>
+    <li><a href="#a5">synchronized · volatile · AtomicInteger</a></li>
+    <li><a href="#a6">Thread pools &amp; CompletableFuture</a></li>
+    <li><a href="#a7">Heap, stack &amp; GC (quick map)</a></li>
+    <li><a href="#a8">Immutable objects</a></li>
+    <li><a href="#part-b">Part B — Spring &amp; backend architecture</a></li>
+    <li><a href="#b1">Dependency injection</a></li>
+    <li><a href="#b2">@Transactional pitfalls</a></li>
+    <li><a href="#b3">Spring Boot vs classic Spring</a></li>
+    <li><a href="#b4">MVC vs WebFlux</a></li>
+    <li><a href="#b5">Blocking vs non-blocking I/O</a></li>
+    <li><a href="#b6">Distributed transactions</a></li>
+    <li><a href="#b7">Circuit breaker · retry · timeout</a></li>
+    <li><a href="#b8">Unit · integration · e2e</a></li>
+    <li><a href="#part-c">Part C — Database, API &amp; performance</a></li>
+    <li><a href="#c1">SQL joins, GROUP BY, windows</a></li>
+    <li><a href="#c2">Composite indexes</a></li>
+    <li><a href="#c3">Isolation levels &amp; anomalies</a></li>
+    <li><a href="#c4">Optimistic vs pessimistic locking</a></li>
+    <li><a href="#c5">SQL vs NoSQL choice</a></li>
+    <li><a href="#c6">REST idempotency &amp; status codes</a></li>
+    <li><a href="#c7">Authentication &amp; authorization</a></li>
+    <li><a href="#c8">Pagination, filtering, sorting, compat</a></li>
+    <li><a href="#c9">Profiling &amp; query plans</a></li>
+    <li><a href="#c10">Cache consistency</a></li>
+    <li><a href="#part-d">Part D — Test, DevOps &amp; production</a></li>
+    <li><a href="#d1">Mocks vs real dependencies</a></li>
+    <li><a href="#d2">Integration test setup</a></li>
+    <li><a href="#d3">Flaky tests</a></li>
+    <li><a href="#d4">Docker image size &amp; security</a></li>
+    <li><a href="#d5">Readiness &amp; liveness probes</a></li>
+    <li><a href="#d6">CI/CD quality gates</a></li>
+    <li><a href="#d7">5xx spike playbook</a></li>
+    <li><a href="#d8">P95 / P99 latency</a></li>
+    <li><a href="#d9">Rollback decision</a></li>
+    <li><a href="#oneliners">Rapid one-liners</a></li>
+    <li><a href="#deep">Deep follow-ups</a></li>
+    <li><a href="#dialogue">Mock dialogue</a></li>
+    <li><a href="#saybank">Spoken answer bank (rapid fire)</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART A ===================== -->
+<div class="part" id="part-a">PART A · JAVA — Core, Concurrency, Memory</div>
+<div class="gold">
+  <strong>Java thesis:</strong> Data structures, equality, concurrency, and memory are one story:
+  where state lives, who can see it, and how you keep it correct under load.
+</div>
+
+<!-- A1 -->
+<h2 id="a1">A1 · HashMap — how it works &amp; collisions</h2>
+
+<div class="board">
+  <div class="label">figure — HashMap bucket array + chain / tree</div>
+  <div class="col">
+    <div class="sketch amber wiggle-0" style="min-width:280px;text-align:center">
+      <div class="bt">key.hashCode() → spread → index = (n-1) &amp; hash</div>
+    </div>
+    <div class="arr-v">▼</div>
+    <div class="row" style="width:100%;justify-content:flex-start">
+      <div class="sketch teal wiggle-l" style="flex:1">
+        <div class="bt">table[] buckets</div>
+        <div class="mini">[0] empty</div>
+        <div class="mini">[1] → (K1,V1) → (K4,V4)</div>
+        <div class="mini">[2] empty</div>
+        <div class="mini">[3] TREE (red-black) when chain long</div>
+        <div class="mini">[4] → (K2,V2)</div>
+      </div>
+    </div>
+  </div>
+  <div class="draw">
+    Draw array of boxes. Some empty. One box has a linked list of nodes.
+    One box labeled TREE. Arrow from hash(key) into a bucket index.
+  </div>
+</div>
+
+<div class="story">
+  <strong>Story — coat check:</strong>
+  Hash = which rack. Collision = two coats land on the same rack number.
+  You hang them in a chain. If the chain gets long (Java 8+: usually ≥8 and table large enough),
+  the rack becomes a balanced tree so lookup stays fast.
+</div>
+
+<table>
+  <tr><th>Step</th><th>What happens</th></tr>
+  <tr><td>1 Put / get</td><td>Compute hash, map to bucket index.</td></tr>
+  <tr><td>2 Collision</td><td>Same bucket. Walk chain (or tree). Compare with <code>equals</code>.</td></tr>
+  <tr><td>3 Resize</td><td>When size &gt; capacity × loadFactor (default 0.75), double table and redistribute.</td></tr>
+  <tr><td>4 Treeify</td><td>Long chains become red-black trees (Java 8+) to avoid O(n) worst case.</td></tr>
+</table>
+
+<div class="warn-banner">
+  ⚠ <b>Trap:</b> Mutating a key after insert (changing a field used in hashCode/equals) can make the entry unreachable in the map.
+  ⚠ <b>Trap:</b> <code>HashMap</code> is not thread-safe. Concurrent put can corrupt structure. Use <code>ConcurrentHashMap</code>.
+</div>
+
+<div class="pair">
+  <div class="prob"><div class="t">PROBLEM</div>HashMap looks up slow under adversarial or bad hashCodes</div>
+  <div class="arr">→</div>
+  <div class="sol"><div class="t">SOLUTION</div>Fix equals/hashCode quality; Java treeifies long buckets; never share HashMap across threads without sync</div>
+</div>
+
+<div class="ask">If they ask: “How does ConcurrentHashMap differ?”</div>
+<div class="say">CHM allows concurrent readers/writers with fine-grained locking / CAS on bins. No null keys/values. Size is approximate under concurrency. Prefer it for shared mutable maps.</div>
+
+<div class="ask">If they ask: “What is load factor?”</div>
+<div class="say">Default 0.75 balances space vs resize cost. Lower → fewer collisions, more memory. Higher → denser table, longer chains before resize.</div>
+
+<div class="memo"><b>notebook →</b> Hash → bucket → equals. Collisions = chain, then tree. Resize at 0.75. Not thread-safe.</div>
+
+<!-- A2 -->
+<h2 id="a2">A2 · equals() and hashCode() contract</h2>
+
+<div class="board">
+  <div class="label">figure — contract triangle</div>
+  <div class="row">
+    <div class="sketch green wiggle-l" style="text-align:center;min-width:160px">
+      <div class="bt">equals true</div>
+      <p class="bs">a.equals(b)</p>
+    </div>
+    <div class="arr">⇒</div>
+    <div class="sketch amber wiggle-0" style="text-align:center;min-width:160px">
+      <div class="bt">hashCode equal</div>
+      <p class="bs">MUST be same int</p>
+    </div>
+    <div class="arr">⇏</div>
+    <div class="sketch red wiggle-r" style="text-align:center;min-width:160px">
+      <div class="bt">same hash</div>
+      <p class="bs">does NOT imply equals</p>
+    </div>
+  </div>
+  <div class="draw">Left green equals → amber hashCode. Red X on reverse: same hash ≠ equals.</div>
+</div>
+
+<table>
+  <tr><th>Rule</th><th>Meaning</th></tr>
+  <tr><td>Reflexive</td><td><code>x.equals(x)</code> is true.</td></tr>
+  <tr><td>Symmetric</td><td><code>x.equals(y)</code> ⟺ <code>y.equals(x)</code>.</td></tr>
+  <tr><td>Transitive</td><td>If x=y and y=z then x=z.</td></tr>
+  <tr><td>Consistent</td><td>Same inputs → same result while unchanged.</td></tr>
+  <tr><td>Null</td><td><code>x.equals(null)</code> is false.</td></tr>
+  <tr><td><strong>Hash contract</strong></td><td>If equals → hashCodes equal. Unequal objects may still collide.</td></tr>
+</table>
+
+<div class="gold">
+  <strong>Broken contract symptom:</strong> Put in HashMap/HashSet, cannot get it back.
+  Two equal objects land in different buckets if hashCodes differ.
+</div>
+
+<pre>// Safe pattern (records do this for you)
+@Override public boolean equals(Object o) {
+  if (this == o) return true;
+  if (!(o instanceof User u)) return false;
+  return Objects.equals(id, u.id);
+}
+@Override public int hashCode() { return Objects.hash(id); }</pre>
+
+<div class="ask">If they ask: “When do I use identity (==) vs equals?”</div>
+<div class="say">== compares references (or primitive values). equals compares logical value. For domain keys in maps/sets, always equals+hashCode. For enums, == is fine and preferred.</div>
+
+<div class="ask">If they ask: “Can I use mutable fields in hashCode?”</div>
+<div class="say">Avoid. If a field changes after insert into a Hash-based collection, the object can vanish logically. Prefer immutable keys (id, records).</div>
+
+<div class="memo"><b>notebook →</b> equals true ⇒ same hashCode. Same hash ⇏ equals. Break this → HashMap ghosts.</div>
+
+<!-- A3 -->
+<h2 id="a3">A3 · ArrayList vs LinkedList</h2>
+
+<div class="board">
+  <div class="label">figure — contiguous array vs node chain</div>
+  <div class="grid2">
+    <div class="sketch teal wiggle-l">
+      <div class="bt">ArrayList</div>
+      <div class="cells">
+        <div class="cell s">0</div><div class="cell s">1</div><div class="cell s">2</div>
+        <div class="cell s">3</div><div class="cell g">·</div><div class="cell g">·</div>
+      </div>
+      <p class="bs">O(1) random access · append amortized O(1) · insert mid O(n)</p>
+    </div>
+    <div class="sketch purple wiggle-r">
+      <div class="bt">LinkedList</div>
+      <div class="flow">
+        <span class="pill">A</span><span class="arr">↔</span>
+        <span class="pill">B</span><span class="arr">↔</span>
+        <span class="pill">C</span>
+      </div>
+      <p class="bs">O(n) access by index · O(1) insert/remove if you hold the node</p>
+    </div>
+  </div>
+  <div class="draw">Left: dense boxes. Right: nodes with arrows both ways. Label big-O under each.</div>
+</div>
+
+<table>
+  <tr><th></th><th>ArrayList</th><th>LinkedList</th></tr>
+  <tr><td>Structure</td><td>Resizable array</td><td>Doubly linked nodes</td></tr>
+  <tr><td>get(i)</td><td>O(1)</td><td>O(n)</td></tr>
+  <tr><td>add at end</td><td>Amortized O(1)</td><td>O(1)</td></tr>
+  <tr><td>add/remove mid</td><td>O(n) shift</td><td>O(n) to find + O(1) link</td></tr>
+  <tr><td>Memory</td><td>Compact, cache-friendly</td><td>Pointer overhead, poor locality</td></tr>
+  <tr><td>Default choice</td><td><strong>Almost always</strong></td><td>Rare; prefer Deque/ArrayDeque for queues</td></tr>
+</table>
+
+<div class="warn-banner">
+  ⚠ Interview myth: “use LinkedList for frequent inserts.” In practice ArrayList usually wins due to CPU cache.
+  For queue/stack use <code>ArrayDeque</code>, not LinkedList.
+</div>
+
+<div class="ask">If they ask: “When would you still pick LinkedList?”</div>
+<div class="say">Almost never in modern Java services. If I truly need O(1) splice with a ListIterator already at the position, maybe. For queues I choose ArrayDeque.</div>
+
+<div class="memo"><b>notebook →</b> Default ArrayList. LinkedList loses on locality. Queues → ArrayDeque.</div>
+
+<!-- A4 -->
+<h2 id="a4">A4 · Stream API &amp; Optional — when useful</h2>
+
+<div class="board">
+  <div class="label">figure — pipeline: source → intermediate → terminal</div>
+  <div class="flow">
+    <div class="sketch green" style="text-align:center"><div class="bt">source</div><span class="bs">list/stream()</span></div>
+    <span class="arr">→</span>
+    <div class="sketch amber" style="text-align:center"><div class="bt">filter/map</div><span class="bs">lazy</span></div>
+    <span class="arr">→</span>
+    <div class="sketch blue" style="text-align:center"><div class="bt">terminal</div><span class="bs">collect/find</span></div>
+  </div>
+  <div class="draw">3 boxes in a row. Write LAZY on middle. Terminal triggers work.</div>
+</div>
+
+<div class="grid2">
+  <div class="sketch teal">
+    <div class="bt">Streams — USE when</div>
+    <ul class="tight">
+      <li>Declarative transform/filter/aggregate</li>
+      <li>Readable pipeline over a collection</li>
+      <li>Grouping / partitioning with collectors</li>
+      <li>parallelStream only after measuring</li>
+    </ul>
+  </div>
+  <div class="sketch red">
+    <div class="bt">Streams — AVOID when</div>
+    <ul class="tight">
+      <li>Simple indexed loop is clearer</li>
+      <li>You need checked exceptions mid-pipeline</li>
+      <li>Side effects in map/filter (logging OK carefully)</li>
+      <li>Blind parallelStream on tiny lists</li>
+    </ul>
+  </div>
+</div>
+
+<div class="grid2">
+  <div class="sketch green">
+    <div class="bt">Optional — USE when</div>
+    <ul class="tight">
+      <li>Return type for “maybe absent” (API boundary)</li>
+      <li><code>orElse</code> / <code>orElseGet</code> / <code>orElseThrow</code></li>
+      <li>Chaining <code>map</code>/<code>flatMap</code> without null checks</li>
+    </ul>
+  </div>
+  <div class="sketch red">
+    <div class="bt">Optional — AVOID when</div>
+    <ul class="tight">
+      <li>Fields / parameters / collections of Optional</li>
+      <li><code>Optional.get()</code> without isPresent (smell)</li>
+      <li>Using Optional to wrap null deep inside hot loops</li>
+    </ul>
+  </div>
+</div>
+
+<div class="ask">If they ask: “orElse vs orElseGet?”</div>
+<div class="say">orElse always evaluates the default expression. orElseGet evaluates only if empty. Use orElseGet for expensive defaults.</div>
+
+<div class="memo"><b>notebook →</b> Streams for clear pipelines. Optional as return type, not fields. parallelStream needs proof.</div>
+
+<!-- A5 -->
+<h2 id="a5">A5 · synchronized · volatile · AtomicInteger</h2>
+
+<div class="board">
+  <div class="label">figure — three tools for three problems</div>
+  <div class="grid3">
+    <div class="sketch red wiggle-l">
+      <div class="bt">synchronized</div>
+      <p class="bs">mutual exclusion + visibility</p>
+      <div class="mini">critical section<br/>one thread at a time</div>
+    </div>
+    <div class="sketch amber wiggle-0">
+      <div class="bt">volatile</div>
+      <p class="bs">visibility + ordering</p>
+      <div class="mini">NO atomic compound ops<br/>flag / publication</div>
+    </div>
+    <div class="sketch green wiggle-r">
+      <div class="bt">AtomicInteger</div>
+      <p class="bs">lock-free CAS updates</p>
+      <div class="mini">incrementAndGet<br/>compareAndSet</div>
+    </div>
+  </div>
+  <div class="draw">3 columns. Label what each guarantees. Cross out “atomic ++” under volatile.</div>
+</div>
+
+<table>
+  <tr><th>Need</th><th>Tool</th><th>Why</th></tr>
+  <tr><td>Protect multi-step invariant</td><td><code>synchronized</code> / Lock</td><td>Only one thread mutates the critical section.</td></tr>
+  <tr><td>Publish a flag / reference safely</td><td><code>volatile</code></td><td>Readers see latest write; no tearing of reference.</td></tr>
+  <tr><td>Counters / CAS loops</td><td><code>Atomic*</code></td><td>Hardware CAS; no full monitor for simple updates.</td></tr>
+  <tr><td><code>i++</code> across threads</td><td>NOT volatile alone</td><td>Read-modify-write is not atomic.</td></tr>
+</table>
+
+<div class="warn-banner">
+  ⚠ <b>volatile does not make compound actions atomic.</b>
+  <code>volatile int c; c++</code> can still lose updates.
+</div>
+
+<div class="ask">If they ask: “Happens-before?”</div>
+<div class="say">Java Memory Model rules that make writes visible. Unlock→lock on same monitor, volatile write→later read, thread start/join, and CAS success establish happens-before.</div>
+
+<div class="ask">If they ask: “synchronized vs ReentrantLock?”</div>
+<div class="say">synchronized is simpler and covers most cases. ReentrantLock when I need tryLock, timed lock, multiple conditions, or interruptible acquire.</div>
+
+<div class="memo"><b>notebook →</b> Exclusion→synchronized. Visibility flag→volatile. Counter/CAS→Atomic. volatile ≠ atomic ++.</div>
+
+<!-- A6 -->
+<h2 id="a6">A6 · Thread pools &amp; CompletableFuture</h2>
+
+<div class="board">
+  <div class="label">figure — pool: queue + workers</div>
+  <div class="row">
+    <div class="sketch amber wiggle-l" style="min-width:140px;text-align:center">
+      <div class="bt">tasks</div>
+      <p class="bs">submit / execute</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="sketch teal wiggle-0" style="min-width:160px;text-align:center">
+      <div class="bt">work queue</div>
+      <p class="bs">bounded preferred</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="sketch green wiggle-r" style="min-width:160px;text-align:center">
+      <div class="bt">worker threads</div>
+      <p class="bs">core → max → reject</p>
+    </div>
+  </div>
+  <div class="draw">Task → queue → N worker sticks. Write RejectedExecutionHandler on overflow.</div>
+</div>
+
+<table>
+  <tr><th>Pool</th><th>Use</th><th>Watch-out</th></tr>
+  <tr><td><code>FixedThreadPool</code></td><td>Bounded CPU/IO workers</td><td>Unbounded queue can OOM under load.</td></tr>
+  <tr><td><code>CachedThreadPool</code></td><td>Short bursty tasks</td><td>Can create huge thread counts.</td></tr>
+  <tr><td><code>ForkJoinPool.commonPool</code></td><td>parallelStream / default CF async</td><td>Don’t block it with JDBC/sleep.</td></tr>
+  <tr><td>Custom <code>ThreadPoolExecutor</code></td><td>Production default</td><td>Set bounds, naming, rejection policy.</td></tr>
+</table>
+
+<div class="story">
+  <strong>CompletableFuture:</strong> a promise of a result. Chain with
+  <code>thenApply</code> (transform), <code>thenCompose</code> (flat async),
+  <code>thenCombine</code> (wait two), <code>exceptionally</code> / <code>handle</code> (errors).
+  Always pass an executor for blocking work.
+</div>
+
+<pre>CompletableFuture&lt;User&gt; u = supplyAsync(this::loadUser, ioPool);
+CompletableFuture&lt;Prefs&gt; p = supplyAsync(this::loadPrefs, ioPool);
+CompletableFuture&lt;Dto&gt; dto = u.thenCombine(p, this::merge)
+    .orTimeout(300, MILLISECONDS)
+    .exceptionally(ex -&gt; Dto.fallback());</pre>
+
+<div class="ask">If they ask: “Why not use commonPool for HTTP/DB?”</div>
+<div class="say">commonPool is shared and sized for CPU parallelism. Blocking I/O starves everyone using parallelStream/CF defaults. Give I/O its own bounded pool.</div>
+
+<div class="ask">If they ask: “How do you size a pool?”</div>
+<div class="say">CPU-bound ≈ cores (+ small). I/O-bound higher, but bounded by downstream capacity. Measure queue latency and rejections; never unbounded growth.</div>
+
+<div class="memo"><b>notebook →</b> Bound the queue. Name threads. Don’t block commonPool. CF needs an executor for I/O.</div>
+
+<!-- A7 -->
+<h2 id="a7">A7 · Heap, stack &amp; garbage collection (quick map)</h2>
+<p class="sub">Full depth lives in <code>Java-GC-Senior-Interview-Guide.html</code>. This is the interview spine.</p>
+
+<div class="board">
+  <div class="label">figure — stack vs heap vs GC</div>
+  <div class="map3">
+    <div class="sketch blue wiggle-l">
+      <div class="bt">STACK</div>
+      <p class="bs">per thread · frames · refs · NO GC</p>
+    </div>
+    <div class="sketch amber wiggle-0">
+      <div class="bt">HEAP</div>
+      <p class="bs">objects · ONLY GC site</p>
+      <div class="mini">Young (Eden/S) → Old</div>
+    </div>
+    <div class="sketch purple wiggle-r">
+      <div class="bt">GC</div>
+      <p class="bs">roots → mark live → reclaim</p>
+      <div class="mini">G1 default · ZGC if proven</div>
+    </div>
+  </div>
+  <div class="draw">3 columns. Arrow from stack ref into heap object. GC broom only over heap.</div>
+</div>
+
+<div class="gold">
+  <strong>Answer formula:</strong> Roots define live set → generational cheap young collects →
+  measure pauses/allocation → fix leaks/allocation before flags → G1 first, ZGC if GC breaks p99.
+</div>
+
+<div class="ask">If they ask: “How do you optimize GC?”</div>
+<div class="say">Measure first (GC log, JFR). Cut allocation and leaks. Keep G1 with MaxRAMPercentage and HeapDumpOnOOM. Tune only with a baseline. Switch to ZGC only when GC pauses provably break the SLO.</div>
+
+<div class="memo"><b>notebook →</b> GC only heap. Leak = unwanted root path. Measure before flags.</div>
+
+<!-- A8 -->
+<h2 id="a8">A8 · Immutable objects — advantages</h2>
+
+<div class="board">
+  <div class="label">figure — mutable shared state vs immutable copy</div>
+  <div class="grid2">
+    <div class="prob">
+      <div class="t">MUTABLE SHARED</div>
+      Thread A writes field · Thread B reads half-updated · needs locks
+    </div>
+    <div class="sol">
+      <div class="t">IMMUTABLE</div>
+      Construct once · all fields final · safe to share · no locks for reads
+    </div>
+  </div>
+  <div class="draw">Left messy arrows into one box. Right one sealed box shared by many readers.</div>
+</div>
+
+<table>
+  <tr><th>Advantage</th><th>Why it matters in production</th></tr>
+  <tr><td>Thread-safe sharing</td><td>No sync for readers after publication.</td></tr>
+  <tr><td>Safer keys in maps</td><td>hashCode stays stable.</td></tr>
+  <tr><td>Easier reasoning</td><td>No temporal coupling; state doesn’t change under you.</td></tr>
+  <tr><td>Cache-friendly</td><td>Can cache freely; value never mutates.</td></tr>
+  <tr><td>Fail-fast design</td><td>Validation in constructor; invalid objects never exist.</td></tr>
+</table>
+
+<div class="story">
+  <strong>How to build:</strong> <code>final</code> class (or sealed), <code>final</code> fields, no setters,
+  defensive copies for mutable inputs (Date→Instant, collections→unmodifiable/copy),
+  or use <code>record</code>. Prefer wither methods / builders that return new instances.
+</div>
+
+<div class="ask">If they ask: “Isn’t copying expensive?”</div>
+<div class="say">Often cheaper than lock contention and bug hunts. Share the immutable instance; copy only on change. Measure hot paths before rejecting immutability.</div>
+
+<div class="memo"><b>notebook →</b> Immutable = safe share, stable keys, simpler concurrency. Prefer records.</div>
+
+<!-- ===================== PART B ===================== -->
+<div class="part" id="part-b">PART B · SPRING &amp; BACKEND ARCHITECTURE</div>
+<div class="gold">
+  <strong>Spring thesis:</strong> Framework wiring must not hide transaction, threading, or failure boundaries.
+  Seniors name where the proxy starts, where the transaction ends, and what happens when a dependency fails.
+</div>
+
+<!-- B1 -->
+<h2 id="b1">B1 · Spring dependency injection</h2>
+
+<div class="board">
+  <div class="label">figure — container wires beans</div>
+  <div class="row">
+    <div class="sketch amber wiggle-l" style="text-align:center;min-width:150px">
+      <div class="bt">@Component</div>
+      <p class="bs">OrderService</p>
+    </div>
+    <div class="arr">needs</div>
+    <div class="sketch teal wiggle-0" style="text-align:center;min-width:150px">
+      <div class="bt">@Repository</div>
+      <p class="bs">OrderRepo</p>
+    </div>
+    <div class="arr">← IoC</div>
+    <div class="sketch green wiggle-r" style="text-align:center;min-width:150px">
+      <div class="bt">ApplicationContext</div>
+      <p class="bs">creates · injects · lifecycle</p>
+    </div>
+  </div>
+  <div class="draw">Service box arrow to Repo. Big container box pointing into both: “I create and inject”.</div>
+</div>
+
+<table>
+  <tr><th>Concept</th><th>Clear meaning</th></tr>
+  <tr><td>IoC</td><td>You don’t <code>new</code> dependencies; the container owns creation.</td></tr>
+  <tr><td>DI</td><td>Dependencies are provided (constructor preferred).</td></tr>
+  <tr><td>Bean</td><td>Object managed by Spring (scope: singleton default).</td></tr>
+  <tr><td>Injection styles</td><td>Constructor (best) · Setter · Field (avoid in new code).</td></tr>
+</table>
+
+<div class="story">
+  <strong>Why constructor injection:</strong> required deps are final and obvious, easier unit tests,
+  fails fast at startup if a bean is missing, works with immutability.
+</div>
+
+<div class="ask">If they ask: “Singleton and thread safety?”</div>
+<div class="say">Default beans are one instance shared by all requests. Stateless services are fine. Mutable fields need synchronization or request/session scope — prefer no shared mutable state.</div>
+
+<div class="ask">If they ask: “@Autowired vs constructor?”</div>
+<div class="say">I use an explicit constructor (or Lombok RequiredArgsConstructor). Single constructor doesn’t need @Autowired since Spring 4.3+.</div>
+
+<div class="memo"><b>notebook →</b> Container creates beans. Prefer constructor DI. Singletons must be thread-safe/stateless.</div>
+
+<!-- B2 -->
+<h2 id="b2">B2 · @Transactional — how it works &amp; surprises</h2>
+
+<div class="board">
+  <div class="label">figure — proxy wraps the bean</div>
+  <div class="col">
+    <div class="flow">
+      <span class="pill">Caller</span><span class="arr">→</span>
+      <span class="pill">Spring Proxy</span><span class="arr">→</span>
+      <span class="pill">begin TX</span><span class="arr">→</span>
+      <span class="pill">target method</span><span class="arr">→</span>
+      <span class="pill">commit/rollback</span>
+    </div>
+  </div>
+  <div class="draw">Caller hits PROXY first, not the raw object. TX boundary = proxy boundary.</div>
+</div>
+
+<div class="warn-banner">
+  ⚠ <b>Self-invocation trap:</b> <code>this.otherTransactional()</code> bypasses the proxy → no new transaction / no advice.<br/>
+  ⚠ <b>Rollback default:</b> rolls back on unchecked exceptions; checked exceptions do <em>not</em> roll back unless configured.<br/>
+  ⚠ <b>readOnly</b> is a hint to the flush mode / routing — not a hard DB guarantee alone.
+</div>
+
+<table>
+  <tr><th>Surprise</th><th>What to say / fix</th></tr>
+  <tr><td>Self-invocation</td><td>Move method to another bean, or use AspectJ weaving. Don’t call <code>this.</code></td></tr>
+  <tr><td>Checked exception swallowed</td><td><code>rollbackFor = Exception.class</code> when needed.</td></tr>
+  <tr><td>Long TX holding DB connections</td><td>Keep TX short; don’t call HTTP inside a transaction.</td></tr>
+  <tr><td>REQUIRES_NEW</td><td>Suspends outer TX; useful for audit logs; easy to misuse.</td></tr>
+  <tr><td>LazyInitializationException</td><td>Session closed after TX; fetch join / DTO projection / OpenSessionInView carefully (often avoid OSIV).</td></tr>
+</table>
+
+<div class="ask">If they ask: “Where do you put @Transactional?”</div>
+<div class="say">On the service layer that defines the use-case boundary. Not on controllers. Repositories may be transactional by default in Spring Data, but business atomicity belongs in services.</div>
+
+<div class="ask">If they ask: “Propagation REQUIRED vs REQUIRES_NEW?”</div>
+<div class="say">REQUIRED joins existing or creates one — default. REQUIRES_NEW always starts independent TX; outer rollback won’t undo the inner work.</div>
+
+<div class="memo"><b>notebook →</b> TX = proxy. No self-call. Short TX. Rollback on RuntimeException by default.</div>
+
+<!-- B3 -->
+<h2 id="b3">B3 · Spring Boot vs classic Spring config</h2>
+
+<div class="grid2">
+  <div class="sketch amber">
+    <div class="bt">Classic Spring</div>
+    <ul class="tight">
+      <li>Lots of XML or @Configuration by hand</li>
+      <li>You assemble DispatcherServlet, datasources…</li>
+      <li>Deploy to external app server often</li>
+      <li>Explicit everything</li>
+    </ul>
+  </div>
+  <div class="sketch green">
+    <div class="bt">Spring Boot</div>
+    <ul class="tight">
+      <li>Auto-configuration from classpath</li>
+      <li>Opinionated starters</li>
+      <li>Embedded server (Tomcat/Netty)</li>
+      <li><code>application.yml</code> + actuators</li>
+    </ul>
+  </div>
+</div>
+
+<div class="story">
+  <strong>Auto-config:</strong> Boot checks classpath + properties, then applies
+  <code>@ConditionalOn*</code> configurations. You override by defining your own bean
+  or setting properties. <code>spring.autoconfigure.exclude</code> when needed.
+</div>
+
+<div class="ask">If they ask: “How do you debug why a bean was created?”</div>
+<div class="say">Start with <code>--debug</code> or ConditionEvaluationReport. Check which starter pulled the auto-config, then override the bean or property.</div>
+
+<div class="memo"><b>notebook →</b> Boot = auto-config + starters + embedded server. Still Spring underneath.</div>
+
+<!-- B4 -->
+<h2 id="b4">B4 · Spring MVC vs WebFlux</h2>
+
+<div class="board">
+  <div class="label">figure — thread-per-request vs event-loop</div>
+  <div class="grid2">
+    <div class="sketch teal wiggle-l">
+      <div class="bt">MVC (Servlet)</div>
+      <div class="mini">1 request ≈ 1 worker thread</div>
+      <div class="mini">blocking JDBC OK</div>
+      <div class="mini">Tomcat thread pool</div>
+    </div>
+    <div class="sketch purple wiggle-r">
+      <div class="bt">WebFlux (Reactive)</div>
+      <div class="mini">few event-loop threads</div>
+      <div class="mini">non-blocking all the way</div>
+      <div class="mini">Netty · Mono/Flux</div>
+    </div>
+  </div>
+  <div class="draw">Left: many stick-figure threads. Right: small loop feeding many connections.</div>
+</div>
+
+<table>
+  <tr><th></th><th>MVC</th><th>WebFlux</th></tr>
+  <tr><td>Programming model</td><td>Imperative</td><td>Reactive streams</td></tr>
+  <tr><td>I/O style</td><td>Blocking fine</td><td>Must be non-blocking end-to-end</td></tr>
+  <tr><td>Best when</td><td>Typical CRUD + JDBC/JPA</td><td>High concurrency, streaming, many slow I/O waits</td></tr>
+  <tr><td>Footgun</td><td>Thread pool exhaustion</td><td>Blocking call on event loop</td></tr>
+</table>
+
+<div class="warn-banner">
+  ⚠ Mixing JPA/blocking JDBC into WebFlux without a bounded elastic scheduler defeats the model and can deadlock the event loop.
+</div>
+
+<div class="ask">If they ask: “Should we migrate to WebFlux?”</div>
+<div class="say">Only if measurement shows thread-pool saturation from waiting I/O and the stack can be non-blocking. For JDBC-heavy apps, MVC + good pooling is usually the rational default.</div>
+
+<div class="memo"><b>notebook →</b> MVC = thread-per-request. WebFlux = event-loop, no blocking. Don’t mix blindly.</div>
+
+<!-- B5 -->
+<h2 id="b5">B5 · Blocking vs non-blocking I/O</h2>
+
+<div class="board">
+  <div class="label">figure — thread waits vs callback continues</div>
+  <div class="grid2">
+    <div class="sketch red">
+      <div class="bt">BLOCKING</div>
+      Thread calls DB → sleeps until bytes return → holds a worker the whole time
+    </div>
+    <div class="sketch green">
+      <div class="bt">NON-BLOCKING</div>
+      Thread registers interest → returns to do other work → continuation runs when ready
+    </div>
+  </div>
+  <div class="draw">Left: stick figure asleep on chair labeled DB. Right: stick figure juggling many sockets.</div>
+</div>
+
+<div class="story">
+  <strong>Meaning:</strong> Blocking I/O occupies a thread for the wait duration.
+  Non-blocking I/O frees the thread during the wait. Throughput gains appear when
+  waits dominate and the platform supports async drivers end-to-end.
+</div>
+
+<div class="ask">If they ask: “Is async always faster?”</div>
+<div class="say">No. For CPU-bound work or low concurrency, blocking is simpler and often fine. Async wins when you multiplex many slow I/O waits on few threads — and you pay complexity.</div>
+
+<div class="memo"><b>notebook →</b> Blocking holds threads while waiting. Non-blocking frees them. Complexity cost is real.</div>
+
+<!-- B6 -->
+<h2 id="b6">B6 · Distributed transactions in microservices</h2>
+
+<div class="board">
+  <div class="label">figure — avoid 2PC; prefer saga</div>
+  <div class="col">
+    <div class="flow">
+      <span class="pill">Order</span><span class="arr">→</span>
+      <span class="pill">Reserve inventory</span><span class="arr">→</span>
+      <span class="pill">Charge payment</span><span class="arr">→</span>
+      <span class="pill">Confirm</span>
+    </div>
+    <div class="arr-v">▼ on failure</div>
+    <div class="flow">
+      <span class="pill">Compensate charge</span><span class="arr">→</span>
+      <span class="pill">Release inventory</span><span class="arr">→</span>
+      <span class="pill">Mark order failed</span>
+    </div>
+  </div>
+  <div class="draw">Happy path arrows right. Failure path dashed back with compensate labels.</div>
+</div>
+
+<table>
+  <tr><th>Approach</th><th>When</th><th>Trade-off</th></tr>
+  <tr><td>Single DB transaction</td><td>Keep related writes in one service</td><td>Best consistency; design boundaries carefully</td></tr>
+  <tr><td>Outbox + messaging</td><td>Reliable event after commit</td><td>Eventual consistency; need idempotent consumers</td></tr>
+  <tr><td>Saga (choreography/orchestration)</td><td>Multi-service business flow</td><td>Compensations; complex failure modes</td></tr>
+  <tr><td>2PC / XA</td><td>Rare legacy</td><td>Fragile, poor availability under partitions</td></tr>
+</table>
+
+<div class="gold">
+  <strong>Senior line:</strong> I don’t stretch ACID across services. I make each local TX correct,
+  publish via outbox, and design idempotent consumers + compensations for the business saga.
+</div>
+
+<div class="ask">If they ask: “Outbox pattern?”</div>
+<div class="say">Write business row and outbox row in the same DB transaction. A publisher relays outbox events to the broker. Prevents ‘DB committed but message lost’.</div>
+
+<div class="memo"><b>notebook →</b> No distributed ACID by default. Outbox + saga + idempotency.</div>
+
+<!-- B7 -->
+<h2 id="b7">B7 · Circuit breaker · retry · timeout — together</h2>
+
+<div class="board">
+  <div class="label">figure — defense layers around a call</div>
+  <div class="flow">
+    <span class="pill">timeout</span><span class="arr">→</span>
+    <span class="pill">retry (bounded)</span><span class="arr">→</span>
+    <span class="pill">circuit breaker</span><span class="arr">→</span>
+    <span class="pill">dependency</span>
+  </div>
+  <div class="draw">Concentric shields. Timeout innermost on the call. Retry only for safe/idempotent. Breaker opens on error rate.</div>
+</div>
+
+<table>
+  <tr><th>Tool</th><th>Job</th><th>Rules</th></tr>
+  <tr><td>Timeout</td><td>Bound wait time</td><td>Always set; align with SLO budget.</td></tr>
+  <tr><td>Retry</td><td>Absorb transient faults</td><td>Only idempotent ops; exponential backoff + jitter; cap attempts.</td></tr>
+  <tr><td>Circuit breaker</td><td>Stop calling a sick dependency</td><td>Open → fail fast / fallback; half-open probe; prevent retry storms.</td></tr>
+  <tr><td>Bulkhead</td><td>Isolate pools</td><td>One slow dependency mustn’t exhaust all threads.</td></tr>
+</table>
+
+<div class="warn-banner">
+  ⚠ Retry without timeout amplifies load. Retry on non-idempotent POST can double-charge.
+  Breaker without bulkhead still shares the same exhausted pool.
+</div>
+
+<div class="ask">If they ask: “Order of policies?”</div>
+<div class="say">Timeout per attempt. Limited retries with backoff for idempotent calls. Circuit breaker around the dependency. Bulkhead isolation for thread/connection pools. Fallbacks only when business allows degraded mode.</div>
+
+<div class="memo"><b>notebook →</b> Timeout always. Retry only if idempotent. Breaker stops stampedes. Bulkhead isolates.</div>
+
+<!-- B8 -->
+<h2 id="b8">B8 · Unit · integration · end-to-end tests</h2>
+
+<div class="board">
+  <div class="label">figure — test pyramid</div>
+  <div class="col">
+    <div class="sketch red" style="text-align:center;max-width:200px;margin:0 auto"><div class="bt">E2E</div><span class="bs">few · slow · brittle</span></div>
+    <div class="sketch amber" style="text-align:center;max-width:280px;margin:6px auto"><div class="bt">Integration</div><span class="bs">real modules/DB · medium</span></div>
+    <div class="sketch green" style="text-align:center;max-width:360px;margin:6px auto"><div class="bt">Unit</div><span class="bs">many · fast · isolated</span></div>
+  </div>
+  <div class="draw">Pyramid: wide green base, amber mid, small red top.</div>
+</div>
+
+<table>
+  <tr><th>Type</th><th>What you prove</th><th>Typical tools</th></tr>
+  <tr><td>Unit</td><td>One class/behavior in isolation</td><td>JUnit, Mockito</td></tr>
+  <tr><td>Integration</td><td>Wiring + DB/contracts work together</td><td>@SpringBootTest slice, Testcontainers</td></tr>
+  <tr><td>E2E</td><td>User/API journey across system</td><td>Full stack, staging, Playwright/REST flows</td></tr>
+</table>
+
+<div class="ask">If they ask: “Where do bugs usually hide?”</div>
+<div class="say">At boundaries: serialization, transactions, SQL, auth, clocks, concurrency. That’s why integration tests around those boundaries pay rent; pure unit tests alone are not enough for Spring services.</div>
+
+<div class="memo"><b>notebook →</b> Pyramid: many unit, focused integration, few e2e. Test boundaries hard.</div>
+
+<!-- ===================== PART C ===================== -->
+<div class="part" id="part-c">PART C · DATABASE, API &amp; PERFORMANCE</div>
+<div class="gold">
+  <strong>Data thesis:</strong> Correctness first (transactions, isolation, idempotency),
+  then access paths (indexes, plans), then speed (cache) with an explicit invalidation story.
+</div>
+
+<!-- C1 -->
+<h2 id="c1">C1 · SQL: INNER JOIN, LEFT JOIN, GROUP BY, window functions</h2>
+
+<div class="board">
+  <div class="label">figure — join Venn (conceptual)</div>
+  <div class="grid2">
+    <div class="sketch teal">
+      <div class="bt">INNER JOIN</div>
+      <p class="bs">Only matching rows from both tables</p>
+      <div class="mini">A ∩ B on key</div>
+    </div>
+    <div class="sketch amber">
+      <div class="bt">LEFT JOIN</div>
+      <p class="bs">All rows from left; NULLs if no match on right</p>
+      <div class="mini">A + matching B</div>
+    </div>
+  </div>
+  <div class="draw">Two overlapping circles. Inner = overlap only. Left = full left circle + overlap.</div>
+</div>
+
+<pre>SELECT u.id, COUNT(o.id) AS orders
+FROM users u
+LEFT JOIN orders o ON o.user_id = u.id
+GROUP BY u.id;
+
+-- Window: aggregate without collapsing rows
+SELECT o.*,
+       SUM(amount) OVER (PARTITION BY user_id ORDER BY created_at) AS running_total,
+       ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at DESC) AS rn
+FROM orders o;</pre>
+
+<table>
+  <tr><th>Construct</th><th>Use</th><th>Trap</th></tr>
+  <tr><td>INNER JOIN</td><td>Require both sides</td><td>Drops non-matches silently</td></tr>
+  <tr><td>LEFT JOIN</td><td>Keep left even if missing right</td><td>Filters on right columns in WHERE can turn it into INNER</td></tr>
+  <tr><td>GROUP BY</td><td>Collapse rows + aggregates</td><td>Select only grouped cols / aggregates</td></tr>
+  <tr><td>Window</td><td>Rank, running totals, keep row grain</td><td>Costly if partition huge; needs good ordering indexes</td></tr>
+</table>
+
+<div class="ask">If they ask: “LEFT JOIN … WHERE right.id IS NULL?”</div>
+<div class="say">That’s the anti-join pattern — find left rows with no match. Clean and common for ‘users without orders’.</div>
+
+<div class="memo"><b>notebook →</b> INNER = matches only. LEFT keeps left. Windows aggregate without collapsing.</div>
+
+<!-- C2 -->
+<h2 id="c2">C2 · Composite indexes — help and harm</h2>
+
+<div class="board">
+  <div class="label">figure — phone book ordered by (last, first)</div>
+  <div class="sketch amber wiggle-0">
+    <div class="bt">INDEX (status, created_at)</div>
+    <div class="mini">✔ WHERE status=? AND created_at&gt;?</div>
+    <div class="mini">✔ WHERE status=? ORDER BY created_at</div>
+    <div class="mini">✖ WHERE created_at=? alone (leftmost prefix missing)</div>
+  </div>
+  <div class="draw">Write columns left→right. Queries must use a left prefix of the index.</div>
+</div>
+
+<table>
+  <tr><th>Helps</th><th>Hurts / wastes</th></tr>
+  <tr>
+    <td>Equality/range matching leftmost columns; covering indexes; ORDER BY aligned with index</td>
+    <td>Low-selectivity leading column; write amplification; unused indexes; functions on column that prevent index use</td>
+  </tr>
+</table>
+
+<div class="gold">
+  <strong>Leftmost prefix rule:</strong> Index (a,b,c) helps (a), (a,b), (a,b,c).
+  It does not help (b) or (c) alone.
+</div>
+
+<div class="ask">If they ask: “When is an index harmful?”</div>
+<div class="say">Every write updates indexes. Too many indexes slow inserts/updates, bloat storage, and confuse the planner. Drop unused ones. Also wrong indexes can make the planner pick a bad nested loop.</div>
+
+<div class="memo"><b>notebook →</b> Composite = leftmost prefix. Indexes speed reads, tax writes. Measure with EXPLAIN.</div>
+
+<!-- C3 -->
+<h2 id="c3">C3 · Transaction isolation &amp; read anomalies</h2>
+
+<div class="board">
+  <div class="label">figure — anomaly gallery</div>
+  <div class="grid3">
+    <div class="sketch red"><div class="bt">Dirty read</div><p class="bs">See uncommitted write</p></div>
+    <div class="sketch amber"><div class="bt">Non-repeatable</div><p class="bs">Same row changes on re-read</p></div>
+    <div class="sketch purple"><div class="bt">Phantom</div><p class="bs">New matching rows appear</p></div>
+  </div>
+  <div class="draw">Three red flags with one-line definitions.</div>
+</div>
+
+<table>
+  <tr><th>Level</th><th>Dirty</th><th>Non-rep</th><th>Phantom</th><th>Notes</th></tr>
+  <tr><td>Read Uncommitted</td><td>possible</td><td>possible</td><td>possible</td><td>Rarely used</td></tr>
+  <tr><td>Read Committed</td><td>no</td><td>possible</td><td>possible</td><td>Postgres default</td></tr>
+  <tr><td>Repeatable Read</td><td>no</td><td>no</td><td>DB-dependent</td><td>Postgres prevents phantoms via snapshots</td></tr>
+  <tr><td>Serializable</td><td>no</td><td>no</td><td>no</td><td>Highest cost; retries on conflicts</td></tr>
+</table>
+
+<div class="ask">If they ask: “What does Postgres RR actually give?”</div>
+<div class="say">Snapshot isolation: your transaction sees a stable snapshot. It prevents dirty, non-repeatable, and phantoms in practice, but write skew can still occur unless you use SERIALIZABLE or explicit locks.</div>
+
+<div class="memo"><b>notebook →</b> Dirty / non-repeatable / phantom. Higher isolation → fewer anomalies, more conflicts/latency.</div>
+
+<!-- C4 -->
+<h2 id="c4">C4 · Optimistic vs pessimistic locking</h2>
+
+<div class="grid2">
+  <div class="sketch green">
+    <div class="bt">OPTIMISTIC</div>
+    <p class="bs">version column / ETag</p>
+    <div class="mini">UPDATE … SET ver=ver+1 WHERE id=? AND ver=?</div>
+    <div class="mini">0 rows → conflict → retry/fail</div>
+    <p class="bs">Best when conflicts are rare</p>
+  </div>
+  <div class="sketch amber">
+    <div class="bt">PESSIMISTIC</div>
+    <p class="bs">SELECT … FOR UPDATE</p>
+    <div class="mini">Lock row now</div>
+    <div class="mini">Others wait / fail</div>
+    <p class="bs">Best when conflicts are common or stakes high</p>
+  </div>
+</div>
+
+<div class="ask">If they ask: “Booking seats — which lock?”</div>
+<div class="say">Hot inventory often needs pessimistic locks or atomic single-row updates / capacity counters. Optimistic works if contention is low. For Ticketmaster-style hot events, design holds with TTL + atomic reservation, not last-write-wins.</div>
+
+<div class="memo"><b>notebook →</b> Optimistic = version check. Pessimistic = lock now. Pick by conflict rate + cost of being wrong.</div>
+
+<!-- C5 -->
+<h2 id="c5">C5 · SQL vs NoSQL — selection criteria</h2>
+
+<table>
+  <tr><th>Choose SQL when</th><th>Choose NoSQL when</th></tr>
+  <tr>
+    <td>Relational data, joins, strong transactions, mature reporting, complex constraints</td>
+    <td>Massive horizontal scale, flexible/document shapes, simple key-access, specialized (cache, search, time-series)</td>
+  </tr>
+</table>
+
+<div class="gold">
+  <strong>Decision questions:</strong> What are access patterns? Do we need multi-row ACID?
+  What’s the consistency model? Who queries ad hoc? What’s operational skill on the team?
+</div>
+
+<div class="ask">If they ask: “Can we use both?”</div>
+<div class="say">Yes — polyglot: Postgres as source of truth, Redis for cache, OpenSearch for search. Each store needs a clear ownership and sync story (outbox/CDC).</div>
+
+<div class="memo"><b>notebook →</b> Model access patterns + consistency needs. SQL default for relational business data.</div>
+
+<!-- C6 -->
+<h2 id="c6">C6 · REST: idempotent methods &amp; HTTP status codes</h2>
+
+<div class="board">
+  <div class="label">figure — idempotent replay</div>
+  <div class="flow">
+    <span class="pill">Client</span><span class="arr">same request ×N</span>
+    <span class="pill">Server</span><span class="arr">→</span>
+    <span class="pill">same state result</span>
+  </div>
+  <div class="draw">Arrow loop labeled “retry safe” into server for PUT/DELETE/GET. POST needs Idempotency-Key.</div>
+</div>
+
+<table>
+  <tr><th>Method</th><th>Idempotent?</th><th>Safe?</th></tr>
+  <tr><td>GET</td><td>Yes</td><td>Yes (no state change)</td></tr>
+  <tr><td>PUT</td><td>Yes (replace)</td><td>No</td></tr>
+  <tr><td>DELETE</td><td>Yes (delete once → same end state)</td><td>No</td></tr>
+  <tr><td>POST</td><td>No by default</td><td>No — use Idempotency-Key</td></tr>
+  <tr><td>PATCH</td><td>Often no</td><td>Depends on semantics</td></tr>
+</table>
+
+<table>
+  <tr><th>Code</th><th>Meaning (interview crisp)</th></tr>
+  <tr><td>200</td><td>OK with body</td></tr>
+  <tr><td>201</td><td>Created</td></tr>
+  <tr><td>204</td><td>OK, no body</td></tr>
+  <tr><td>400</td><td>Client sent a bad request</td></tr>
+  <tr><td>401</td><td>Unauthenticated</td></tr>
+  <tr><td>403</td><td>Authenticated but not allowed</td></tr>
+  <tr><td>404</td><td>Resource not found (or hidden)</td></tr>
+  <tr><td>409</td><td>Conflict (version / state)</td></tr>
+  <tr><td>422</td><td>Semantic validation failed (common API style)</td></tr>
+  <tr><td>429</td><td>Rate limited</td></tr>
+  <tr><td>500</td><td>Unexpected server fault</td></tr>
+  <tr><td>503</td><td>Temporarily unavailable / dependency down</td></tr>
+</table>
+
+<div class="ask">If they ask: “How do you make POST idempotent?”</div>
+<div class="say">Client sends Idempotency-Key. Server stores key→response. Retries return the first result instead of creating duplicates. Keys expire after a TTL.</div>
+
+<div class="memo"><b>notebook →</b> GET/PUT/DELETE idempotent. POST needs Idempotency-Key. 401≠403.</div>
+
+<!-- C7 -->
+<h2 id="c7">C7 · API authentication &amp; authorization</h2>
+
+<div class="grid2">
+  <div class="sketch teal">
+    <div class="bt">Authentication</div>
+    <p class="bs">Who are you?</p>
+    <div class="mini">Sessions · JWT · mTLS · API keys</div>
+  </div>
+  <div class="sketch amber">
+    <div class="bt">Authorization</div>
+    <p class="bs">What may you do?</p>
+    <div class="mini">RBAC · ABAC · scopes · ACLs</div>
+  </div>
+</div>
+
+<div class="story">
+  <strong>Typical service path:</strong> Gateway validates token → service checks scopes/roles
+  on the resource → never trust client-sent userId alone → authorize on server using subject from token.
+</div>
+
+<div class="ask">If they ask: “JWT pros/cons?”</div>
+<div class="say">Pros: stateless validation, good for APIs/gateways. Cons: revocation hard; oversized claims; must validate signature/exp/aud; don’t store secrets in payload.</div>
+
+<div class="ask">If they ask: “Service-to-service?”</div>
+<div class="say">mTLS or short-lived service tokens. Least privilege scopes. Separate from end-user identity; propagate user identity explicitly when needed (token exchange / trusted headers only inside mesh).</div>
+
+<div class="memo"><b>notebook →</b> AuthN = identity. AuthZ = permission. Enforce on server. Short-lived tokens.</div>
+
+<!-- C8 -->
+<h2 id="c8">C8 · Pagination, filtering, sorting, backward compatibility</h2>
+
+<table>
+  <tr><th>Topic</th><th>Senior practice</th></tr>
+  <tr><td>Offset pagination</td><td>Simple; slow/deep pages drift under writes</td></tr>
+  <tr><td>Cursor / keyset</td><td>Stable &amp; fast for infinite scroll: <code>WHERE (created,id) &lt; (?,?) ORDER BY created DESC, id DESC LIMIT n</code></td></tr>
+  <tr><td>Filtering</td><td>Whitelist fields; push to indexed columns; avoid unbounded LIKE %x%</td></tr>
+  <tr><td>Sorting</td><td>Allowlist sort keys; match composite indexes</td></tr>
+  <tr><td>Backward compat</td><td>Additive changes first; version URLs or headers; never reuse field meanings; deprecate with sunset window</td></tr>
+</table>
+
+<div class="ask">If they ask: “Why cursors over offset?”</div>
+<div class="say">OFFSET N scans/skips N rows and duplicates/skips items when data shifts. Cursors continue from a stable key and use the index.</div>
+
+<div class="memo"><b>notebook →</b> Prefer cursor pagination. Allowlist filter/sort. Evolve APIs additively.</div>
+
+<!-- C9 -->
+<h2 id="c9">C9 · Slow endpoint: profiling &amp; query plans</h2>
+
+<div class="board">
+  <div class="label">figure — investigation ladder</div>
+  <div class="tl">
+    <div class="step"><div class="n">1</div>Metrics<br/><span class="bs">p95/error</span></div>
+    <div class="step"><div class="n">2</div>Trace<br/><span class="bs">where time?</span></div>
+    <div class="step"><div class="n">3</div>App profile<br/><span class="bs">CPU/alloc</span></div>
+    <div class="step"><div class="n">4</div>EXPLAIN<br/><span class="bs">ANALYZE</span></div>
+    <div class="step"><div class="n">5</div>Fix+verify<br/><span class="bs">compare</span></div>
+  </div>
+  <div class="draw">Numbered 1–5 ladder. Don’t jump to indexes before knowing where time goes.</div>
+</div>
+
+<div class="story">
+  <strong>Query plan reading:</strong> Look for Seq Scan on large tables, bad row estimates,
+  Nested Loop explosions, sorts/spills to disk, missing index conditions.
+  <code>EXPLAIN (ANALYZE, BUFFERS)</code> shows real times and buffer hits.
+</div>
+
+<div class="pair">
+  <div class="prob"><div class="t">PROBLEM</div>Endpoint p95 jumped after deploy</div>
+  <div class="arr">→</div>
+  <div class="sol"><div class="t">SOLUTION</div>Trace → find span · check N+1 · EXPLAIN ANALYZE · compare to baseline · fix index/query/code · canary verify</div>
+</div>
+
+<div class="ask">If they ask: “N+1?”</div>
+<div class="say">ORM loads a list then queries once per row for children. Fix with join fetch / entity graph / batch size / DTO query. Prove with SQL log count.</div>
+
+<div class="memo"><b>notebook →</b> Measure → locate span → EXPLAIN ANALYZE → fix → verify. Beware N+1.</div>
+
+<!-- C10 -->
+<h2 id="c10">C10 · Cache consistency &amp; invalidation</h2>
+
+<div class="board">
+  <div class="label">figure — source of truth vs cache</div>
+  <div class="row">
+    <div class="sketch green wiggle-l" style="text-align:center;min-width:160px">
+      <div class="bt">DB (SoT)</div>
+      <p class="bs">authoritative</p>
+    </div>
+    <div class="arr">← invalidate / write-through</div>
+    <div class="sketch amber wiggle-r" style="text-align:center;min-width:160px">
+      <div class="bt">CACHE</div>
+      <p class="bs">fast · maybe stale</p>
+    </div>
+  </div>
+  <div class="draw">DB box left, cache right. Label TTL, write-invalidate, stampede protection.</div>
+</div>
+
+<table>
+  <tr><th>Strategy</th><th>Idea</th><th>Trade-off</th></tr>
+  <tr><td>TTL only</td><td>Expire after N seconds</td><td>Simple; bounded staleness</td></tr>
+  <tr><td>Cache-aside + invalidate</td><td>Read miss loads DB; writes delete key</td><td>Common; race on concurrent write/read</td></tr>
+  <tr><td>Write-through</td><td>Write cache &amp; DB together</td><td>Stronger freshness; write latency</td></tr>
+  <tr><td>Versioned keys</td><td><code>user:42:v7</code></td><td>Avoids stale reads after deploy shape changes</td></tr>
+</table>
+
+<div class="warn-banner">
+  ⚠ Thundering herd: many misses reload DB together → use single-flight / soft TTL / jittered expiry.
+</div>
+
+<div class="ask">If they ask: “Cache stampede?”</div>
+<div class="say">When a hot key expires, all requests miss. Mitigate with locking so one refreshes, probabilistic early expire, or serve stale while revalidating.</div>
+
+<div class="memo"><b>notebook →</b> DB is source of truth. Prefer invalidate-on-write + TTL. Protect hot keys from stampedes.</div>
+
+<!-- ===================== PART D ===================== -->
+<div class="part" id="part-d">PART D · TEST, DEVOPS &amp; PRODUCTION</div>
+<div class="gold">
+  <strong>Ops thesis:</strong> Ship with feedback loops: tests that catch real breaks,
+  probes that tell the truth, pipelines that gate risk, and incident habits that measure before changing.
+</div>
+
+<!-- D1 -->
+<h2 id="d1">D1 · Mocks vs real dependencies in tests</h2>
+
+<div class="grid2">
+  <div class="sketch amber">
+    <div class="bt">MOCK / STUB</div>
+    <ul class="tight">
+      <li>Replace collaborator with programmed behavior</li>
+      <li>Fast, deterministic unit tests</li>
+      <li>Great for pure logic &amp; error branches</li>
+      <li>Risk: tests pass while real wiring fails</li>
+    </ul>
+  </div>
+  <div class="sketch green">
+    <div class="bt">REAL DEPENDENCY</div>
+    <ul class="tight">
+      <li>Real DB / broker / HTTP in test env</li>
+      <li>Catches SQL, serialization, TX bugs</li>
+      <li>Slower; needs isolation &amp; cleanup</li>
+      <li>Use Testcontainers / local stacks</li>
+    </ul>
+  </div>
+</div>
+
+<div class="ask">If they ask: “When is a mock a smell?”</div>
+<div class="say">When you mock the class under test’s close collaborators so heavily that you’re asserting your mock script, not behavior. Prefer fakes or real DB for repository/SQL boundaries.</div>
+
+<div class="memo"><b>notebook →</b> Mocks for unit logic. Real deps for boundaries. Don’t mock what you don’t own blindly.</div>
+
+<!-- D2 -->
+<h2 id="d2">D2 · How I set up service integration tests</h2>
+
+<div class="board">
+  <div class="label">figure — integration test harness</div>
+  <div class="flow">
+    <span class="pill">Testcontainers Postgres</span><span class="arr">→</span>
+    <span class="pill">@SpringBootTest</span><span class="arr">→</span>
+    <span class="pill">Flyway migrate</span><span class="arr">→</span>
+    <span class="pill">HTTP/API or service call</span><span class="arr">→</span>
+    <span class="pill">assert DB + response</span>
+  </div>
+  <div class="draw">Boxes in a row. Note: unique schema/data per test or transactional rollback where safe.</div>
+</div>
+
+<table>
+  <tr><th>Practice</th><th>Why</th></tr>
+  <tr><td>One real DB via Testcontainers</td><td>Same engine as prod (Postgres≠H2)</td></tr>
+  <tr><td>Migrate schema in test</td><td>Catch migration breaks</td></tr>
+  <tr><td>Slice wisely</td><td>@DataJpaTest for repo; fuller boot for API</td></tr>
+  <tr><td>Isolate data</td><td>Per-test cleanup / unique keys / TX rollback</td></tr>
+  <tr><td>Contract tests for HTTP peers</td><td>Catch breaking API changes early</td></tr>
+</table>
+
+<div class="ask">If they ask: “CI cost?”</div>
+<div class="say">Parallelize, reuse containers where safe, keep a small critical integration suite on every PR, heavier suites nightly. Fail fast on unit first.</div>
+
+<div class="memo"><b>notebook →</b> Integration = real DB + migrations + assert both API and state.</div>
+
+<!-- D3 -->
+<h2 id="d3">D3 · Investigating flaky tests</h2>
+
+<div class="board">
+  <div class="label">figure — flake root-cause map</div>
+  <div class="grid3">
+    <div class="sketch red"><div class="bt">Time</div><p class="bs">clocks · sleeps · TZ</p></div>
+    <div class="sketch amber"><div class="bt">Order</div><p class="bs">shared state · parallel</p></div>
+    <div class="sketch purple"><div class="bt">Async</div><p class="bs">race · eventual assert</p></div>
+  </div>
+  <div class="draw">Three buckets. Add “infra” (port bind, container timing) as fourth if needed.</div>
+</div>
+
+<div class="story">
+  <strong>Playbook:</strong> 1) Confirm flake (quarantine + repeat). 2) Run solo vs suite.
+  3) Search for sleep, shared statics, unordered sets, random ports, time.
+  4) Replace sleeps with Awaitility/conditions. 5) Fix root cause; don’t only raise retries.
+</div>
+
+<div class="ask">If they ask: “Should we retry flaky tests in CI?”</div>
+<div class="say">Retry can reduce noise short-term but hides bugs. Prefer quarantine with owner + deadline, and fix determinism. Retries are a last resort with visibility.</div>
+
+<div class="memo"><b>notebook →</b> Flakes = time/order/async/shared state. Fix cause; don’t paper with sleep.</div>
+
+<!-- D4 -->
+<h2 id="d4">D4 · Smaller, safer Docker images</h2>
+
+<table>
+  <tr><th>Size</th><th>Security</th></tr>
+  <tr>
+    <td>
+      Multi-stage builds · JRE not JDK · distroless/alpine carefully ·
+      layer caching · .dockerignore · no build tools in final image
+    </td>
+    <td>
+      Non-root user · pin digests · scan CVEs · no secrets in layers ·
+      minimal attack surface · read-only FS when possible · SBOM
+    </td>
+  </tr>
+</table>
+
+<pre># pattern
+FROM eclipse-temurin:21-jdk AS build
+# ... build jar ...
+FROM eclipse-temurin:21-jre
+USER nonroot
+COPY --from=build /app/app.jar /app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]</pre>
+
+<div class="ask">If they ask: “Distroless trade-offs?”</div>
+<div class="say">Tiny and safer, but harder to exec/debug in the container. Keep debug sidecars or use ephemeral debug containers in k8s when needed.</div>
+
+<div class="memo"><b>notebook →</b> Multi-stage · JRE · non-root · scan · never bake secrets.</div>
+
+<!-- D5 -->
+<h2 id="d5">D5 · Kubernetes readiness vs liveness</h2>
+
+<div class="board">
+  <div class="label">figure — two different questions</div>
+  <div class="grid2">
+    <div class="sketch green">
+      <div class="bt">READINESS</div>
+      <p class="bs">Am I ready for traffic?</p>
+      <div class="mini">Fail → remove from Service endpoints</div>
+      <div class="mini">Use for: DB up, warm caches, deps</div>
+    </div>
+    <div class="sketch red">
+      <div class="bt">LIVENESS</div>
+      <p class="bs">Am I deadlocked / stuck?</p>
+      <div class="mini">Fail → restart container</div>
+      <div class="mini">Must be shallow &amp; reliable</div>
+    </div>
+  </div>
+  <div class="draw">Green = traffic gate. Red = restart trigger. Don’t make liveness depend on downstream DB.</div>
+</div>
+
+<div class="warn-banner">
+  ⚠ If liveness checks the database, a DB blip restarts all pods → worse outage.
+  Readiness may depend on critical deps; liveness should detect process health (deadlock), not dependency health.
+</div>
+
+<div class="ask">If they ask: “Startup probe?”</div>
+<div class="say">Gives slow-starting apps time before liveness kicks in. Use for JVM warm-up so k8s doesn’t kill a healthy but slow boot.</div>
+
+<div class="memo"><b>notebook →</b> Readiness = traffic. Liveness = restart. Don’t couple liveness to DB.</div>
+
+<!-- D6 -->
+<h2 id="d6">D6 · CI/CD quality gates</h2>
+
+<div class="board">
+  <div class="label">figure — pipeline stages</div>
+  <div class="tl">
+    <div class="step"><div class="n">1</div>Lint/format</div>
+    <div class="step"><div class="n">2</div>Unit</div>
+    <div class="step"><div class="n">3</div>Integration</div>
+    <div class="step"><div class="n">4</div>Security scan</div>
+    <div class="step"><div class="n">5</div>Build image</div>
+    <div class="step"><div class="n">6</div>Deploy canary</div>
+    <div class="step"><div class="n">7</div>Verify SLOs</div>
+  </div>
+  <div class="draw">Left→right stages. Red gate icons after unit/integration/security.</div>
+</div>
+
+<table>
+  <tr><th>Gate</th><th>Block merge/deploy when</th></tr>
+  <tr><td>Tests</td><td>Unit/integration fail</td></tr>
+  <tr><td>Coverage (critical modules)</td><td>Drops on touched hot paths (use thoughtfully)</td></tr>
+  <tr><td>Static analysis / spotbugs</td><td>New high findings</td></tr>
+  <tr><td>Dependency CVE</td><td>Critical vulns in prod path</td></tr>
+  <tr><td>Canary metrics</td><td>Error rate / p95 regress beyond budget</td></tr>
+</table>
+
+<div class="ask">If they ask: “Fast feedback vs safety?”</div>
+<div class="say">PR pipeline stays under a few minutes: unit + critical integration + lint/security. Full suites and load tests on main/nightly. Progressive delivery protects prod.</div>
+
+<div class="memo"><b>notebook →</b> Fast PR gates + canary SLO gates. Automate rollback triggers.</div>
+
+<!-- D7 -->
+<h2 id="d7">D7 · Production 5xx rate rising — playbook</h2>
+
+<div class="board">
+  <div class="label">figure — incident loop</div>
+  <div class="flow">
+    <span class="pill">Detect</span><span class="arr">→</span>
+    <span class="pill">Triage blast radius</span><span class="arr">→</span>
+    <span class="pill">Mitigate</span><span class="arr">→</span>
+    <span class="pill">Diagnose</span><span class="arr">→</span>
+    <span class="pill">Fix</span><span class="arr">→</span>
+    <span class="pill">Postmortem</span>
+  </div>
+  <div class="draw">Loop arrows. Mitigate before deep root-cause if users are burning.</div>
+</div>
+
+<div class="story">
+  <strong>First 10 minutes:</strong> Confirm alert (not bad scrape). Check deploy timeline.
+  Slice errors by endpoint, dependency, pod, region. If correlated with deploy → rollback/canary off.
+  If dependency → shed load / open breaker / failover. Communicate status. Then dig logs/traces.
+</div>
+
+<div class="pair">
+  <div class="prob"><div class="t">PROBLEM</div>5xx spike after release</div>
+  <div class="arr">→</div>
+  <div class="sol"><div class="t">SOLUTION</div>Rollback or disable flag first if unsure · then root-cause with traces</div>
+</div>
+
+<div class="ask">If they ask: “How do you avoid flapping rollbacks?”</div>
+<div class="say">Use clear SLO burn thresholds, canary comparison against control, and one owner deciding. Record why you rolled back. Don’t fight the incident with ten concurrent changes.</div>
+
+<div class="memo"><b>notebook →</b> Mitigate first. Check deploy. Slice by dimension. One change at a time.</div>
+
+<!-- D8 -->
+<h2 id="d8">D8 · P95 and P99 latency</h2>
+
+<div class="board">
+  <div class="label">figure — percentile bar</div>
+  <div class="bars">
+    <div class="bar-row"><span>p50</span><div class="bar-track"><div class="g" style="width:40%"></div></div></div>
+    <div class="bar-row"><span>p95</span><div class="bar-track"><div class="g" style="width:70%"></div><div class="r" style="width:10%"></div></div></div>
+    <div class="bar-row"><span>p99</span><div class="bar-track"><div class="g" style="width:85%"></div><div class="r" style="width:15%"></div></div></div>
+  </div>
+  <div class="draw">Bars getting longer. Label: p95 = 95% of requests faster than this.</div>
+</div>
+
+<div class="story">
+  <strong>Meaning:</strong> P95 = 95% of requests finish at or below that latency; 5% are slower.
+  P99 = only 1% are slower. Averages hide pain. Tail latency (p99/p999) is what users and downstream timeouts feel.
+</div>
+
+<div class="ask">If they ask: “Why can p99 be high when average looks fine?”</div>
+<div class="say">A small fraction of requests hit GC pauses, cold caches, lock waits, or slow disks. Averages dilute them. SLOs should use percentiles (and error budgets), not only means.</div>
+
+<div class="memo"><b>notebook →</b> P95/P99 = tail experience. Optimize what users feel, not the mean alone.</div>
+
+<!-- D9 -->
+<h2 id="d9">D9 · Rollback decision after performance drop</h2>
+
+<div class="board">
+  <div class="label">figure — decision tree</div>
+  <div class="col">
+    <div class="sketch amber" style="text-align:center">Deploy → metrics worsen vs baseline?</div>
+    <div class="arr-v">▼</div>
+    <div class="grid2">
+      <div class="sketch red"><div class="bt">YES + user impact</div>Rollback / flag off NOW</div>
+      <div class="sketch green"><div class="bt">YES but tiny / contained</div>Canary halt · dig 15–30m · then decide</div>
+    </div>
+  </div>
+  <div class="draw">Diamond: impact high → rollback. Impact low → investigate with timer.</div>
+</div>
+
+<table>
+  <tr><th>Rollback when</th><th>Stay &amp; dig when</th></tr>
+  <tr>
+    <td>Error budget burning fast; p95/p99 past SLO; unknown blast radius; easy reversible deploy</td>
+    <td>Issue isolated; clearly understood; fix is one config flip safer than rollback; data migration makes rollback worse</td>
+  </tr>
+</table>
+
+<div class="gold">
+  <strong>Decision rule:</strong> If you cannot explain the regression in a few minutes and users are impacted,
+  roll back to restore service, then root-cause on the safe version. Pride is not an SLO.
+</div>
+
+<div class="ask">If they ask: “What if schema migration isn’t backward compatible?”</div>
+<div class="say">That’s why expansions are expand→migrate→contract. If you skipped that and rollback is unsafe, disable traffic paths / feature flags and forward-fix carefully. Call that out as an incident process failure.</div>
+
+<div class="memo"><b>notebook →</b> User impact + unclear cause → rollback. Design migrations to be reversible.</div>
+
+<!-- ===================== RAPID ONE-LINERS ===================== -->
+<div class="part" id="oneliners">RAPID ONE-LINERS — memorize</div>
+<p class="sub">If time is short, these are the first sentences out of your mouth.</p>
+
+<table>
+  <tr><th>Prompt</th><th>One-line opener</th></tr>
+  <tr><td>HashMap</td><td>Hash to bucket; collisions chain then treeify; equals decides; not thread-safe.</td></tr>
+  <tr><td>equals/hashCode</td><td>Equal objects ⇒ equal hashCodes; immutable keys; otherwise HashMap ghosts.</td></tr>
+  <tr><td>ArrayList vs LL</td><td>Default ArrayList; LinkedList loses on locality; queues → ArrayDeque.</td></tr>
+  <tr><td>Stream/Optional</td><td>Streams for clear pipelines; Optional as return type, not fields.</td></tr>
+  <tr><td>sync/volatile/atomic</td><td>Exclusion / visibility / CAS — volatile does not make ++ atomic.</td></tr>
+  <tr><td>Pools / CF</td><td>Bound queues; don’t block commonPool; pass executors for I/O.</td></tr>
+  <tr><td>GC</td><td>Unreachable heap from roots; measure allocation/leaks before flags.</td></tr>
+  <tr><td>Immutability</td><td>Safe share, stable keys, fewer races — prefer records.</td></tr>
+  <tr><td>DI</td><td>Container wires beans; constructor injection; singletons stay stateless.</td></tr>
+  <tr><td>@Transactional</td><td>Proxy boundary; no self-invocation; short TX; runtime rollback default.</td></tr>
+  <tr><td>Boot vs Spring</td><td>Boot = auto-config + starters + embedded server on top of Spring.</td></tr>
+  <tr><td>MVC vs WebFlux</td><td>Thread-per-request vs event-loop; don’t block the event loop.</td></tr>
+  <tr><td>Blocking I/O</td><td>Thread waits on I/O; non-blocking frees the thread during wait.</td></tr>
+  <tr><td>Distributed TX</td><td>No 2PC by default; outbox + saga + idempotent consumers.</td></tr>
+  <tr><td>Resilience</td><td>Timeout → bounded retry if idempotent → breaker → bulkhead.</td></tr>
+  <tr><td>Test layers</td><td>Many unit, focused integration, few e2e; test boundaries hard.</td></tr>
+  <tr><td>JOIN/window</td><td>INNER matches; LEFT keeps left; windows aggregate without collapsing.</td></tr>
+  <tr><td>Composite index</td><td>Leftmost prefix helps; indexes tax writes; prove with EXPLAIN.</td></tr>
+  <tr><td>Isolation</td><td>Dirty / non-repeatable / phantom; higher level → fewer anomalies, more conflict.</td></tr>
+  <tr><td>Locking</td><td>Optimistic version check; pessimistic FOR UPDATE; pick by contention.</td></tr>
+  <tr><td>SQL vs NoSQL</td><td>Choose by access patterns + consistency needs, not hype.</td></tr>
+  <tr><td>REST idempotency</td><td>GET/PUT/DELETE idempotent; POST needs Idempotency-Key.</td></tr>
+  <tr><td>AuthN/Z</td><td>AuthN who; AuthZ what; enforce server-side from trusted subject.</td></tr>
+  <tr><td>Pagination</td><td>Prefer keyset/cursor; allowlist filter/sort; evolve APIs additively.</td></tr>
+  <tr><td>Slow API</td><td>Trace → N+1/SQL plan → fix → verify percentile, not gut feel.</td></tr>
+  <tr><td>Cache</td><td>DB is SoT; invalidate-on-write + TTL; prevent stampedes.</td></tr>
+  <tr><td>Mock vs real</td><td>Mock unit logic; real DB for SQL/TX/wiring truth.</td></tr>
+  <tr><td>Flakes</td><td>Time, order, async, shared state — fix cause, don’t sleep.</td></tr>
+  <tr><td>Docker</td><td>Multi-stage, JRE, non-root, scan, no secrets in layers.</td></tr>
+  <tr><td>Probes</td><td>Readiness = traffic; liveness = restart; don’t liveness-check DB.</td></tr>
+  <tr><td>CI gates</td><td>Fast PR checks + canary SLO gates + automatable rollback.</td></tr>
+  <tr><td>5xx spike</td><td>Mitigate first; check deploy; slice dimensions; one change at a time.</td></tr>
+  <tr><td>P95/P99</td><td>Tail latency users feel; averages hide pain.</td></tr>
+  <tr><td>Rollback</td><td>Material impact + unclear cause → roll back, then diagnose.</td></tr>
+</table>
+
+<!-- ===================== EXTRA DEEP FOLLOW-UPS ===================== -->
+<div class="part" id="deep">DEEP FOLLOW-UPS — what seniors get asked next</div>
+
+<h3 id="deep-java">Java deep</h3>
+
+<div class="ask">If they ask: “HashMap resize is O(n) — is that a problem?”</div>
+<div class="say">Amortized, yes occasional spikes. Pre-size with expected capacity if you know it. Under concurrency use ConcurrentHashMap which resizes more scalably. Avoid pathological key distributions.</div>
+
+<div class="ask">If they ask: “Why ConcurrentHashMap disallows null?”</div>
+<div class="say">Ambiguity: null return from get could mean ‘missing’ or ‘stored null’, and nulls complicate concurrent presence checks. Design with Optional at API edges, not null map values.</div>
+
+<div class="ask">If they ask: “fail-fast iterators?”</div>
+<div class="say">ArrayList iterators detect structural modification via modCount and throw ConcurrentModificationException. It’s best-effort against bugs, not a concurrency strategy — don’t rely on it for thread safety.</div>
+
+<div class="ask">If they ask: “virtual threads (Java 21) vs pools?”</div>
+<div class="say">Virtual threads shine for high-concurrency blocking I/O — many waiting tasks without burning OS threads. Still bound carrier threads and downstream pools (DB). Don’t pin with long synchronized / native calls. Platform thread pools still matter for CPU work.</div>
+
+<div class="ask">If they ask: “CompletableFuture vs reactive WebFlux?”</div>
+<div class="say">CF is fine for a handful of parallel fan-outs in MVC. WebFlux/reactive is a whole stack commitment for end-to-end non-blocking. I don’t sprinkle CF as a fake reactive architecture.</div>
+
+<div class="ask">If they ask: “How do you publish an immutable object safely?”</div>
+<div class="say">Initialize via constructor, assign to a volatile field or publish under a lock / final field freeze (safe publication). Improper publication can let another thread see default field values.</div>
+
+<h3 id="deep-spring">Spring deep</h3>
+
+<div class="ask">If they ask: “What does @Transactional(readOnly=true) actually do?”</div>
+<div class="say">Hint for flush mode and some connection routing (read replicas). It does not magically make the database reject writes. Still avoid accidental dirty flushes; use it to signal intent and reduce flush cost.</div>
+
+<div class="ask">If they ask: “Open Session in View?”</div>
+<div class="say">Keeps the Hibernate session open during view rendering so lazy loads work — and hides N+1 into the web layer, holding DB connections longer. I prefer explicit fetch plans/DTOs and OSIV off in APIs.</div>
+
+<div class="ask">If they ask: “How do you test @Transactional rollback?”</div>
+<div class="say">Integration test: invoke service that throws, assert DB unchanged. Or use @Transactional on the test with controlled rollback. Verify proxy is applied — calling via bean, not this.</div>
+
+<div class="ask">If they ask: “Bean scopes?”</div>
+<div class="say">Singleton default. Prototype = new instance each injection. Request/session for web-scoped state. Injecting narrower scope into singleton needs providers/object factories — classic gotcha.</div>
+
+<div class="ask">If they ask: “Saga choreography vs orchestration?”</div>
+<div class="say">Choreography: services react to events — loose, harder to see the flow. Orchestration: a coordinator drives steps — clearer control/compensation, extra component. Pick based on complexity and observability needs.</div>
+
+<h3 id="deep-data">Data &amp; API deep</h3>
+
+<div class="ask">If they ask: “Covering index?”</div>
+<div class="say">An index that contains all columns needed by the query so the engine avoids heap/table lookups. Great for hot read paths; costs write/storage.</div>
+
+<div class="ask">If they ask: “Write skew?”</div>
+<div class="say">Two transactions read overlapping state, each writes a different row, both commit, breaking a multi-row invariant. Snapshot isolation can allow it. Fix with SERIALIZABLE, SELECT FOR UPDATE, or a constraint/aggregate lock.</div>
+
+<div class="ask">If they ask: “Exactly-once in messaging?”</div>
+<div class="say">True exactly-once across systems is hard. Practically: at-least-once delivery + idempotent consumers + dedupe keys / outbox. That’s the production pattern.</div>
+
+<div class="ask">If they ask: “401 vs 403 vs 404 for authz?”</div>
+<div class="say">401 when no/invalid credentials. 403 when identity is known but not permitted. Sometimes 404 to avoid leaking existence of a resource — product/security choice; be consistent.</div>
+
+<div class="ask">If they ask: “How do you version APIs?”</div>
+<div class="say">Prefer additive changes. If breaking: URI version (/v2) or header version with a sunset policy. Never silently change meaning of fields. Contract tests catch accidental breaks.</div>
+
+<div class="ask">If they ask: “Cache-aside race?”</div>
+<div class="say">Writer updates DB and deletes cache; concurrent reader can refill cache with old DB read. Mitigate with versioned values, short TTL, or transactional outbox-driven invalidation ordering carefully.</div>
+
+<h3 id="deep-ops">Ops deep</h3>
+
+<div class="ask">If they ask: “SLI / SLO / SLA / error budget?”</div>
+<div class="say">SLI = measured indicator (availability, latency). SLO = target on that indicator. Error budget = allowed failure. SLA = external contractual promise. Burn error budget → slow feature work, fix reliability.</div>
+
+<div class="ask">If they ask: “How do you make canaries trustworthy?”</div>
+<div class="say">Compare canary vs control on the same metrics, enough traffic, same dimensions. Auto-abort on SLO burn. Avoid declaring success on five minutes of lucky traffic.</div>
+
+<div class="ask">If they ask: “Blue/green vs canary vs rolling?”</div>
+<div class="say">Rolling replaces pods gradually. Canary sends a small % to new version with metrics gate. Blue/green switches traffic between two full environments — fast rollback, more cost. I pick based on risk and infra cost.</div>
+
+<div class="ask">If they ask: “What goes in a postmortem?”</div>
+<div class="say">Timeline, user impact, root cause, detection gaps, what worked, action items with owners — blameless. Focus on system fixes (tests, alerts, runbooks), not heroes.</div>
+
+<div class="memo"><b>notebook →</b> Follow-ups reward precision: name the trap, the metric, and the mitigation.</div>
+
+<!-- ===================== MOCK DIALOGUE ===================== -->
+<div class="part" id="dialogue">MOCK DIALOGUE — 90 seconds of senior signal</div>
+
+<div class="qa">
+  <h4>Interviewer: “Walk me through how you’d keep a booking API correct and fast.”</h4>
+  I’d separate read and write paths. Reads: indexed queries, cursor pagination, cache with invalidate-on-write for hot event pages.
+  Writes/booking: short DB transaction with atomic seat/inventory decrement or hold row + TTL; idempotency key on POST to make client retries safe.
+  Cross-service payment: local TX + outbox event, saga compensation if charge fails — not 2PC.
+  Resilience: timeouts and breaker to payment; no retry that can double-charge without idempotency.
+  Prove with integration tests around the reservation invariant, and watch p95 + 5xx on the book endpoint in canary.
+</div>
+
+<div class="qa">
+  <h4>Interviewer: “You see intermittent ConcurrentModificationException and lost counter updates.”</h4>
+  CME on a shared ArrayList means concurrent structural modification — replace with a concurrent structure or confine to one thread.
+  Lost counters sound like unsynchronized i++ — switch to AtomicLong or LongAdder, or synchronize the critical section.
+  I’d reproduce under load, confirm with jstack/JFR, then add a test that fails on the race before fixing.
+</div>
+
+<div class="qa">
+  <h4>Interviewer: “Our Spring service commits even when we throw a checked exception.”</h4>
+  Default @Transactional rolls back on unchecked exceptions only. I’d set rollbackFor appropriately or wrap in a runtime exception at the boundary.
+  Also I’d verify we’re not self-invoking and that the exception isn’t swallowed before leaving the proxy.
+</div>
+
+<!-- ===================== SAY BANK ===================== -->
+<div class="part" id="saybank">SPOKEN ANSWER BANK — rapid fire</div>
+<p class="sub">Read out loud. Then close the page and reproduce. Each answer is Mechanism → Trade-off → Measurement → Decision when relevant.</p>
+
+<div class="qa">
+  <h4>Q: How does HashMap handle collisions?</h4>
+  It hashes the key to a bucket. Colliding entries form a linked list in that bucket; in Java 8+, long chains treeify into a red-black tree so lookup stays logarithmic. Equality is decided with equals. Resizing at load factor 0.75 redistributes entries. HashMap itself isn’t thread-safe — ConcurrentHashMap for shared mutation.
+</div>
+
+<div class="qa">
+  <h4>Q: What’s the equals/hashCode contract?</h4>
+  If two objects are equal, they must have the same hashCode. The reverse is not required. Break this and HashMap/HashSet lose entries. Keep keys immutable; generate both methods from the same fields — records help.
+</div>
+
+<div class="qa">
+  <h4>Q: ArrayList or LinkedList?</h4>
+  ArrayList by default: O(1) random access and cache-friendly arrays. LinkedList rarely wins in real services because of pointer chasing. For queues I use ArrayDeque.
+</div>
+
+<div class="qa">
+  <h4>Q: When do you use Optional and Streams?</h4>
+  Streams for clear transform/filter/collect pipelines; avoid forced cleverness and blind parallelStream. Optional as a return type for absence; not for fields/parameters; prefer orElseGet for expensive defaults.
+</div>
+
+<div class="qa">
+  <h4>Q: synchronized vs volatile vs AtomicInteger?</h4>
+  synchronized for mutual exclusion around invariants. volatile for visibility of flags/references, not for atomic compound updates. AtomicInteger for lock-free counters/CAS. volatile i++ is still racy.
+</div>
+
+<div class="qa">
+  <h4>Q: How do thread pools and CompletableFuture work together?</h4>
+  A pool queues tasks onto worker threads with bounds and a rejection policy. CompletableFuture chains async steps; I pass an explicit executor for blocking I/O so I don’t starve the commonPool. Timeouts and exception handling belong in the chain.
+</div>
+
+<div class="qa">
+  <h4>Q: How does Java memory / GC work?</h4>
+  Stack holds per-thread frames and references; heap holds objects; GC reclaims unreachable heap objects from roots. Generational collectors clear short-lived objects cheaply. I manage pauses and leaks with measurement — allocation and retainers first, then flags. Full guide in the GC document.
+</div>
+
+<div class="qa">
+  <h4>Q: Why immutability?</h4>
+  Immutable objects are safe to share without locks, make hash keys stable, and reduce temporal bugs. I use final fields/records and copy-on-write style updates.
+</div>
+
+<div class="qa">
+  <h4>Q: How does Spring DI work?</h4>
+  The container creates beans and injects dependencies — constructor injection preferred for required deps and testability. Singletons are shared, so keep them stateless or synchronize carefully.
+</div>
+
+<div class="qa">
+  <h4>Q: @Transactional pitfalls?</h4>
+  Advice runs through a Spring proxy, so self-invocation skips the transaction. Default rollback is for runtime exceptions. Keep transactions short and outside remote calls. Watch LazyInitializationException after the session closes.
+</div>
+
+<div class="qa">
+  <h4>Q: MVC vs WebFlux?</h4>
+  MVC is thread-per-request and fits blocking JDBC. WebFlux is event-loop reactive and needs non-blocking I/O end-to-end. I don’t migrate for fashion — only when concurrency measurements demand it and the stack can be async.
+</div>
+
+<div class="qa">
+  <h4>Q: Distributed transactions?</h4>
+  I avoid 2PC across microservices. Local ACID + outbox for reliable events + saga compensations + idempotent consumers. Design service boundaries so most writes don’t need cross-service atomicity.
+</div>
+
+<div class="qa">
+  <h4>Q: Circuit breaker, retry, timeout together?</h4>
+  Timeout every call. Retry only idempotent operations with backoff and jitter. Circuit breaker fails fast when a dependency is sick. Bulkheads isolate pools so one dependency can’t take the whole process down.
+</div>
+
+<div class="qa">
+  <h4>Q: Isolation levels / anomalies?</h4>
+  Dirty read sees uncommitted data; non-repeatable sees changed rows; phantom sees new rows. Higher isolation reduces anomalies but increases conflicts. Know your database defaults — Postgres RC vs RR/snapshot behavior.
+</div>
+
+<div class="qa">
+  <h4>Q: Optimistic vs pessimistic locking?</h4>
+  Optimistic uses a version check and retries on conflict — good when conflicts are rare. Pessimistic locks rows up front — good for hot contended updates. Booking inventory often needs atomic reserves, not blind last-write-wins.
+</div>
+
+<div class="qa">
+  <h4>Q: How do you chase a slow endpoint?</h4>
+  Metrics → distributed trace to find the slow span → check N+1 and pool waits → EXPLAIN ANALYZE for SQL → fix → verify p95 against baseline. Don’t guess indexes without a plan.
+</div>
+
+<div class="qa">
+  <h4>Q: Readiness vs liveness?</h4>
+  Readiness controls traffic membership; liveness restarts a stuck process. Never make liveness depend on an external DB or you’ll restart the world during a dependency blip.
+</div>
+
+<div class="qa">
+  <h4>Q: 5xx spike — what do you do?</h4>
+  Confirm blast radius, check whether a deploy lines up, mitigate first — rollback or flag off if correlated — then diagnose with logs and traces. One change at a time. Postmortem after service is stable.
+</div>
+
+<div class="qa">
+  <h4>Q: P95/P99?</h4>
+  They describe the tail: 5% or 1% of requests are slower than that number. Users feel tails; averages hide them. SLOs should track percentiles and error budget burn.
+</div>
+
+<div class="qa">
+  <h4>Q: When do you rollback?</h4>
+  If user impact is material and the cause isn’t quickly clear, rollback or disable the flag to restore service. Investigate on the healthy version. Irreversible migrations are a process smell — use expand/contract.
+</div>
+
+<div class="gold">
+  <strong>Wall line:</strong> Mechanism → Trade-off → Measurement → Decision.
+  Mids recite definitions. Seniors show evidence habits and rollback judgment.
+</div>
+
+<footer>
+  Dark paper · pen boxes · arrows · timelines · full interview depth.<br/>
+  Study loop: draw diagram → write notebook line → say the bank out loud.<br/>
+  Pair with <code>docs/Java-GC-Senior-Interview-Guide.html</code> for GC depth.<br/>
+  Language: clear English, checklist style — no ambiguity.
+</footer>
+
+</div>
+</body>
+</html>
