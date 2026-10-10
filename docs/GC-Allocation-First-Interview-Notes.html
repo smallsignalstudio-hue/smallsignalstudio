@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GC Interview — Allocation First (Printable)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #12151c;
+    --ink: #e8e2d6;
+    --faint: #6f7788;
+    --line: #d6cbb8;
+    --teal: #5eead4;
+    --green: #86efac;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --blue: #93c5fd;
+    --box: #1a1f2b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(ellipse at 15% 0%, #1a2233 0%, transparent 50%),
+      var(--paper);
+    font-family: "Patrick Hand", "Comic Sans MS", cursive;
+    font-size: 1.12rem;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 28px 16px 72px; }
+  h1, h2, h3 {
+    font-family: "Caveat", cursive;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 2.7rem); }
+  h2 {
+    font-size: 1.8rem;
+    color: var(--teal);
+    margin-top: 36px;
+    border-bottom: 3px solid var(--teal);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding-bottom: 4px;
+  }
+  h3 { font-size: 1.35rem; color: var(--amber); margin-top: 22px; }
+  .sub { color: var(--faint); margin-bottom: 18px; }
+  .badge {
+    display: inline-block;
+    border: 2px solid var(--teal);
+    color: var(--teal);
+    padding: 4px 12px;
+    margin-bottom: 10px;
+    font-family: "Caveat", cursive;
+    font-size: 1.1rem;
+    border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  }
+
+  .sketch {
+    border: 2.5px solid var(--line);
+    background: var(--box);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 12px 14px;
+  }
+  .teal { border-color: var(--teal); }
+  .green { border-color: var(--green); }
+  .amber { border-color: var(--amber); }
+  .red { border-color: var(--red); }
+  .blue { border-color: var(--blue); }
+  .wiggle-l { transform: rotate(-0.5deg); }
+  .wiggle-r { transform: rotate(0.6deg); }
+
+  .board {
+    border: 2.5px dashed var(--faint);
+    border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+    padding: 14px 12px;
+    margin: 14px 0;
+    background: #161a24;
+  }
+  .label {
+    font-family: "Caveat", cursive;
+    color: var(--faint);
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+  }
+  .draw {
+    margin-top: 12px;
+    color: var(--amber);
+    font-family: "Caveat", cursive;
+    font-size: 1.15rem;
+    border-top: 2px dashed #3a4255;
+    padding-top: 8px;
+  }
+  .draw::before { content: "✏️ draw: "; }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: stretch;
+    justify-content: center;
+  }
+  .arr {
+    font-family: "Caveat", cursive;
+    font-size: 1.9rem;
+    color: var(--amber);
+    align-self: center;
+  }
+  .bt { font-family: "Caveat", cursive; font-size: 1.3rem; font-weight: 700; margin: 0 0 4px; }
+  .bs { color: var(--faint); margin: 0; }
+
+  .gold {
+    border: 2.5px solid var(--amber);
+    background: #2a210f;
+    border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+    padding: 14px 16px;
+    margin: 14px 0;
+  }
+  .gold strong { color: var(--amber); font-family: "Caveat", cursive; font-size: 1.35rem; }
+
+  .say {
+    border: 2.5px solid var(--teal);
+    background: #12201e;
+    border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  .say .t {
+    color: var(--teal);
+    font-family: "Caveat", cursive;
+    font-size: 1.2rem;
+  }
+
+  .fu {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .fu-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  @media (min-width: 720px) {
+    .fu-item {
+      grid-template-columns: 1fr auto 1.3fr;
+      align-items: stretch;
+    }
+  }
+  .qbox {
+    border: 2.5px solid var(--red);
+    background: #2a1518;
+    border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    padding: 12px 14px;
+  }
+  .qbox .t { color: var(--red); font-family: "Caveat", cursive; font-size: 1.15rem; }
+  .abox {
+    border: 2.5px solid var(--green);
+    background: #14241a;
+    border-radius: 18px 255px 18px 225px / 225px 18px 255px 18px;
+    padding: 12px 14px;
+  }
+  .abox .t { color: var(--green); font-family: "Caveat", cursive; font-size: 1.15rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 1.02rem;
+  }
+  th, td {
+    border: 2px solid #2e3648;
+    padding: 9px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    color: var(--faint);
+    font-family: "Caveat", cursive;
+    font-size: 1.15rem;
+  }
+  code, pre { font-family: "IBM Plex Mono", Menlo, monospace; }
+  code {
+    background: #243044;
+    padding: 0.05em 0.3em;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+
+  .dialog {
+    border: 2.5px dashed var(--faint);
+    border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+    padding: 14px;
+    margin: 14px 0;
+    background: #161a24;
+  }
+  .dialog .line { margin: 8px 0; }
+  .dialog .who {
+    font-family: "Caveat", cursive;
+    font-size: 1.2rem;
+    color: var(--amber);
+  }
+
+  .punch {
+    border: 2.5px solid var(--blue);
+    background: #152033;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 12px 14px;
+    margin: 12px 0;
+    text-align: center;
+    font-family: "Caveat", cursive;
+    font-size: 1.45rem;
+    color: var(--blue);
+  }
+
+  footer {
+    margin-top: 36px;
+    padding-top: 12px;
+    border-top: 2px dashed #2e3648;
+    color: var(--faint);
+  }
+
+  @media print {
+    body { background: #111; }
+    .wrap { padding: 0; }
+    h2 { break-before: page; }
+    h2:first-of-type { break-before: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<span class="badge">GetYourGuide · Senior SWE · printable notes</span>
+<h1>GC Optimization Answer<br/>Allocation → Measure → Flags</h1>
+<p class="sub">Dark · pen boxes · follow-ups · tables. Print or open offline and copy into your notebook.</p>
+
+<!-- ========== CORE ========== -->
+<h2>1 · What you say first</h2>
+
+<div class="gold">
+  <strong>Golden sentence:</strong><br/>
+  “I first reduce allocation in code, then measure, and only then change the collector or flags.”
+</div>
+
+<div class="say">
+  <div class="t">SAY THIS (full version)</div>
+  I don’t start by flipping GC flags. First I look at whether the app creates too much garbage:
+  unnecessary objects per request, string churn, big defensive copies, unbounded caches.
+  Less allocation means less GC work — no matter which collector we use.
+  Then I measure with GC logs and JFR to confirm pauses are actually the problem.
+  Only after that do I tune G1 or consider switching to ZGC.
+</div>
+
+<!-- ========== FLOW ========== -->
+<h2>2 · The order (draw this)</h2>
+
+<div class="board">
+  <div class="label">figure — 3 boxes in a row (always this order)</div>
+  <div class="row">
+    <div class="sketch green wiggle-l" style="min-width:180px;text-align:center">
+      <div class="bt">1 · CODE</div>
+      <p class="bs">reduce allocation<br/>fix root cause<br/>durable fix</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="sketch amber" style="min-width:180px;text-align:center">
+      <div class="bt">2 · MEASURE</div>
+      <p class="bs">GC log · JFR<br/>prove the cause<br/>don’t guess</p>
+    </div>
+    <div class="arr">→</div>
+    <div class="sketch blue wiggle-r" style="min-width:180px;text-align:center">
+      <div class="bt">3 · GC / FLAGS</div>
+      <p class="bs">G1 tune / ZGC<br/>last step<br/>trade-offs</p>
+    </div>
+  </div>
+  <div class="draw">3 boxes + arrows. Under box 1 write “cheapest &amp; lasting”. Under box 3 write “last resort / fine-tune”.</div>
+</div>
+
+<div class="punch">
+  Collector choice optimizes HOW we clean.<br/>
+  Allocation rate decides HOW MUCH we must clean.
+</div>
+
+<div class="board">
+  <div class="label">figure — junior vs senior reflex</div>
+  <div class="row">
+    <div class="sketch red wiggle-l" style="min-width:240px">
+      <div class="bt">JUNIOR</div>
+      p99 bad → set MaxGCPauseMillis=50<br/>
+      or jump to ZGC immediately
+    </div>
+    <div class="arr">vs</div>
+    <div class="sketch green wiggle-r" style="min-width:240px">
+      <div class="bt">SENIOR</div>
+      1) allocation / leak?<br/>
+      2) measure pauses<br/>
+      3) then collector / flags
+    </div>
+  </div>
+  <div class="draw">Two boxes. Left = flag-first. Right = allocation → measure → flags.</div>
+</div>
+
+<!-- ========== TRICKS TABLE ========== -->
+<h2>3 · Allocation tricks table (mention these)</h2>
+
+<table>
+  <tr>
+    <th>Smell (what you see in code)</th>
+    <th>What it does to GC</th>
+    <th>What you say you’d do</th>
+  </tr>
+  <tr>
+    <td>New DTO / mapper objects on <b>every request</b></td>
+    <td>Young gen fills fast → frequent Young GC</td>
+    <td>Avoid map→map→map chains; return leaner responses; reuse where safe</td>
+  </tr>
+  <tr>
+    <td>String concat in hot loops (<code>+</code>, <code>String.format</code>)</td>
+    <td>Tons of short-lived String / StringBuilder garbage</td>
+    <td>One StringBuilder; precompute; don’t format in tight paths</td>
+  </tr>
+  <tr>
+    <td>Copying large lists/arrays “just in case”</td>
+    <td>Big short-lived objects → promote or humongous pressure</td>
+    <td>Don’t materialize streams early; size collections upfront; avoid blind copies</td>
+  </tr>
+  <tr>
+    <td>Autoboxing (<code>List&lt;Integer&gt;</code>, boxed map values)</td>
+    <td>Extra boxed objects on hot paths</td>
+    <td>Prefer primitives in hot paths when it matters</td>
+  </tr>
+  <tr>
+    <td>Logging builds strings even when level is OFF</td>
+    <td>Hidden allocation tax on every request</td>
+    <td><code>isDebugEnabled</code> / parameterized logging</td>
+  </tr>
+  <tr>
+    <td>Unbounded cache / static <code>Map</code></td>
+    <td>Objects never die → Old fills / “leak”</td>
+    <td>TTL / max size; don’t cache request-scoped data forever</td>
+  </tr>
+  <tr>
+    <td>New <code>byte[]</code> / buffers per request</td>
+    <td>High allocation rate + possible direct memory pressure</td>
+    <td>Buffer pooling / reuse; watch direct memory limits</td>
+  </tr>
+</table>
+
+<div class="say">
+  <div class="t">IF THEY ASK “give a concrete example”</div>
+  A common one is building a big JSON DTO graph and copying collections at every service layer —
+  or concatenating strings while building search filters inside a loop.
+  Both can dominate Young GC even when heap size looks fine.
+</div>
+
+<!-- ========== FOLLOW-UPS ========== -->
+<h2>4 · Follow-ups — if they ask this → say that</h2>
+
+<div class="fu">
+
+  <div class="fu-item">
+    <div class="qbox">
+      <div class="t">FOLLOW-UP</div>
+      How do you find high allocation in production?
+    </div>
+    <div class="arr">→</div>
+    <div class="abox">
+      <div class="t">ANSWER</div>
+      JFR allocation profiling or async-profiler alloc mode, plus GC logs for allocation rate and pause time.
+      If needed, compare two class histograms over time. Rank top allocating sites and fix the hottest ones first — don’t guess.
+    </div>
+  </div>
+
+  <div class="fu-item">
+    <div class="qbox">
+      <div class="t">FOLLOW-UP</div>
+      What if allocation is already low and pauses still hurt?
+    </div>
+    <div class="arr">→</div>
+    <div class="abox">
+      <div class="t">ANSWER</div>
+      Trust the data: GC logs for pause vs SLO. For G1 check Full GC causes (humongous, to-space exhausted, late IHOP).
+      Only then tune — or move to ZGC if p99 is GC-bound on Java 21+.
+    </div>
+  </div>
+
+  <div class="fu-item">
+    <div class="qbox">
+      <div class="t">FOLLOW-UP</div>
+      Won’t reducing allocation take longer than changing a flag?
+    </div>
+    <div class="arr">→</div>
+    <div class="abox">
+      <div class="t">ANSWER</div>
+      A flag can buy time, but if the app allocates aggressively, GC cost returns under load.
+      Fixing allocation is the durable fix; flags handle remaining collector trade-offs after the code is sane.
+    </div>
+  </div>
+
+  <div class="fu-item">
+    <div class="qbox">
+      <div class="t">FOLLOW-UP</div>
+      How do you know it’s GC and not something else?
+    </div>
+    <div class="arr">→</div>
+    <div class="abox">
+      <div class="t">ANSWER</div>
+      Correlate p99 spikes with GC pause timestamps.
+      If the GC log is clean, check safepoints, CPU throttling, and swap.
+      Bad latency + clean GC logs is often not a collector problem.
+    </div>
+  </div>
+
+  <div class="fu-item">
+    <div class="qbox">
+      <div class="t">FOLLOW-UP</div>
+      What would you change first on a Spring Boot service in Kubernetes?
+    </div>
+    <div class="arr">→</div>
+    <div class="abox">
+      <div class="t">ANSWER</div>
+      Baseline: MaxRAMPercentage, GC logging, HeapDumpOnOOM.
+      Then allocation hotspots.
+      Then G1 pause/IHOP only if logs justify it.
+      ZGC only if measurement shows GC pauses break the SLO.
+    </div>
+  </div>
+
+  <div class="fu-item">
+    <div class="qbox">
+      <div class="t">FOLLOW-UP</div>
+      Why not just pick ZGC for everything?
+    </div>
+    <div class="arr">→</div>
+    <div class="abox">
+      <div class="t">ANSWER</div>
+      ZGC costs more CPU and memory. I switch only when measurement proves GC pauses break latency SLO.
+      For most services G1 is the right starting point after allocation is under control.
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== DIALOGUE ========== -->
+<h2>5 · Mini dialogue (practice out loud)</h2>
+
+<div class="dialog">
+  <div class="line"><span class="who">Interviewer:</span> How would you optimize GC?</div>
+  <div class="line"><span class="who">You:</span> Reduce allocation first, measure, then tune collector/flags.</div>
+  <div class="line" style="margin-top:14px"><span class="who">Interviewer:</span> What does reduce allocation mean in practice?</div>
+  <div class="line"><span class="who">You:</span> Cut per-request object churn — DTOs, string concat, big copies, autoboxing, bad caching — then verify with JFR.</div>
+  <div class="line" style="margin-top:14px"><span class="who">Interviewer:</span> And if it’s still bad?</div>
+  <div class="line"><span class="who">You:</span> Confirm pauses with GC logs; for G1 inspect Full GC cause; if latency SLO is still GC-bound, evaluate ZGC and accept the CPU/memory cost.</div>
+</div>
+
+<!-- ========== CHEAT ========== -->
+<h2>6 · One-page cheat strip</h2>
+
+<table>
+  <tr><th>Step</th><th>Do</th><th>Tools / signals</th></tr>
+  <tr>
+    <td><b>1 Code</b></td>
+    <td>Cut allocation &amp; leaks</td>
+    <td>DTO churn, strings, copies, static caches, ThreadLocal</td>
+  </tr>
+  <tr>
+    <td><b>2 Measure</b></td>
+    <td>Prove GC is (or isn’t) the cause</td>
+    <td>GC log, JFR, p99↔pause correlation, safepoint/CPU if log clean</td>
+  </tr>
+  <tr>
+    <td><b>3 Tune</b></td>
+    <td>Collector / flags from data</td>
+    <td>G1 IHOP/region/reserve · or ZGC if SLO still GC-bound</td>
+  </tr>
+</table>
+
+<div class="gold">
+  <strong>Wall line:</strong> Mids recite flags. Seniors measure first — after they cut allocation.
+</div>
+
+<footer>
+  Print this page (dark paper · pen boxes).<br/>
+  Pair with: Java-GC-Senior-Interview-Guide.html
+</footer>
+
+</div>
+</body>
+</html>
