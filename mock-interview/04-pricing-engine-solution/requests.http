@@ -1,0 +1,26 @@
+### One adult
+POST http://localhost:8080/quotes
+Content-Type: application/json
+
+{"customerId":"c1","currency":"EUR","lines":[{"category":"ADULT","quantity":1}]}
+
+### PRC-401 eight add-ons
+POST http://localhost:8080/quotes
+Content-Type: application/json
+
+{"customerId":"c1","currency":"EUR","lines":[{"category":"ADDON","quantity":8}]}
+
+### PRC-402 party of 10
+POST http://localhost:8080/quotes
+Content-Type: application/json
+
+{"customerId":"c1","currency":"EUR","lines":[{"category":"ADULT","quantity":10}]}
+
+### PRC-403 yen
+POST http://localhost:8080/quotes
+Content-Type: application/json
+
+{"customerId":"c1","currency":"JPY","promoCode":"TEN","lines":[{"category":"ADULT","quantity":3}]}
+
+### Partner band
+GET http://localhost:8080/price-bands/match?currency=EUR&amount=10.00
