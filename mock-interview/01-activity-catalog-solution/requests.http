@@ -1,0 +1,17 @@
+### Health
+GET http://localhost:8080/actuator/health
+
+### List activities (first page)
+GET http://localhost:8080/activities?page=0&size=10
+
+### Single activity
+GET http://localhost:8080/activities/25732
+
+### Search activities (title or supplier name)
+GET http://localhost:8080/activities/search?q=Berlin
+
+### List suppliers
+GET http://localhost:8080/suppliers
+
+### Search suppliers
+GET http://localhost:8080/suppliers/search/Spree

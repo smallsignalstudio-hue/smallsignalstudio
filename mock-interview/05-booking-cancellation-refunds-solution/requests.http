@@ -1,0 +1,12 @@
+### Booking
+GET http://localhost:8080/bookings/5
+
+### Cancel (far from the start)
+POST http://localhost:8080/bookings/8/cancellations
+Idempotency-Key: demo-1
+Content-Type: application/json
+
+{"note":"plans changed"}
+
+### Refunds
+GET http://localhost:8080/bookings/8/refunds

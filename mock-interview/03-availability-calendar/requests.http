@@ -1,0 +1,14 @@
+### One day (currently empty — AVL-301)
+GET http://localhost:8080/activities/1/slots?from=2026-06-01&to=2026-06-01
+
+### DST week
+GET http://localhost:8080/activities/1/slots?from=2026-03-28&to=2026-03-30
+
+### Tokyo night walk
+GET http://localhost:8080/activities/3/slots?from=2026-06-01&to=2026-06-02
+
+### Book
+POST http://localhost:8080/bookings
+Content-Type: application/json
+
+{"activityId": 1, "slotStart": "2026-06-02T08:00:00Z", "partySize": 2}

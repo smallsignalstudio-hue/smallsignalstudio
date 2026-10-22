@@ -1,0 +1,33 @@
+INSERT INTO supplier (id, name, address, zip, city, country) VALUES
+    (1, 'Berlin Walks GmbH',        'Friedrichstrasse 12',  '10117', 'Berlin',  'Germany'),
+    (2, 'Spree River Cruises',      'Moabiter Ufer 4',      '10555', 'Berlin',  'Germany'),
+    (3, 'Bavarian Castle Tours',    'Marienplatz 8',        '80331', 'Munich',  'Germany'),
+    (4, 'Roma Antica Experiences',  'Via del Corso 101',    '00186', 'Rome',    'Italy');
+
+INSERT INTO activity (id, title, price, currency, rating, special_offer, supplier_id) VALUES
+    (25732, 'Berlin: Third Reich and Cold War Walking Tour',          16.0,  'EUR', 4.7, FALSE, 1),
+    (25734, 'Berlin: Alternative Street Art Tour in Kreuzberg',       18.0,  'EUR', 4.8, FALSE, 1),
+    (25736, 'Berlin: Sachsenhausen Memorial Tour',                    29.9,  'EUR', 4.6, TRUE,  1),
+    (25738, 'Berlin: Potsdam Palaces and Gardens Day Trip',           49.0,  'EUR', 4.5, FALSE, 1),
+    (25740, 'Berlin: 1-Hour City Tour by Boat',                       19.9,  'EUR', 4.4, FALSE, 2),
+    (25742, 'Berlin: 2.5-Hour Evening Cruise with Dinner',            69.0,  'EUR', 4.6, FALSE, 2),
+    (25744, 'Berlin: Spree River Sightseeing Cruise',                 39.9,  'EUR', 4.7, TRUE,  2),
+    (25746, 'Berlin: Brunch Cruise on the Spree',                     55.5,  'EUR', 4.3, FALSE, 2),
+    (30100, 'Munich: Neuschwanstein Castle Full-Day Trip',            65.0,  'EUR', 4.7, FALSE, 3),
+    (30102, 'Munich: Linderhof and Oberammergau Tour',                59.0,  'EUR', 4.5, TRUE,  3),
+    (30104, 'Munich: Bavarian Beer and Food Evening Tour',            42.0,  'EUR', 4.8, FALSE, 3),
+    (30106, 'Munich: Dachau Concentration Camp Memorial Tour',        33.0,  'EUR', 4.6, FALSE, 3),
+    (40500, 'Rome: Colosseum, Roman Forum and Palatine Hill',         59.0,  'EUR', 4.6, FALSE, 4),
+    (40502, 'Rome: Vatican Museums and Sistine Chapel Skip-the-Line', 64.9,  'EUR', 4.5, TRUE,  4),
+    (40504, 'Rome: Trastevere Food Tour with Tastings',               79.0,  'EUR', 4.9, FALSE, 4),
+    (40506, 'Rome: Catacombs and Appian Way Bike Tour',               45.0,  'EUR', 4.4, FALSE, 4),
+    (40508, 'Rome: 100% Authentic Pasta-Making Class',                69.9,  'EUR', 4.8, FALSE, 4),
+    (40600, 'London: Harry Potter Walking Tour',                      22.0,  'GBP', 4.7, FALSE, NULL),
+    (40882, 'Berlin: Reichstag Dome and Government Quarter Tour',     24.9,  'EUR', 4.7, TRUE,  5),
+    (40884, 'Berlin: Museum Island Highlights Guided Tour',           26.0,  'EUR', 4.6, FALSE, 1),
+    (40886, 'Berlin: Wall Bike Tour along the East Side Gallery',     28.0,  'EUR', 4.7, FALSE, 1),
+    (40888, 'Berlin: Charlottenburg Palace Entry Ticket',             19.0,  'EUR', 4.2, FALSE, 1),
+    (40890, 'Munich: English Garden Surfing Lesson',                  89.0,  'EUR', 4.9, FALSE, 3),
+    (40892, 'Rome: Pantheon Audio Guide',                             12.0,  'EUR', 4.1, FALSE, 4),
+    (40894, 'Berlin: Underground Bunker Tour',                        16.5,  'EUR', 4.8, FALSE, 1),
+    (40896, 'Berlin: Tempelhof Airport Guided Tour',                  21.0,  'EUR', NULL, FALSE, 1);

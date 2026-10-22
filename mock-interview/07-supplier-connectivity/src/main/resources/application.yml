@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: supplier-connectivity
+  datasource:
+    url: jdbc:postgresql://localhost:5432/supplier
+    username: supplier
+    password: supplier
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+supplier:
+  base-url: http://127.0.0.1:9
+payment:
+  base-url: http://127.0.0.1:9

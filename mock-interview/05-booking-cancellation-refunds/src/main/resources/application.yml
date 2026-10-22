@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: booking-cancellation-refunds
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cancellation
+    username: cancellation
+    password: cancellation
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+psp:
+  base-url: http://127.0.0.1:9

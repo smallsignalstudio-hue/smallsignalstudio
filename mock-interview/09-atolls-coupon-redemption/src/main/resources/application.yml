@@ -1,0 +1,14 @@
+spring:
+  application.name: coupon-redemption
+  datasource:
+    url: jdbc:postgresql://localhost:5432/coupons
+    username: coupons
+    password: coupons
+  jpa:
+    hibernate.ddl-auto: validate
+    open-in-view: false
+    properties.hibernate.jdbc.time_zone: UTC
+  flyway.enabled: true
+server.port: 8080
+management.endpoints.web.exposure.include: health,info
+coupon.now: 2026-10-22T06:00:00Z
