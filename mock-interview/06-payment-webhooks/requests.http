@@ -1,0 +1,5 @@
+### readable booking, no webhook
+GET http://localhost:8080/bookings/6
+
+### health
+GET http://localhost:8080/actuator/health
