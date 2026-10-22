@@ -1,0 +1,11 @@
+### health
+GET http://localhost:8080/actuator/health
+
+### shopper with an empty wallet
+GET http://localhost:8080/wallets/1
+
+### 10.00 USD confirmed at 0.10 EUR per dollar
+POST http://localhost:8080/events
+Content-Type: application/json
+
+{"externalId":"smoke-usd","userId":99,"status":"CONFIRMED","amountCents":1000,"currency":"USD","fxRate":"0.10"}
