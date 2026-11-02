@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: ticket-hold-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tickethold
+    username: tickethold
+    password: tickethold
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+holds:
+  ttl-minutes: 10
+  expire-ms: 15000

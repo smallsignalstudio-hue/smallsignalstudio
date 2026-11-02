@@ -1,0 +1,15 @@
+spring:
+  application.name: cashback-ledger
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cashback
+    username: cashback
+    password: cashback
+  jpa:
+    hibernate.ddl-auto: validate
+    open-in-view: false
+    properties.hibernate.jdbc.time_zone: UTC
+  flyway.enabled: true
+server.port: 8080
+management.endpoints.web.exposure.include: health,info
+fx.current.USD: 0.50
+fx.current.EUR: 1

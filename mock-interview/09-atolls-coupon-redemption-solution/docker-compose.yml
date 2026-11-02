@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: coupons
+      POSTGRES_USER: coupons
+      POSTGRES_PASSWORD: coupons
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U coupons -d coupons"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      TZ: Europe/Berlin
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/coupons
+      SPRING_DATASOURCE_USERNAME: coupons
+      SPRING_DATASOURCE_PASSWORD: coupons
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/localhost/8080 && printf \"GET /actuator/health HTTP/1.0\\r\\n\\r\\n\" >&3 && grep -q UP <&3'"]
+      interval: 5s
+      timeout: 3s
+      retries: 30

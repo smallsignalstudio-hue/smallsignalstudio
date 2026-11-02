@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: availability-calendar
+  datasource:
+    url: jdbc:postgresql://localhost:5432/availability
+    username: availability
+    password: availability
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+  cache:
+    type: simple
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

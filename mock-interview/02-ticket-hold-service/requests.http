@@ -1,0 +1,16 @@
+### Seats
+GET http://localhost:8080/events/100/seats
+
+### Hold seats 1 and 2
+POST http://localhost:8080/events/100/holds
+X-Customer-Id: 42
+Content-Type: application/json
+
+{"seatIds": [1, 2]}
+
+### Confirm (use the id returned above)
+POST http://localhost:8080/holds/101/confirm
+X-Customer-Id: 42
+
+### Run the expiry job once
+POST http://localhost:8080/internal/expire

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: reviews-ratings
+  datasource:
+    url: jdbc:postgresql://localhost:5432/reviews
+    username: reviews
+    password: reviews
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+      hibernate.generate_statistics: true
+  flyway:
+    enabled: true
+server.port: 8080
+management.endpoints.web.exposure.include: health,info
