@@ -12,7 +12,8 @@ Version-controlled Cursor Agent Skills for Small Signal Studio.
 | [lets-blueprint](lets-blueprint/) | **Let's Blueprint** — idea → full md pack (overview, Stitch, Build, AGENTS) + Week 0 third-party gates; no app code |
 | [lets-todo-init](lets-todo-init/) | **Let's Todo Init** — after Blueprint, emit Scrum epic/story backlog (`tasks/epics/`); no app code |
 | [lets-release](lets-release/) | **Let's Release** — pre-upload gate: preflight + ASO/keywords + ASC metadata/pricing (no screenshots; no binary unless asked) |
-| [genius-ideas](genius-ideas/) | JARVIS for researching monetizable solo-buildable mobile app ideas |
+| [genius-ideas](genius-ideas/) | JARVIS for researching monetizable solo-buildable mobile app ideas (Reddit / 4chan pain) |
+| [ads-ideas](ads-ideas/) | Ads-validated ideas — Meta/Instagram Ad Library via Apify, score what’s already paying, studio-DNA wedge |
 | [app-store-preflight](app-store-preflight/) | App Store pre-submission compliance (Greenlight + learned rejection rules) |
 
 ## Install (global use in any project)
@@ -79,10 +80,16 @@ Let's Todo Init — GDD ve BUILD'den epic/story çıkar
 
 `tasks/todo.md` + `tasks/epics/*.md` yazar; uygulama kodu yazmaz.
 
-**Genius ideas:**
+**Genius ideas** (unpaid pain → idea):
 
 ```
 Use the genius-ideas skill to find something related to astrology
+```
+
+**Ads ideas** (paid demand from Meta/Instagram ads → idea). Needs `APIFY_TOKEN` in env, or a pasted Ad Library JSON/CSV. Default Apify spend cap is **$5 per run**:
+
+```
+Use the ads-ideas skill to find a working app in habit tracking
 ```
 
 Skills do not auto-invoke on unrelated chats (`disable-model-invocation: true`).
