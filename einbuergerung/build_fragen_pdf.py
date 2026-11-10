@@ -14,7 +14,10 @@ KATALOG_CANDIDATES = [
     ROOT / "katalog.pdf",
 ]
 OUT_PDF = ROOT / "einbuergerungstest-fragen-berlin.pdf"
+OUT_PDF_8UP = ROOT / "einbuergerungstest-fragen-berlin-8up.pdf"
 ARTIFACT_PDF = Path("/opt/cursor/artifacts/einbuergerungstest-fragen-berlin.pdf")
+ARTIFACT_PDF_8UP = Path("/opt/cursor/artifacts/einbuergerungstest-fragen-berlin-8up.pdf")
+BAMF_LOGO_PATH = ROOT / "bamf-logo.png"
 
 # BAMF page geometry (A4 portrait)
 CONTENT_LEFT = 55.0
@@ -147,21 +150,57 @@ def build_question_pixmaps(doc: fitz.Document) -> list[dict]:
     return questions
 
 
+def extract_bamf_logo(doc: fitz.Document) -> bytes:
+    """Take the official BAMF header logo (eagle + text) from the catalog."""
+    if BAMF_LOGO_PATH.exists():
+        return BAMF_LOGO_PATH.read_bytes()
+    # First content page embeds the logo as image xref; fall back to clip
+    page = doc[1]
+    images = page.get_images(full=True)
+    if images:
+        extracted = doc.extract_image(images[0][0])
+        data = extracted["image"]
+        BAMF_LOGO_PATH.write_bytes(data)
+        return data
+    clip = fitz.Rect(9.2, 15.0, 161.2, 119.0)
+    pix = page.get_pixmap(matrix=fitz.Matrix(3, 3), clip=clip, alpha=False)
+    data = pix.tobytes("png")
+    BAMF_LOGO_PATH.write_bytes(data)
+    return data
+
+
 def new_page(out: fitz.Document) -> fitz.Page:
     # Landscape A4: 842 x 595 points
     return out.new_page(width=842, height=595)
 
 
-def draw_header(page: fitz.Page, title: str, page_no: int, page_count: int) -> None:
+def draw_header(
+    page: fitz.Page,
+    title: str,
+    page_no: int,
+    page_count: int,
+    logo_bytes: bytes | None = None,
+) -> None:
+    if logo_bytes:
+        # Keep BAMF logo compact in the landscape header
+        logo_w, logo_h = 118.0, 81.0
+        page.insert_image(fitz.Rect(12, 6, 12 + logo_w, 6 + logo_h), stream=logo_bytes)
+        title_x = 12 + logo_w + 10
+        title_y = 28
+    else:
+        title_x = 18
+        title_y = 16
+
+    if title:
+        page.insert_text(
+            (title_x, title_y),
+            title,
+            fontsize=8,
+            fontname="helv",
+            color=(0, 0, 0),
+        )
     page.insert_text(
-        (18, 16),
-        title,
-        fontsize=8,
-        fontname="helv",
-        color=(0, 0, 0),
-    )
-    page.insert_text(
-        (842 - 18 - 60, 16),
+        (842 - 18 - 70, 18),
         f"Seite {page_no} / {page_count}",
         fontsize=8,
         fontname="helv",
@@ -241,8 +280,8 @@ def pack_pages(questions: list[dict]) -> list[list[dict]]:
 
 
 def slots_for(count: int) -> list[fitz.Rect]:
-    margin_x = 14.0
-    margin_top = 22.0
+    margin_x = 12.0
+    margin_top = 92.0  # room for BAMF logo header
     margin_bottom = 10.0
     gap = 5.0
     page_w, page_h = 842.0, 595.0
@@ -278,29 +317,30 @@ def slots_for(count: int) -> list[fitz.Rect]:
     return rects
 
 
-def build_pdf(questions: list[dict]) -> None:
+def build_pdf(questions: list[dict], logo_bytes: bytes | None) -> None:
     pages_plan = pack_pages(questions)
     out = fitz.open()
 
     cover = new_page(out)
-    cover.draw_rect(fitz.Rect(40, 170, 802, 360), color=(0, 0, 0), width=0.5)
-    cover.insert_text((60, 220), "Einbürgerungstest", fontsize=28, fontname="helv", color=(0, 0, 0))
+    if logo_bytes:
+        cover.insert_image(fitz.Rect(60, 140, 220, 250), stream=logo_bytes)
+    cover.insert_text((60, 280), "Einbürgerungstest", fontsize=28, fontname="helv", color=(0, 0, 0))
     cover.insert_text(
-        (60, 255),
+        (60, 315),
         "310 Fragen mit Antwortoptionen · Bundesland Berlin",
         fontsize=12,
         fontname="helv",
         color=(0, 0, 0),
     )
     cover.insert_text(
-        (60, 290),
+        (60, 340),
         "300 allgemeine Fragen + 10 Fragen für Berlin",
         fontsize=10,
         fontname="helv",
         color=(0, 0, 0),
     )
     cover.insert_text(
-        (60, 315),
+        (60, 365),
         "Quelle: BAMF-Gesamtfragenkatalog (Stand 07.05.2025) · ca. 8 Fragen pro Seite",
         fontsize=9,
         fontname="helv",
@@ -319,16 +359,17 @@ def build_pdf(questions: list[dict]) -> None:
         if i == first_berlin_page:
             sheet_no += 1
             div = new_page(out)
-            div.draw_rect(fitz.Rect(40, 220, 802, 320), color=(0, 0, 0), width=0.5)
+            if logo_bytes:
+                div.insert_image(fitz.Rect(60, 160, 220, 270), stream=logo_bytes)
             div.insert_text(
-                (60, 260),
+                (60, 300),
                 "Teil II · Fragen für das Bundesland Berlin",
                 fontsize=18,
                 fontname="helv",
                 color=(0, 0, 0),
             )
             div.insert_text(
-                (60, 290),
+                (60, 330),
                 "10 landesbezogene Fragen (Aufgabe 1-10)",
                 fontsize=10,
                 fontname="helv",
@@ -340,29 +381,33 @@ def build_pdf(questions: list[dict]) -> None:
         title = "Einbürgerungstest · allgemeine Fragen"
         if any(q["section"] == "berlin" for q in group):
             title = "Einbürgerungstest · Berlin"
-        draw_header(page, title, sheet_no, total_content_sheets)
+        draw_header(page, title, sheet_no, total_content_sheets, logo_bytes=logo_bytes)
 
         boxes = slots_for(len(group))
         for q, box in zip(group, boxes):
-            page.draw_rect(box, color=(0, 0, 0), width=0.5)
-            dest = fit_rect(box, q["width"], q["height"], pad=5)
-            # JPEG keeps logos readable while shrinking the PDF significantly
+            # No box borders — BAMF clips only
+            dest = fit_rect(box, q["width"], q["height"], pad=2)
             jpeg = q["pix"].tobytes("jpeg", jpg_quality=85)
             page.insert_image(dest, stream=jpeg, keep_proportion=True)
 
     out.save(OUT_PDF, deflate=True, garbage=4)
     out.close()
     ARTIFACT_PDF.parent.mkdir(parents=True, exist_ok=True)
-    ARTIFACT_PDF.write_bytes(OUT_PDF.read_bytes())
+    pdf_bytes = OUT_PDF.read_bytes()
+    ARTIFACT_PDF.write_bytes(pdf_bytes)
+    OUT_PDF_8UP.write_bytes(pdf_bytes)
+    ARTIFACT_PDF_8UP.write_bytes(pdf_bytes)
 
 
 def main() -> None:
     katalog = find_katalog()
     doc = fitz.open(katalog)
+    logo_bytes = extract_bamf_logo(doc)
     questions = build_question_pixmaps(doc)
     doc.close()
-    build_pdf(questions)
+    build_pdf(questions, logo_bytes)
     print(f"Wrote {len(questions)} questions -> {OUT_PDF}")
+    print(f"Also -> {OUT_PDF_8UP}")
     print(f"Artifact -> {ARTIFACT_PDF}")
 
 
