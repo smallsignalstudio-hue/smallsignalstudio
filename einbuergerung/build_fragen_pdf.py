@@ -134,6 +134,7 @@ def build_question_pixmaps(doc: fitz.Document) -> list[dict]:
             page = doc[item["page"]]
             clip = tighten_clip(page, clip_rect_for(items, idx))
             pix = render_clip(page, clip)
+            pix = crop_white_margins(pix)
             questions.append(
                 {
                     "section": section,
@@ -208,14 +209,50 @@ def draw_header(
     )
 
 
-def fit_rect(box: fitz.Rect, img_w: float, img_h: float, pad: float = 4.0) -> fitz.Rect:
-    inner = fitz.Rect(box.x0 + pad, box.y0 + pad, box.x1 - pad, box.y1 - pad)
-    scale = min(inner.width / img_w, inner.height / img_h)
-    w = img_w * scale
-    h = img_h * scale
-    x = inner.x0 + (inner.width - w) / 2
-    y = inner.y0  # top-align for reading flow
-    return fitz.Rect(x, y, x + w, y + h)
+def crop_white_margins(pix: fitz.Pixmap, threshold: int = 245) -> fitz.Pixmap:
+    """Trim near-white margins so Aufgabe labels share a common top edge."""
+    from PIL import Image
+
+    if pix.alpha:
+        pix = fitz.Pixmap(fitz.csRGB, pix)
+    mode = "RGB" if pix.n >= 3 else "L"
+    img = Image.frombytes(mode, (pix.width, pix.height), pix.samples)
+    if mode != "RGB":
+        img = img.convert("RGB")
+
+    gray = img.convert("L")
+    bw = gray.point(lambda p: 0 if p < threshold else 255, mode="1")
+    bbox = bw.getbbox()
+    if not bbox:
+        return pix
+    left, top, right, bottom = bbox
+    left = max(0, left - 2)
+    top = max(0, top - 2)
+    right = min(img.width, right + 2)
+    bottom = min(img.height, bottom + 2)
+    if left <= 2 and top <= 2 and right >= img.width - 2 and bottom >= img.height - 2:
+        return pix
+    cropped = img.crop((left, top, right, bottom))
+    return fitz.Pixmap(cropped.tobytes("png"))
+
+
+def place_questions(page: fitz.Page, group: list[dict], boxes: list[fitz.Rect]) -> None:
+    """Place a page group with one common scale and shared top-left alignment."""
+    pad = 2.0
+    inners = [
+        fitz.Rect(box.x0 + pad, box.y0 + pad, box.x1 - pad, box.y1 - pad) for box in boxes
+    ]
+    # One scale for the whole page/group so row partners stay visually synced
+    scale = min(
+        min(inner.width / q["width"], inner.height / q["height"])
+        for q, inner in zip(group, inners)
+    )
+    for q, inner in zip(group, inners):
+        w = q["width"] * scale
+        h = q["height"] * scale
+        dest = fitz.Rect(inner.x0, inner.y0, inner.x0 + w, inner.y0 + h)
+        jpeg = q["pix"].tobytes("jpeg", jpg_quality=85)
+        page.insert_image(dest, stream=jpeg, keep_proportion=True)
 
 
 TARGET_PER_PAGE = 8  # 2 columns x 4 rows on landscape A4
@@ -383,11 +420,7 @@ def build_pdf(questions: list[dict], logo_bytes: bytes | None) -> None:
         draw_header(page, title, sheet_no, total_content_sheets, logo_bytes=None)
 
         boxes = slots_for(len(group))
-        for q, box in zip(group, boxes):
-            # No box borders — BAMF clips only
-            dest = fit_rect(box, q["width"], q["height"], pad=2)
-            jpeg = q["pix"].tobytes("jpeg", jpg_quality=85)
-            page.insert_image(dest, stream=jpeg, keep_proportion=True)
+        place_questions(page, group, boxes)
 
     out.save(OUT_PDF, deflate=True, garbage=4)
     out.close()
