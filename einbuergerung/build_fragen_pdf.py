@@ -1,302 +1,423 @@
 #!/usr/bin/env python3
-"""Build landscape A4 PDF with 300 + Berlin 10 Einbürgerungstest questions (no answers)."""
+"""Build landscape A4 PDF from BAMF catalog clips (question + options + images)."""
 
 from __future__ import annotations
 
-import json
 import re
 from pathlib import Path
 
-from reportlab.lib.pagesizes import A4, landscape
-from reportlab.lib.units import mm
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfgen import canvas
+import fitz  # PyMuPDF
 
 ROOT = Path(__file__).resolve().parent
-SOURCE_CANDIDATES = [
-    ROOT / "katalog_text.txt",
-    Path("/tmp/einbuergerung/katalog_text_clean.txt"),
-    Path(
-        "/home/ubuntu/.cursor/projects/agent-repos-smallsignalstudio/"
-        "agent-tools/e4cdcd1f-ab45-41ce-a7bf-5cd636253034.txt"
-    ),
+KATALOG_CANDIDATES = [
+    Path("/tmp/einbuergerung/katalog.pdf"),
+    ROOT / "katalog.pdf",
 ]
 OUT_PDF = ROOT / "einbuergerungstest-fragen-berlin.pdf"
-OUT_JSON = ROOT / "fragen-berlin.json"
+ARTIFACT_PDF = Path("/opt/cursor/artifacts/einbuergerungstest-fragen-berlin.pdf")
 
-IMAGE_HINT_NUMBERS = {
-    21,
-    55,
-    70,
-    181,
-    209,
-    216,
-    226,
-    235,
-}
+# BAMF page geometry (A4 portrait)
+CONTENT_LEFT = 55.0
+CONTENT_RIGHT = 545.0
+FOOTER_Y = 748.0
+CLIP_PAD_TOP = 2.0
+CLIP_PAD_BEFORE_NEXT = 6.0
+RENDER_SCALE = 2.0  # 144 dpi-ish
 
 
-def load_source_text() -> str:
-    for path in SOURCE_CANDIDATES:
+def find_katalog() -> Path:
+    for path in KATALOG_CANDIDATES:
         if path.exists():
-            return path.read_text(encoding="utf-8")
-    raise FileNotFoundError("No BAMF catalog text source found")
+            return path
+    raise FileNotFoundError("BAMF katalog.pdf not found")
 
 
-def extract_questions(section: str) -> list[tuple[int, str]]:
-    parts = re.split(r"\n?Aufgabe\s+(\d+)\n?", section)
-    questions: list[tuple[int, str]] = []
-    i = 1
-    while i < len(parts) - 1:
-        num = int(parts[i])
-        body = parts[i + 1]
-        q_lines: list[str] = []
-        for line in body.strip().split("\n"):
-            s = line.strip()
-            if not s:
-                continue
-            if s.startswith(("", "□", "©", "Teil II")):
-                break
-            if re.match(r"^Bild \d+", s):
-                break
-            if "" in s or "□" in s:
-                idx = min(i for i in (s.find(""), s.find("□")) if i >= 0)
-                before = s[:idx].strip()
-                if before:
-                    q_lines.append(before)
-                break
-            q_lines.append(s)
-        q = re.sub(r"\s+", " ", " ".join(q_lines)).strip()
-        q = re.sub(r"\s*©.*$", "", q).strip()
-        questions.append((num, q))
-        i += 2
-    return questions
+def find_section_pages(doc: fitz.Document) -> tuple[int, int, int]:
+    bw = berlin = branden = None
+    for i, page in enumerate(doc):
+        text = page.get_text() or ""
+        if bw is None and "Fragen für das Bundesland Baden-Württemberg" in text:
+            bw = i
+        if berlin is None and "Fragen für das Bundesland Berlin" in text:
+            berlin = i
+        if branden is None and "Fragen für das Bundesland Brandenburg" in text:
+            branden = i
+    if bw is None or berlin is None or branden is None:
+        raise ValueError("Could not locate Bundesland sections in BAMF PDF")
+    return bw, berlin, branden
 
 
-def parse_catalog(text: str) -> list[dict]:
-    m_bw = re.search(r"Teil II Fragen für das Bundesland Baden-Württemberg\n", text)
-    m_berlin = re.search(r"Teil II Fragen für das Bundesland Berlin\n", text)
-    m_branden = re.search(r"Teil II Fragen für das Bundesland Brandenburg\n", text)
-    if not (m_bw and m_berlin and m_branden):
-        raise ValueError("Could not locate catalog sections")
-
-    general = extract_questions(text[: m_bw.start()])
-    berlin = extract_questions(text[m_berlin.start() : m_branden.start()])
-    if len(general) != 300:
-        raise ValueError(f"Expected 300 general questions, got {len(general)}")
-    if len(berlin) != 10:
-        raise ValueError(f"Expected 10 Berlin questions, got {len(berlin)}")
-
+def collect_aufgaben(doc: fitz.Document, page_start: int, page_end: int) -> list[dict]:
     items: list[dict] = []
-    for num, q in general:
-        text_q = q
-        if num in IMAGE_HINT_NUMBERS or "dieses Bild" in q or "Wappen" in q and num in {
-            21,
-            209,
-        }:
-            if "[Bild]" not in text_q:
-                text_q = f"{text_q} [Bild]"
-        items.append(
-            {
-                "nr": num,
-                "section": "allgemein",
-                "frage": text_q,
-            }
-        )
-
-    berlin_image = {1, 8}
-    for num, q in berlin:
-        text_q = q
-        if num in berlin_image and "[Bild]" not in text_q:
-            text_q = f"{text_q} [Bild]"
-        items.append(
-            {
-                "nr": 300 + num,
-                "section": "berlin",
-                "landes_nr": num,
-                "frage": text_q,
-            }
-        )
+    for i in range(page_start, page_end):
+        page = doc[i]
+        for block in page.get_text("dict")["blocks"]:
+            if block.get("type") != 0:
+                continue
+            for line in block.get("lines", []):
+                text = "".join(span["text"] for span in line["spans"]).strip()
+                match = re.match(r"^Aufgabe\s+(\d+)$", text)
+                if match:
+                    items.append(
+                        {
+                            "page": i,
+                            "nr": int(match.group(1)),
+                            "y": line["bbox"][1],
+                        }
+                    )
     return items
 
 
-def register_font() -> str:
-    candidates = [
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
-        "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
-    ]
-    bold_candidates = [
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
-        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
-    ]
-    for regular, bold in zip(candidates, bold_candidates):
-        if Path(regular).exists() and Path(bold).exists():
-            pdfmetrics.registerFont(TTFont("Body", regular))
-            pdfmetrics.registerFont(TTFont("Body-Bold", bold))
-            return "Body"
-    return "Helvetica"
+def clip_rect_for(items: list[dict], idx: int) -> fitz.Rect:
+    item = items[idx]
+    y0 = item["y"] - CLIP_PAD_TOP
+    if idx + 1 < len(items) and items[idx + 1]["page"] == item["page"]:
+        y1 = items[idx + 1]["y"] - CLIP_PAD_BEFORE_NEXT
+    else:
+        y1 = FOOTER_Y
+    return fitz.Rect(CONTENT_LEFT, y0, CONTENT_RIGHT, y1)
 
 
-def wrap_text(c: canvas.Canvas, text: str, font: str, size: float, max_width: float) -> list[str]:
-    words = text.split()
-    lines: list[str] = []
-    current = ""
-    for word in words:
-        trial = word if not current else f"{current} {word}"
-        if c.stringWidth(trial, font, size) <= max_width:
-            current = trial
-        else:
+def tighten_clip(page: fitz.Page, clip: fitz.Rect) -> fitz.Rect:
+    """Shrink clip to actual drawn/text content inside the Aufgabe region."""
+    blocks = page.get_text("dict", clip=clip)["blocks"]
+    if not blocks:
+        return clip
+    x0 = clip.x1
+    y0 = clip.y1
+    x1 = clip.x0
+    y1 = clip.y0
+    found = False
+    for block in blocks:
+        bx0, by0, bx1, by1 = block["bbox"]
+        # ignore near-empty
+        if by1 - by0 < 1 or bx1 - bx0 < 1:
+            continue
+        found = True
+        x0 = min(x0, bx0)
+        y0 = min(y0, by0)
+        x1 = max(x1, bx1)
+        y1 = max(y1, by1)
+    if not found:
+        return clip
+    # keep full content width for consistent alignment, only tighten vertically a bit
+    pad = 4.0
+    return fitz.Rect(
+        clip.x0,
+        max(clip.y0, y0 - pad),
+        clip.x1,
+        min(clip.y1, y1 + pad),
+    )
+
+
+def render_clip(page: fitz.Page, clip: fitz.Rect) -> fitz.Pixmap:
+    mat = fitz.Matrix(RENDER_SCALE, RENDER_SCALE)
+    return page.get_pixmap(matrix=mat, clip=clip, alpha=False)
+
+
+def build_question_pixmaps(doc: fitz.Document) -> list[dict]:
+    bw, berlin_page, branden = find_section_pages(doc)
+    general_items = collect_aufgaben(doc, 1, bw)
+    berlin_items = collect_aufgaben(doc, berlin_page, branden)
+    if len(general_items) != 300:
+        raise ValueError(f"Expected 300 general Aufgaben, got {len(general_items)}")
+    if len(berlin_items) != 10:
+        raise ValueError(f"Expected 10 Berlin Aufgaben, got {len(berlin_items)}")
+
+    questions: list[dict] = []
+
+    def add_group(items: list[dict], section: str) -> None:
+        for idx, item in enumerate(items):
+            page = doc[item["page"]]
+            clip = tighten_clip(page, clip_rect_for(items, idx))
+            pix = render_clip(page, clip)
+            questions.append(
+                {
+                    "section": section,
+                    "nr": item["nr"],
+                    "display_nr": item["nr"] if section == "allgemein" else 300 + item["nr"],
+                    "pix": pix,
+                    "width": pix.width,
+                    "height": pix.height,
+                }
+            )
+
+    add_group(general_items, "allgemein")
+    add_group(berlin_items, "berlin")
+    return questions
+
+
+def new_page(out: fitz.Document) -> fitz.Page:
+    # Landscape A4: 842 x 595 points
+    return out.new_page(width=842, height=595)
+
+
+def draw_header(page: fitz.Page, title: str, page_no: int, page_count: int) -> None:
+    page.insert_text(
+        (18, 16),
+        title,
+        fontsize=8,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+    page.insert_text(
+        (842 - 18 - 60, 16),
+        f"Seite {page_no} / {page_count}",
+        fontsize=8,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+
+
+def fit_rect(box: fitz.Rect, img_w: float, img_h: float, pad: float = 4.0) -> fitz.Rect:
+    inner = fitz.Rect(box.x0 + pad, box.y0 + pad, box.x1 - pad, box.y1 - pad)
+    scale = min(inner.width / img_w, inner.height / img_h)
+    w = img_w * scale
+    h = img_h * scale
+    x = inner.x0 + (inner.width - w) / 2
+    y = inner.y0  # top-align for reading flow
+    return fitz.Rect(x, y, x + w, y + h)
+
+
+def pack_pages(questions: list[dict]) -> list[list[dict]]:
+    """Pack ~4 questions per page; use fewer when clips are very tall."""
+    # Landscape usable area roughly 806 x 555 after margins/header
+    usable_w = 806.0
+    usable_h = 555.0
+    cell_w = (usable_w - 8) / 2
+    cell_h = (usable_h - 8) / 2
+
+    pages: list[list[dict]] = []
+    current: list[dict] = []
+
+    def aspect_needs_half(q: dict) -> bool:
+        # If image is taller than ~1.15x cell after width-fit, give half/full page
+        width_scale = cell_w / (q["width"] / RENDER_SCALE)
+        fitted_h = (q["height"] / RENDER_SCALE) * width_scale
+        return fitted_h > cell_h * 1.05
+
+    def aspect_needs_full(q: dict) -> bool:
+        width_scale = usable_w / (q["width"] / RENDER_SCALE)
+        fitted_h = (q["height"] / RENDER_SCALE) * width_scale
+        return fitted_h > usable_h * 0.92
+
+    i = 0
+    while i < len(questions):
+        q = questions[i]
+        if aspect_needs_full(q):
             if current:
-                lines.append(current)
-            current = word
+                pages.append(current)
+                current = []
+            pages.append([q])
+            i += 1
+            continue
+        if aspect_needs_half(q):
+            if len(current) >= 3:
+                pages.append(current)
+                current = []
+            # pair up to 2 half-page questions
+            if current and len(current) == 1 and aspect_needs_half(current[0]):
+                current.append(q)
+                pages.append(current)
+                current = []
+            elif current and not aspect_needs_half(current[0]):
+                pages.append(current)
+                current = [q]
+            else:
+                current.append(q)
+                if len(current) == 2:
+                    pages.append(current)
+                    current = []
+            i += 1
+            continue
+
+        if len(current) == 4:
+            pages.append(current)
+            current = []
+        # don't mix pending half-page leftovers awkwardly
+        if current and any(aspect_needs_half(x) for x in current):
+            pages.append(current)
+            current = []
+        current.append(q)
+        if len(current) == 4:
+            pages.append(current)
+            current = []
+        i += 1
+
     if current:
-        lines.append(current)
-    return lines or [""]
+        pages.append(current)
+    return pages
 
 
-def draw_cover(c: canvas.Canvas, font: str, page_w: float, page_h: float) -> None:
-    margin = 18 * mm
-    c.setStrokeColorRGB(0.12, 0.18, 0.28)
-    c.setLineWidth(1.4)
-    c.rect(margin, margin, page_w - 2 * margin, page_h - 2 * margin)
-
-    c.setFillColorRGB(0.12, 0.18, 0.28)
-    c.setFont(f"{font}-Bold" if font != "Helvetica" else "Helvetica-Bold", 28)
-    c.drawCentredString(page_w / 2, page_h / 2 + 28, "Einbürgerungstest")
-
-    c.setFont(font if font != "Helvetica" else "Helvetica", 16)
-    c.drawCentredString(page_w / 2, page_h / 2 - 4, "310 Fragen · nur Fragen · Berlin")
-
-    c.setFont(font if font != "Helvetica" else "Helvetica", 10)
-    c.setFillColorRGB(0.35, 0.38, 0.42)
-    c.drawCentredString(
-        page_w / 2,
-        page_h / 2 - 32,
-        "300 allgemeine Fragen + 10 Fragen für das Bundesland Berlin",
-    )
-    c.drawCentredString(
-        page_w / 2,
-        page_h / 2 - 48,
-        "Quelle: BAMF-Gesamtfragenkatalog „Leben in Deutschland“ / Einbürgerungstest (Stand 07.05.2025)",
-    )
-    c.drawCentredString(
-        page_w / 2,
-        margin + 12,
-        "Querformat A4 · ca. 4 Fragen pro Seite · ohne Antwortoptionen",
-    )
-    c.showPage()
-
-
-def draw_question_box(
-    c: canvas.Canvas,
-    *,
-    x: float,
-    y: float,
-    w: float,
-    h: float,
-    item: dict,
-    font: str,
-) -> None:
-    c.setStrokeColorRGB(0.22, 0.26, 0.32)
-    c.setFillColorRGB(0.98, 0.98, 0.97)
-    c.setLineWidth(0.9)
-    c.roundRect(x, y, w, h, 4, stroke=1, fill=1)
-
-    pad = 5 * mm
-    label = f"Frage {item['nr']}"
-    if item["section"] == "berlin":
-        label = f"Berlin {item['landes_nr']} · Frage {item['nr']}"
-
-    c.setFillColorRGB(0.12, 0.18, 0.28)
-    c.setFont(f"{font}-Bold" if font != "Helvetica" else "Helvetica-Bold", 9)
-    c.drawString(x + pad, y + h - 7 * mm, label)
-
-    c.setStrokeColorRGB(0.82, 0.84, 0.86)
-    c.setLineWidth(0.5)
-    c.line(x + pad, y + h - 8.5 * mm, x + w - pad, y + h - 8.5 * mm)
-
-    body_font = font if font != "Helvetica" else "Helvetica"
-    size = 11
-    max_width = w - 2 * pad
-    lines = wrap_text(c, item["frage"], body_font, size, max_width)
-    # Shrink if needed to fit the box
-    while len(lines) * (size + 3) > h - 16 * mm and size > 8:
-        size -= 0.5
-        lines = wrap_text(c, item["frage"], body_font, size, max_width)
-
-    c.setFillColorRGB(0.1, 0.1, 0.12)
-    c.setFont(body_font, size)
-    text_top = y + h - 14 * mm
-    leading = size + 3
-    for i, line in enumerate(lines):
-        c.drawString(x + pad, text_top - i * leading, line)
-
-
-def build_pdf(items: list[dict]) -> None:
-    font = register_font()
-    page_w, page_h = landscape(A4)
-    c = canvas.Canvas(str(OUT_PDF), pagesize=landscape(A4))
-    c.setTitle("Einbürgerungstest Fragen – Berlin (310)")
-    c.setAuthor("BAMF Fragenkatalog (Stand 07.05.2025)")
-
-    draw_cover(c, font, page_w, page_h)
-
-    margin_x = 10 * mm
-    margin_y = 10 * mm
-    gap_x = 5 * mm
-    gap_y = 5 * mm
-    header_h = 8 * mm
+def slots_for(count: int) -> list[fitz.Rect]:
+    margin_x = 18.0
+    margin_top = 24.0
+    margin_bottom = 14.0
+    gap = 8.0
+    page_w, page_h = 842.0, 595.0
     usable_w = page_w - 2 * margin_x
-    usable_h = page_h - 2 * margin_y - header_h
-    box_w = (usable_w - gap_x) / 2
-    box_h = (usable_h - gap_y) / 2
+    usable_h = page_h - margin_top - margin_bottom
 
-    per_page = 4
-    total_pages = (len(items) + per_page - 1) // per_page
-
-    for page_idx in range(total_pages):
-        chunk = items[page_idx * per_page : (page_idx + 1) * per_page]
-        # Header
-        c.setFillColorRGB(0.12, 0.18, 0.28)
-        c.setFont(f"{font}-Bold" if font != "Helvetica" else "Helvetica-Bold", 9)
-        c.drawString(margin_x, page_h - margin_y - 4 * mm, "Einbürgerungstest · Fragen ohne Antworten")
-        c.setFont(font if font != "Helvetica" else "Helvetica", 8)
-        c.setFillColorRGB(0.4, 0.42, 0.45)
-        c.drawRightString(
-            page_w - margin_x,
-            page_h - margin_y - 4 * mm,
-            f"Seite {page_idx + 1} / {total_pages}",
-        )
-
-        positions = [
-            (margin_x, page_h - margin_y - header_h - box_h),
-            (margin_x + box_w + gap_x, page_h - margin_y - header_h - box_h),
-            (margin_x, margin_y),
-            (margin_x + box_w + gap_x, margin_y),
+    if count == 1:
+        return [fitz.Rect(margin_x, margin_top, page_w - margin_x, page_h - margin_bottom)]
+    if count == 2:
+        # side by side
+        w = (usable_w - gap) / 2
+        return [
+            fitz.Rect(margin_x, margin_top, margin_x + w, page_h - margin_bottom),
+            fitz.Rect(margin_x + w + gap, margin_top, page_w - margin_x, page_h - margin_bottom),
         ]
-        for item, (x, y) in zip(chunk, positions):
-            draw_question_box(c, x=x, y=y, w=box_w, h=box_h, item=item, font=font)
-        c.showPage()
+    # 3 or 4 -> 2x2 grid (3 leaves one empty)
+    w = (usable_w - gap) / 2
+    h = (usable_h - gap) / 2
+    return [
+        fitz.Rect(margin_x, margin_top, margin_x + w, margin_top + h),
+        fitz.Rect(margin_x + w + gap, margin_top, page_w - margin_x, margin_top + h),
+        fitz.Rect(margin_x, margin_top + h + gap, margin_x + w, page_h - margin_bottom),
+        fitz.Rect(margin_x + w + gap, margin_top + h + gap, page_w - margin_x, page_h - margin_bottom),
+    ][:count]
 
-    c.save()
+
+def build_pdf(questions: list[dict]) -> None:
+    pages_plan = pack_pages(questions)
+    out = fitz.open()
+
+    # Cover
+    cover = new_page(out)
+    cover.insert_text((60, 220), "Einbürgerungstest", fontsize=28, fontname="helv", color=(0, 0, 0))
+    cover.insert_text(
+        (60, 260),
+        "310 Fragen mit Antwortoptionen · Bundesland Berlin",
+        fontsize=12,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+    cover.insert_text(
+        (60, 290),
+        "Quelle: BAMF-Gesamtfragenkatalog „Leben in Deutschland“ / Einbürgerungstest (Stand 07.05.2025)",
+        fontsize=9,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+    cover.insert_text(
+        (60, 320),
+        "Querformat A4 · Originalfragen inkl. Bilder · ohne Markierung der richtigen Antwort",
+        fontsize=9,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+    cover.draw_rect(fitz.Rect(50, 190, 792, 350), color=(0, 0, 0), width=0.6)
+
+    # Section divider before Berlin
+    berlin_index = next(i for i, q in enumerate(questions) if q["section"] == "berlin")
+
+    content_page_count = len(pages_plan)
+    # account for berlin divider
+    divider_after_page = None
+    q_cursor = 0
+    for p_i, group in enumerate(pages_plan):
+        if any(q["section"] == "berlin" for q in group) and divider_after_page is None:
+            # insert divider before this page if first berlin question starts here
+            if group[0]["section"] == "berlin" or any(q is questions[berlin_index] for q in group):
+                divider_after_page = p_i
+                break
+        q_cursor += len(group)
+
+    # Rebuild page sequence with divider
+    rendered_pages: list[tuple[str, list[dict] | None]] = [("cover", None)]
+    for p_i, group in enumerate(pages_plan):
+        if divider_after_page is not None and p_i == divider_after_page:
+            rendered_pages.append(("divider", None))
+        rendered_pages.append(("content", group))
+
+    # We already created cover; create remaining
+    # First remove empty approach: recreate cleaner
+    out.close()
+    out = fitz.open()
+
+    # Cover again
+    cover = new_page(out)
+    cover.draw_rect(fitz.Rect(40, 170, 802, 360), color=(0, 0, 0), width=0.5)
+    cover.insert_text((60, 220), "Einbürgerungstest", fontsize=28, fontname="helv", color=(0, 0, 0))
+    cover.insert_text(
+        (60, 255),
+        "310 Fragen mit Antwortoptionen · Bundesland Berlin",
+        fontsize=12,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+    cover.insert_text(
+        (60, 290),
+        "300 allgemeine Fragen + 10 Fragen für Berlin",
+        fontsize=10,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+    cover.insert_text(
+        (60, 315),
+        "Quelle: BAMF-Gesamtfragenkatalog (Stand 07.05.2025)",
+        fontsize=9,
+        fontname="helv",
+        color=(0, 0, 0),
+    )
+
+    # Determine when to insert Berlin divider: before first page containing berlin
+    first_berlin_page = next(
+        i for i, group in enumerate(pages_plan) if any(q["section"] == "berlin" for q in group)
+    )
+
+    total_content_sheets = len(pages_plan) + 1  # + berlin divider
+    sheet_no = 0
+
+    for i, group in enumerate(pages_plan):
+        if i == first_berlin_page:
+            sheet_no += 1
+            div = new_page(out)
+            div.draw_rect(fitz.Rect(40, 220, 802, 320), color=(0, 0, 0), width=0.5)
+            div.insert_text(
+                (60, 260),
+                "Teil II · Fragen für das Bundesland Berlin",
+                fontsize=18,
+                fontname="helv",
+                color=(0, 0, 0),
+            )
+            div.insert_text(
+                (60, 290),
+                "10 landesbezogene Fragen (Aufgabe 1-10)",
+                fontsize=10,
+                fontname="helv",
+                color=(0, 0, 0),
+            )
+
+        sheet_no += 1
+        page = new_page(out)
+        title = "Einbürgerungstest · allgemeine Fragen"
+        if any(q["section"] == "berlin" for q in group):
+            title = "Einbürgerungstest · Berlin"
+        draw_header(page, title, sheet_no, total_content_sheets)
+
+        boxes = slots_for(len(group))
+        for q, box in zip(group, boxes):
+            page.draw_rect(box, color=(0, 0, 0), width=0.5)
+            dest = fit_rect(box, q["width"], q["height"], pad=5)
+            # JPEG keeps logos readable while shrinking the PDF significantly
+            jpeg = q["pix"].tobytes("jpeg", jpg_quality=85)
+            page.insert_image(dest, stream=jpeg, keep_proportion=True)
+
+    out.save(OUT_PDF, deflate=True, garbage=4)
+    out.close()
+    ARTIFACT_PDF.parent.mkdir(parents=True, exist_ok=True)
+    ARTIFACT_PDF.write_bytes(OUT_PDF.read_bytes())
 
 
 def main() -> None:
-    if OUT_JSON.exists():
-        items = json.loads(OUT_JSON.read_text(encoding="utf-8"))
-        if len(items) != 310:
-            raise ValueError(f"Expected 310 questions in JSON, got {len(items)}")
-    else:
-        text = load_source_text()
-        items = parse_catalog(text)
-        OUT_JSON.write_text(json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"JSON -> {OUT_JSON}")
-
-    build_pdf(items)
-    print(f"Wrote {len(items)} questions -> {OUT_PDF}")
+    katalog = find_katalog()
+    doc = fitz.open(katalog)
+    questions = build_question_pixmaps(doc)
+    doc.close()
+    build_pdf(questions)
+    print(f"Wrote {len(questions)} questions -> {OUT_PDF}")
+    print(f"Artifact -> {ARTIFACT_PDF}")
 
 
 if __name__ == "__main__":
