@@ -11,7 +11,7 @@ Source: BAMF Gesamtfragenkatalog „Leben in Deutschland“ / Einbürgerungstest
 
 ## Files
 
-- `einbuergerungstest-fragen-berlin.pdf` – printable landscape sheets
+- `einbuergerungstest-fragen-berlin.pdf` – printable landscape sheets (~8 questions/page)
 - `build_fragen_pdf.py` – rebuild script (needs local BAMF `katalog.pdf`)
 
 ## Rebuild

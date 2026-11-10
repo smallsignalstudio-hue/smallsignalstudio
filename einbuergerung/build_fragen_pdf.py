@@ -179,67 +179,58 @@ def fit_rect(box: fitz.Rect, img_w: float, img_h: float, pad: float = 4.0) -> fi
     return fitz.Rect(x, y, x + w, y + h)
 
 
-def pack_pages(questions: list[dict]) -> list[list[dict]]:
-    """Pack ~4 questions per page; use fewer when clips are very tall."""
-    # Landscape usable area roughly 806 x 555 after margins/header
-    usable_w = 806.0
-    usable_h = 555.0
-    cell_w = (usable_w - 8) / 2
-    cell_h = (usable_h - 8) / 2
+TARGET_PER_PAGE = 8  # 2 columns x 4 rows on landscape A4
 
+
+def pack_pages(questions: list[dict]) -> list[list[dict]]:
+    """Pack ~8 questions per page; only very tall image clips use fewer."""
     pages: list[list[dict]] = []
     current: list[dict] = []
 
-    def aspect_needs_half(q: dict) -> bool:
-        # If image is taller than ~1.15x cell after width-fit, give half/full page
-        width_scale = cell_w / (q["width"] / RENDER_SCALE)
-        fitted_h = (q["height"] / RENDER_SCALE) * width_scale
-        return fitted_h > cell_h * 1.05
+    def natural_h(q: dict) -> float:
+        return q["height"] / RENDER_SCALE
 
-    def aspect_needs_full(q: dict) -> bool:
-        width_scale = usable_w / (q["width"] / RENDER_SCALE)
-        fitted_h = (q["height"] / RENDER_SCALE) * width_scale
-        return fitted_h > usable_h * 0.92
+    def is_very_tall(q: dict) -> bool:
+        # Full photo / map style clips (e.g. Bundestag photo)
+        return natural_h(q) >= 420
+
+    def is_tall(q: dict) -> bool:
+        # Coat-of-arms / multi-image clips
+        return natural_h(q) >= 280
 
     i = 0
     while i < len(questions):
         q = questions[i]
-        if aspect_needs_full(q):
+
+        if is_very_tall(q):
             if current:
                 pages.append(current)
                 current = []
             pages.append([q])
             i += 1
             continue
-        if aspect_needs_half(q):
-            if len(current) >= 3:
+
+        if is_tall(q):
+            if current:
                 pages.append(current)
                 current = []
-            # pair up to 2 half-page questions
-            if current and len(current) == 1 and aspect_needs_half(current[0]):
-                current.append(q)
-                pages.append(current)
-                current = []
-            elif current and not aspect_needs_half(current[0]):
-                pages.append(current)
-                current = [q]
-            else:
-                current.append(q)
-                if len(current) == 2:
-                    pages.append(current)
-                    current = []
-            i += 1
+            # up to 4 tall questions in a 2x2
+            chunk = [q]
+            j = i + 1
+            while j < len(questions) and len(chunk) < 4:
+                nq = questions[j]
+                if is_very_tall(nq):
+                    break
+                if not is_tall(nq):
+                    break
+                chunk.append(nq)
+                j += 1
+            pages.append(chunk)
+            i = j
             continue
 
-        if len(current) == 4:
-            pages.append(current)
-            current = []
-        # don't mix pending half-page leftovers awkwardly
-        if current and any(aspect_needs_half(x) for x in current):
-            pages.append(current)
-            current = []
         current.append(q)
-        if len(current) == 4:
+        if len(current) == TARGET_PER_PAGE:
             pages.append(current)
             current = []
         i += 1
@@ -250,92 +241,47 @@ def pack_pages(questions: list[dict]) -> list[list[dict]]:
 
 
 def slots_for(count: int) -> list[fitz.Rect]:
-    margin_x = 18.0
-    margin_top = 24.0
-    margin_bottom = 14.0
-    gap = 8.0
+    margin_x = 14.0
+    margin_top = 22.0
+    margin_bottom = 10.0
+    gap = 5.0
     page_w, page_h = 842.0, 595.0
     usable_w = page_w - 2 * margin_x
     usable_h = page_h - margin_top - margin_bottom
 
     if count == 1:
         return [fitz.Rect(margin_x, margin_top, page_w - margin_x, page_h - margin_bottom)]
+
     if count == 2:
-        # side by side
         w = (usable_w - gap) / 2
         return [
             fitz.Rect(margin_x, margin_top, margin_x + w, page_h - margin_bottom),
             fitz.Rect(margin_x + w + gap, margin_top, page_w - margin_x, page_h - margin_bottom),
         ]
-    # 3 or 4 -> 2x2 grid (3 leaves one empty)
-    w = (usable_w - gap) / 2
-    h = (usable_h - gap) / 2
-    return [
-        fitz.Rect(margin_x, margin_top, margin_x + w, margin_top + h),
-        fitz.Rect(margin_x + w + gap, margin_top, page_w - margin_x, margin_top + h),
-        fitz.Rect(margin_x, margin_top + h + gap, margin_x + w, page_h - margin_bottom),
-        fitz.Rect(margin_x + w + gap, margin_top + h + gap, page_w - margin_x, page_h - margin_bottom),
-    ][:count]
+
+    if count <= 4:
+        # 2x2
+        cols, rows = 2, 2
+    else:
+        # 5..8 -> 2 columns x 4 rows
+        cols, rows = 2, 4
+
+    w = (usable_w - (cols - 1) * gap) / cols
+    h = (usable_h - (rows - 1) * gap) / rows
+    rects: list[fitz.Rect] = []
+    for idx in range(count):
+        row = idx // cols
+        col = idx % cols
+        x0 = margin_x + col * (w + gap)
+        y0 = margin_top + row * (h + gap)
+        rects.append(fitz.Rect(x0, y0, x0 + w, y0 + h))
+    return rects
 
 
 def build_pdf(questions: list[dict]) -> None:
     pages_plan = pack_pages(questions)
     out = fitz.open()
 
-    # Cover
-    cover = new_page(out)
-    cover.insert_text((60, 220), "Einbürgerungstest", fontsize=28, fontname="helv", color=(0, 0, 0))
-    cover.insert_text(
-        (60, 260),
-        "310 Fragen mit Antwortoptionen · Bundesland Berlin",
-        fontsize=12,
-        fontname="helv",
-        color=(0, 0, 0),
-    )
-    cover.insert_text(
-        (60, 290),
-        "Quelle: BAMF-Gesamtfragenkatalog „Leben in Deutschland“ / Einbürgerungstest (Stand 07.05.2025)",
-        fontsize=9,
-        fontname="helv",
-        color=(0, 0, 0),
-    )
-    cover.insert_text(
-        (60, 320),
-        "Querformat A4 · Originalfragen inkl. Bilder · ohne Markierung der richtigen Antwort",
-        fontsize=9,
-        fontname="helv",
-        color=(0, 0, 0),
-    )
-    cover.draw_rect(fitz.Rect(50, 190, 792, 350), color=(0, 0, 0), width=0.6)
-
-    # Section divider before Berlin
-    berlin_index = next(i for i, q in enumerate(questions) if q["section"] == "berlin")
-
-    content_page_count = len(pages_plan)
-    # account for berlin divider
-    divider_after_page = None
-    q_cursor = 0
-    for p_i, group in enumerate(pages_plan):
-        if any(q["section"] == "berlin" for q in group) and divider_after_page is None:
-            # insert divider before this page if first berlin question starts here
-            if group[0]["section"] == "berlin" or any(q is questions[berlin_index] for q in group):
-                divider_after_page = p_i
-                break
-        q_cursor += len(group)
-
-    # Rebuild page sequence with divider
-    rendered_pages: list[tuple[str, list[dict] | None]] = [("cover", None)]
-    for p_i, group in enumerate(pages_plan):
-        if divider_after_page is not None and p_i == divider_after_page:
-            rendered_pages.append(("divider", None))
-        rendered_pages.append(("content", group))
-
-    # We already created cover; create remaining
-    # First remove empty approach: recreate cleaner
-    out.close()
-    out = fitz.open()
-
-    # Cover again
     cover = new_page(out)
     cover.draw_rect(fitz.Rect(40, 170, 802, 360), color=(0, 0, 0), width=0.5)
     cover.insert_text((60, 220), "Einbürgerungstest", fontsize=28, fontname="helv", color=(0, 0, 0))
@@ -355,7 +301,7 @@ def build_pdf(questions: list[dict]) -> None:
     )
     cover.insert_text(
         (60, 315),
-        "Quelle: BAMF-Gesamtfragenkatalog (Stand 07.05.2025)",
+        "Quelle: BAMF-Gesamtfragenkatalog (Stand 07.05.2025) · ca. 8 Fragen pro Seite",
         fontsize=9,
         fontname="helv",
         color=(0, 0, 0),
