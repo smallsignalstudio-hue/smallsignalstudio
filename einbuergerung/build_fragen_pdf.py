@@ -281,7 +281,7 @@ def pack_pages(questions: list[dict]) -> list[list[dict]]:
 
 def slots_for(count: int) -> list[fitz.Rect]:
     margin_x = 12.0
-    margin_top = 92.0  # room for BAMF logo header
+    margin_top = 22.0  # compact header only (logo is cover-only)
     margin_bottom = 10.0
     gap = 5.0
     page_w, page_h = 842.0, 595.0
@@ -359,17 +359,15 @@ def build_pdf(questions: list[dict], logo_bytes: bytes | None) -> None:
         if i == first_berlin_page:
             sheet_no += 1
             div = new_page(out)
-            if logo_bytes:
-                div.insert_image(fitz.Rect(60, 160, 220, 270), stream=logo_bytes)
             div.insert_text(
-                (60, 300),
+                (60, 260),
                 "Teil II · Fragen für das Bundesland Berlin",
                 fontsize=18,
                 fontname="helv",
                 color=(0, 0, 0),
             )
             div.insert_text(
-                (60, 330),
+                (60, 290),
                 "10 landesbezogene Fragen (Aufgabe 1-10)",
                 fontsize=10,
                 fontname="helv",
@@ -381,7 +379,8 @@ def build_pdf(questions: list[dict], logo_bytes: bytes | None) -> None:
         title = "Einbürgerungstest · allgemeine Fragen"
         if any(q["section"] == "berlin" for q in group):
             title = "Einbürgerungstest · Berlin"
-        draw_header(page, title, sheet_no, total_content_sheets, logo_bytes=logo_bytes)
+        # Logo only on cover page to keep question layout stable
+        draw_header(page, title, sheet_no, total_content_sheets, logo_bytes=None)
 
         boxes = slots_for(len(group))
         for q, box in zip(group, boxes):
